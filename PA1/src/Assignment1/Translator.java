@@ -86,7 +86,7 @@ public class Translator
 			outputString = outputString + " " + translateWord(word);
 		}
 		
-		return outputString;
+		return outputString.trim();
 		
 		/* debug / print string array */
 		/*	String s = "";
@@ -110,7 +110,78 @@ public class Translator
 	******************************************************************************/
 	
 	public String translateWord(String word)
-	{
-		return word + "+";
+	{	
+		// Check word validity (contains only letters and punctuation)
+		if(!word.matches("[^a-zA-Z'-]*[a-zA-Z'-]+[^a-zA-Z'-]*")){
+			return word;
+		}
+		
+		/* Hyphen and Punctuation Handler
+		 *	Resolve either Hyphen or Punctuation, 
+		 * Only resolve them one at a time     	*/
+			
+		// pre-punctuation case ex. !!latin -> !!atinlay
+		if(word.matches("[^a-zA-Z'-]+[a-zA-Z'-]+[^a-zA-Z'-]*")){ 
+			String[] letters = word.split("[^a-zA-Z'-]+");
+			String[] punctuation = word.split("[a-zA-Z'-]+");
+			word = "";
+			for(String part : letters){
+				word = word + translateWord(part);
+			}
+			switch(punctuation.length){
+				case 1: // only pre
+					word = punctuation[0] + word;
+					break;
+				case 2: // pre and post
+					word = punctuation[0] + word + punctuation[1];
+					break;
+			}
+			return word;
+		}
+		
+		// post-punctuation case ex. latin!! -> atinlay!!
+		if(word.matches("[^a-zA-Z'-]*[a-zA-Z'-]+[^a-zA-Z'-]+")){ 
+			String[] letters = word.split("[^a-zA-Z'-]+");
+			String[] punctuation = word.split("[a-zA-Z'-]+");
+			word = "";
+			for(String part : letters){
+				word = word + translateWord(part);
+			}
+			switch(punctuation.length){
+				case 1: // only post
+					word = word + punctuation[0];
+					break;
+				case 2: // pre and post
+					word = punctuation[0] + word + punctuation[1];
+					break;
+			}
+			return word;
+		}
+		
+		// Hyphen handler
+		if(word.contains("-")){
+			String[] letters = word.split("[-]+");
+			word = "";
+			for(String part : letters){
+				word = word + translateWord(part) + " ";
+			}
+			word = word.trim().replace(" ", "-"); // sprinkle in hyphens
+			return word;
+		}
+		
+		// Starts with vowel
+		if(word.matches("[aeiouAEIOU'].*")){
+			word = word + "y";
+		}
+		
+		// First char is not yet vowel, but the word contains AT LEAST 1 vowel
+		while(!word.matches("[aeiouAEIOU'].*")&&!word.matches("[^aeiouAEIOU']+")){
+			// rotate first char to back
+			char c = word.charAt(0);
+			word = word.substring(1) + c;
+		}
+		
+		return word + "ay";
+		
 	}
 }
