@@ -14,7 +14,9 @@ public class Clothing extends Item
 	float calculatePrice () 
 	{
 		float final_price = 0;
-		// Insert price calculation here
+		final_price = this.price;
+		if (this.tax == true)
+			final_price *= 1.1;
 		return final_price;
 	}
 	
