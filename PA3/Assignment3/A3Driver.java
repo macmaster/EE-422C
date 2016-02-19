@@ -2,7 +2,7 @@ package Assignment3;
 
 import java.util.*;
 
-public class ShoppingCartDriver 
+public class A3Driver 
 	{
 
 	  public static void main(String[] args) 
