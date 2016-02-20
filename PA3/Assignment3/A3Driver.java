@@ -40,9 +40,25 @@ public class A3Driver
 		  BufferedReader fhand = new BufferedReader(reader);
 		  
 		  //Parse input, take appropriate actions.	
+		  // input ex: <operation> <category> <name> <price> <quantity> <weight>
+		  //           <optional field1> <optional field2>
 		  String line; // transaction string
 		  while((line = fhand.readLine()) != null){
-			  System.out.println(line);
+			  // harvest operation and data
+			  line = line.trim();
+			  String operation, data;
+			  int npos = line.indexOf(' ');
+			  
+			  if(npos > 0){ //multiple parameters
+				  operation = line.substring(0, npos).toLowerCase();
+				  data = line.substring(npos);
+			  }
+			  else{ //single parameter
+				  operation = line.toLowerCase();
+				  data = null;
+			  }
+			  
+			  System.out.println("command: "+operation+"\tData: "+data);
 		  }		  
 		  
 		  //Close the file

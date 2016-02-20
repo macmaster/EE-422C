@@ -5,5 +5,5 @@
 _runprog.bat_ compiles and runs the program  
 run the command: 	
 
-runprog \<transaction_file\>
+runprog  \<transaction_file\>
 	
