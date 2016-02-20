@@ -80,10 +80,10 @@ public class A3Driver
 	  }
   }
   
-  static void performCommand(String command, String data){
+  private static void performCommand(String command, String data){
 	  // resolves command
 	  if(command.equals("insert")){
-		  
+		  insert(data);
 	  }
 	  else if(command.equals("search")){
 		  search(command);
@@ -101,9 +101,8 @@ public class A3Driver
 			  errmsg += "Please enter quantity as a positive integer.";
 			  throw new IllegalArgumentException(errmsg);
 		  }
-	  }
 	  else if(command.equals("print")){
-		  
+		  print(); 
 	  }
 	  else{ // invalid command
 		  String errmsg = "Error: " + command + " is an invalid command!\n";
@@ -112,14 +111,15 @@ public class A3Driver
 	  }
   }
   
-  static void insert(){ 
+  private static void insert(String data){ 
 	  //TODO implement method
 	  // insert <category> <name> <price> <quantity> <weight> <optional field1> <optional field2>
 	  /*  For the insert operation, you will need to instantiate an 
 	   * 	object of the appropriate type (Groceries,
 		*	Clothing or Electronics), and add it into an arraylist.*/
   }
-  static void search(String name){
+
+  private static void search(String data){
 	  //TODO implement method
 	  // search <name> searches for all OBJECTS with name field as <name> and then
 	  // outputs the number of OBJECTS found to the screen.
@@ -133,7 +133,8 @@ public class A3Driver
 	  }
 	  System.out.println("Number of " + name + " objects: " + numObjects);
   }
-  static void delete(String name){
+
+  private static void delete(String data){
 	  //TODO implement method
 	  // delete <name> searches and deletes 
 	  // all OBJECTS (not quantity) with the name field that matches the given <name>.
@@ -141,7 +142,7 @@ public class A3Driver
 		  shoppingCart.remove(cartSearch(name));
 	  }
   }
-  static void update(String name, int quantity){
+  private static void update(String data){
 	  //TODO implement method
 	  // update <name> <quantity> updates the quantity field for
 	  // the first occurrence of a matching name.
@@ -155,7 +156,7 @@ public class A3Driver
 		  throw new IllegalArgumentException(errmsg);
 	  }
   }
-  static void print(){
+  private static void print(){
 	  //TODO implement method
 	/** print the contents of the shopping cart in ascending order by name, 
 	 * show all name, quantity, price after tax and shipping charges
