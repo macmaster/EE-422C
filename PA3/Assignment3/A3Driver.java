@@ -12,24 +12,12 @@
 package Assignment3;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class A3Driver 
 {
-	// General code example for how to iterate an array list. You will have to modify this heavily, to suit your needs.
-	/*Iterator<Item> i = shoppingCart.iterator();
-	while (i.hasNext()) 
-	{
-		Item temp = i.next();
-		temp.calculatePrice(); 
-		temp.printItemAttributes();
-		//This (above) works because of polymorphism: a determination is made at runtime, 
-		//based on the inherited class type, as to which method is to be invoked. Eg: If it is an instance
-		// of Grocery, it will invoke the calculatePrice () method defined in Grocery.
-	}		
-	 */
-	
   private static ArrayList<Item> shoppingCart = new ArrayList<Item>(); // shopping cart list
 	
   public static void main(String[] args){
@@ -51,7 +39,7 @@ public class A3Driver
 			  
 			  if(npos > 0){ //multiple parameters
 				  operation = line.substring(0, npos).toLowerCase();
-				  data = line.substring(npos);
+				  data = line.substring(npos+1);
 			  }
 			  else{ //single parameter
 				  operation = line.toLowerCase();
@@ -59,16 +47,16 @@ public class A3Driver
 			  }
 			  
 			  try{ //perform commands
+				  System.out.println("command: "+operation+"\tData: "+data);
 				  performCommand(operation, data);
 			  }catch(IllegalArgumentException err){
 				  System.err.println(err.getMessage());
 				  continue; //don't crash!
 			  }
 			  
-			  System.out.println("command: "+operation+"\tData: "+data);
 		  }		  
 		  
-		  //Close the file
+		//Close the file
 		  reader.close(); 
 		  fhand.close();
 	  }catch(ArrayIndexOutOfBoundsException err){
@@ -86,21 +74,14 @@ public class A3Driver
 		  insert(data);
 	  }
 	  else if(command.equals("search")){
-		  search(command);
+		  search(data);
 	  }
 	  else if(command.equals("delete")){
-		  delete(command);
+		  delete(data);
 	  }
 	  else if(command.equals("update")){
-		  try {
-			  int quant = Integer.parseInt(data);
-			  update(command, quant);
-		  }
-		  catch (NumberFormatException e){
-			  String errmsg = "Error: invalid quantity!\n";
-			  errmsg += "Please enter quantity as a positive integer.";
-			  throw new IllegalArgumentException(errmsg);
-		  }
+		  update(data);
+	  }
 	  else if(command.equals("print")){
 		  print(); 
 	  }
@@ -118,35 +99,90 @@ public class A3Driver
 	   * 	object of the appropriate type (Groceries,
 		*	Clothing or Electronics), and add it into an arraylist.*/
   }
-
+  
+  /** Search() ******************************************************************
+   * search <name> searches for all OBJECTS with name field as <name> and then
+   * outputs the number of OBJECTS found to the screen. 
+   * 
+   * @param data : the data string which contains the search name					
+   * ***************************************************************************/
   private static void search(String data){
-	  //TODO implement method
-	  // search <name> searches for all OBJECTS with name field as <name> and then
-	  // outputs the number of OBJECTS found to the screen.
-	  int numObjects = 0;
-	  if (cartSearch(name) != -1){
-		  int index = cartSearch(name);
-		  while (name.compareTo(shoppingCart.get(index).getName()) == 0){
-			  numObjects+=1;
-			  index+=1;
+	  // extract search_name
+	  String name;
+	  int npos = data.indexOf(' ');
+	  if(npos > 0){ 
+		  name = data.substring(0, npos).toLowerCase();
+	  }
+	  else{ //single parameter
+		  name = data;
+	  }
+	  
+	  //use iterators! (Or Binary Search ... your choice. nothing wrong w. a little O(n))
+	  int object_count = 0;
+	  Iterator<Item> cart_itr = shoppingCart.iterator();
+	  while(cart_itr.hasNext()){
+		  Item temp = cart_itr.next();
+		  String temp_name = temp.getName().toLowerCase();
+		  if(temp_name.equals(name)){
+			  object_count++;
 		  }
 	  }
-	  System.out.println("Number of " + name + " objects: " + numObjects);
+	  
+	  // display results
+	  System.out.println("number of " + name + " objects: " + object_count);
   }
-
+  
+  /** Delete() ******************************************************************
+   * delete <name> searches for and deletes
+   * all OBJECTS (not quantity) with the name field that matches the given <name>.
+   * 
+   * @param data : the data string which contains the search name	to delete				
+   * ***************************************************************************/
   private static void delete(String data){
-	  //TODO implement method
-	  // delete <name> searches and deletes 
-	  // all OBJECTS (not quantity) with the name field that matches the given <name>.
-	  while (cartSearch(name) != -1){ //can this be written so you only search once?
-		  shoppingCart.remove(cartSearch(name));
+	  // extract search_name
+	  String name;	
+	  int npos = data.indexOf(' ');
+	  if(npos > 0){ 
+		  name = data.substring(0, npos).toLowerCase();
 	  }
+	  else{ //single parameter
+		  name = data;
+	  }
+	  
+	  //use iterators! (Or Binary Search ... your choice. nothing wrong w. a little O(n))
+	  int object_count = 0;
+	  Iterator<Item> cart_itr = shoppingCart.iterator();
+	  while(cart_itr.hasNext()){
+		  Item temp = cart_itr.next();
+		  String temp_name = temp.getName();
+		  if(temp_name.equals(name)){
+			  shoppingCart.remove(temp);
+			  object_count++;
+		  }
+	  }
+	  
+	  // display results
+	  System.out.println(name + " objects deleted: " + object_count);
   }
+  
   private static void update(String data){
 	  //TODO implement method
 	  // update <name> <quantity> updates the quantity field for
 	  // the first occurrence of a matching name.
 	  // then output the name and new quantity value for that object to the screen.
+	  /** Make this stuff nice
+	  try{
+		  int quant = Integer.parseInt(data);
+		  if(quant < 0){
+			  throw new NumberFormatException();
+		  }
+	  }
+	  catch(NumberFormatException e){
+		  String errmsg = "Error: invalid quantity!\n";
+		  errmsg += "Please enter quantity as a positive integer.";
+		  throw new IllegalArgumentException(errmsg);
+	  }
+	  
 	  int index = cartSearch(name);
 	  if (index != -1){
 		  shoppingCart.get(index).setQuantity(quantity);
@@ -155,7 +191,9 @@ public class A3Driver
 		  String errmsg = "Error: " + name + " is not in your shopping cart!\n";
 		  throw new IllegalArgumentException(errmsg);
 	  }
+	  */
   }
+  
   private static void print(){
 	  //TODO implement method
 	/** print the contents of the shopping cart in ascending order by name, 
@@ -163,23 +201,29 @@ public class A3Driver
 	 * After, print the total charges for entire cart.
 	 * Output is to the screen, make it readable              */
   }
-
-  static int cartSearch(String name){
-	  int low = 0;
-	  int high = shoppingCart.size() - 1;
-	  while (low <= high)
-	  {
-		  int mid = low + (high - low) / 2;
-		  if (name.compareTo(shoppingCart.get(mid).getName()) < 0)
-			  high = mid - 1;
-		  else if (name.compareTo(shoppingCart.get(mid).getName()) > 0)
-			  low = mid + 1;
-		  else{ //this ensures we hit the first item of "name" if there are multiple
-			  while (name.compareTo(shoppingCart.get(mid).getName()) == 0)
-				  mid-=1;
-			  return mid+1;
-		  }
+  
+  /** static int cartSearch(String name){
+  
+  // I see what you tried to do  here with the binary search
+  
+  
+  int low = 0;
+  int high = shoppingCart.size() - 1;
+  while (low <= high)
+  {
+	  int mid = low + (high - low) / 2;
+	  if (name.compareTo(shoppingCart.get(mid).getName()) < 0)
+		  high = mid - 1;
+	  else if (name.compareTo(shoppingCart.get(mid).getName()) > 0)
+		  low = mid + 1;
+	  else{ //this ensures we hit the first item of "name" if there are multiple
+		  while (name.compareTo(shoppingCart.get(mid).getName()) == 0)
+			  mid-=1;
+		  return mid+1;
 	  }
-	  return -1;
   }
+  return -1;
+  
+}*/
+
 }

@@ -45,43 +45,63 @@ public class Item
 		System.out.println(itemString);
 	}
 	
-	String getName()
-	{
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
 		return name;
 	}
-	
-	float getPrice()
-	{
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the price
+	 */
+	public float getPrice() {
 		return price;
 	}
-	
-	int getQuantity()
-	{
+
+	/**
+	 * @param price the price to set
+	 */
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+	/**
+	 * @return the quantity
+	 */
+	public int getQuantity() {
 		return quantity;
 	}
-	
-	int getWeight()
-	{
+
+	/**
+	 * @param quantity the quantity to set
+	 */
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	/**
+	 * @return the weight
+	 */
+	public int getWeight() {
 		return weight;
 	}
-	
-	void setName(String n)
-	{
-		name = n;
+
+	/**
+	 * @param weight the weight to set
+	 */
+	public void setWeight(int weight) {
+		this.weight = weight;
 	}
 	
-	void setPrice(float p)
-	{
-		price = p;
-	}
 	
-	void setQuantity(int q)
-	{
-		quantity = q;
-	}
 	
-	void setWeight(int w)
-	{
-		weight = w;
-	}
 }
