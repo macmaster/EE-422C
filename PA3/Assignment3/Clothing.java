@@ -1,20 +1,17 @@
 package Assignment3;
 
-public class Clothing extends Item 
+public class Clothing extends Item
 {
 	// clothing tax rate
 	private boolean tax;
 	final private double TAX_RATE = 0.10; 
-	
-	
-	Clothing(String name, float price, int quantity, int weight, boolean tax)
-	{
+		
+	Clothing(String name, float price, int quantity, int weight){
 		super(name, price, quantity, weight);
-		this.tax = tax;
+		this.tax = true; //taxed by default
 	}
 
-	float calculatePrice () 
-	{
+	float calculatePrice(){
 		float final_price = 0;
 		final_price = this.price;
 		
@@ -25,10 +22,12 @@ public class Clothing extends Item
 		return final_price;
 	}
 	
-	void printItemAttributes () 
-	{
+	void noTax(){
+		this.tax = false;
+	}
+	
+	void printItemAttributes(){
 		//Print all applicable attributes of this sub-class
 	}
 	
-
 }
