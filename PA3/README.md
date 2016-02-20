@@ -1,6 +1,6 @@
-### Programming Assignment 3 : Shopping Cart
+# Programming Assignment 3 : Shopping Cart
 
-##Windows:
+**Windows:**
 runprog.bat compiles and runs the program
 
 runprog <inputfile> 
