@@ -1,7 +1,9 @@
 # Programming Assignment 3 : Shopping Cart  
 
-**Windows:**
-runprog.bat compiles and runs the program
+**Windows:**  
 
-runprog <inputfile> 
+_runprog.bat_ compiles and runs the program  
+run the command: 	
+
+runprog "<inputfile>" 
 	
