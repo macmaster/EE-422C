@@ -4,7 +4,7 @@ public class Clothing extends Item
 {
 	// clothing tax rate
 	private boolean tax;
-	final private double TAX_RATE = 0.10; 
+	final private float TAX_RATE = 0.10f; 
 		
 	Clothing(String name, float price, int quantity, int weight){
 		super(name, price, quantity, weight);
@@ -13,17 +13,15 @@ public class Clothing extends Item
 
 	float calculatePrice(){
 		float final_price = 0;
-		final_price = this.price;
+		float tax_amount = 0;
 		
 		// clothing tax
 		if (this.tax == true){
-			final_price += final_price * TAX_RATE;
+			tax_amount = this.price * TAX_RATE;
 		}
+		
+		final_price = this.price + tax_amount;
 		return final_price;
-	}
-	
-	void noTax(){
-		this.tax = false;
 	}
 	
 	void printItemAttributes(){

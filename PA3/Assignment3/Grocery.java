@@ -19,6 +19,7 @@ public class Grocery extends Item
 		if (this.perishable == true){ 
 			shipping_price += shipping_price * PREMIUM;
 		}
+		
 		final_price = this.price + shipping_price;
 		return final_price;
 	}
