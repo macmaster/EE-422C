@@ -25,7 +25,7 @@ public class Electronics extends Item
 	
 	// fragile shipping rate
 	private boolean fragile;
-	final private float PREMIUM = 0.20f; 
+	private static final float PREMIUM = 0.20f; 
 
 	Electronics(String name, float price, int quantity, int weight){
 		super(name, price, quantity, weight);
