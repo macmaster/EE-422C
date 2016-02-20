@@ -45,4 +45,43 @@ public class Item
 		System.out.println(itemString);
 	}
 	
+	String getName()
+	{
+		return name;
+	}
+	
+	float getPrice()
+	{
+		return price;
+	}
+	
+	int getQuantity()
+	{
+		return quantity;
+	}
+	
+	int getWeight()
+	{
+		return weight;
+	}
+	
+	void setName(String n)
+	{
+		name = n;
+	}
+	
+	void setPrice(float p)
+	{
+		price = p;
+	}
+	
+	void setQuantity(int q)
+	{
+		quantity = q;
+	}
+	
+	void setWeight(int w)
+	{
+		weight = w;
+	}
 }

@@ -86,13 +86,21 @@ public class A3Driver
 		  
 	  }
 	  else if(command.equals("search")){
-		  
+		  search(command);
 	  }
 	  else if(command.equals("delete")){
-		  
+		  delete(command);
 	  }
 	  else if(command.equals("update")){
-		  
+		  try {
+			  int quant = Integer.parseInt(data);
+			  update(command, quant);
+		  }
+		  catch (NumberFormatException e){
+			  String errmsg = "Error: invalid quantity!\n";
+			  errmsg += "Please enter quantity as a positive integer.";
+			  throw new IllegalArgumentException(errmsg);
+		  }
 	  }
 	  else if(command.equals("print")){
 		  
@@ -111,21 +119,41 @@ public class A3Driver
 	   * 	object of the appropriate type (Groceries,
 		*	Clothing or Electronics), and add it into an arraylist.*/
   }
-  static void search(){
+  static void search(String name){
 	  //TODO implement method
 	  // search <name> searches for all OBJECTS with name field as <name> and then
 	  // outputs the number of OBJECTS found to the screen.
+	  int numObjects = 0;
+	  if (cartSearch(name) != -1){
+		  int index = cartSearch(name);
+		  while (name.compareTo(shoppingCart.get(index).getName()) == 0){
+			  numObjects+=1;
+			  index+=1;
+		  }
+	  }
+	  System.out.println("Number of " + name + " objects: " + numObjects);
   }
-  static void delete(){
+  static void delete(String name){
 	  //TODO implement method
 	  // delete <name> searches and deletes 
 	  // all OBJECTS (not quantity) with the name field that matches the given <name>.
+	  while (cartSearch(name) != -1){ //can this be written so you only search once?
+		  shoppingCart.remove(cartSearch(name));
+	  }
   }
-  static void update(){
+  static void update(String name, int quantity){
 	  //TODO implement method
 	  // update <name> <quantity> updates the quantity field for
 	  // the first occurrence of a matching name.
-	  // then output the name and new quantity value for that object to the screen. 
+	  // then output the name and new quantity value for that object to the screen.
+	  int index = cartSearch(name);
+	  if (index != -1){
+		  shoppingCart.get(index).setQuantity(quantity);
+	  }
+	  else{
+		  String errmsg = "Error: " + name + " is not in your shopping cart!\n";
+		  throw new IllegalArgumentException(errmsg);
+	  }
   }
   static void print(){
 	  //TODO implement method
@@ -135,4 +163,22 @@ public class A3Driver
 	 * Output is to the screen, make it readable              */
   }
 
+  static int cartSearch(String name){
+	  int low = 0;
+	  int high = shoppingCart.size() - 1;
+	  while (low <= high)
+	  {
+		  int mid = low + (high - low) / 2;
+		  if (name.compareTo(shoppingCart.get(mid).getName()) < 0)
+			  high = mid - 1;
+		  else if (name.compareTo(shoppingCart.get(mid).getName()) > 0)
+			  low = mid + 1;
+		  else{ //this ensures we hit the first item of "name" if there are multiple
+			  while (name.compareTo(shoppingCart.get(mid).getName()) == 0)
+				  mid-=1;
+			  return mid+1;
+		  }
+	  }
+	  return -1;
+  }
 }
