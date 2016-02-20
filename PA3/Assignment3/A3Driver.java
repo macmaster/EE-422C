@@ -39,7 +39,7 @@ public class A3Driver
 		  FileReader reader = new FileReader(filename);
 		  BufferedReader fhand = new BufferedReader(reader);
 		  
-		  //Parse input, take appropriate actions.	
+		  //Parse input transactions
 		  // input ex: <operation> <category> <name> <price> <quantity> <weight>
 		  //           <optional field1> <optional field2>
 		  String line; // transaction string
@@ -58,6 +58,13 @@ public class A3Driver
 				  data = null;
 			  }
 			  
+			  try{ //perform commands
+				  performCommand(operation, data);
+			  }catch(IllegalArgumentException err){
+				  System.err.println(err.getMessage());
+				  continue; //don't crash!
+			  }
+			  
 			  System.out.println("command: "+operation+"\tData: "+data);
 		  }		  
 		  
@@ -73,29 +80,59 @@ public class A3Driver
 	  }
   }
   
-	/** Valid operations are: insert, search, delete, update, and print. For the other transaction
-	operations you will search for name, delete an item based on its name, update the
-	quantity of an item, or print the current contents of the shopping cart (for each item,
-	it’s: name, quantity, price after tax and shipping charges in ascending order by
-	name) This is followed by the total charges for the shopping cart. */
+  static void performCommand(String command, String data){
+	  // resolves command
+	  if(command.equals("insert")){
+		  
+	  }
+	  else if(command.equals("search")){
+		  
+	  }
+	  else if(command.equals("delete")){
+		  
+	  }
+	  else if(command.equals("update")){
+		  
+	  }
+	  else if(command.equals("print")){
+		  
+	  }
+	  else{ // invalid command
+		  String errmsg = "Error: " + command + " is an invalid command!\n";
+		  errmsg += "valid commands: insert search delete update print";
+		  throw new IllegalArgumentException(errmsg);
+	  }
+  }
   
-  static void insert(){
+  static void insert(){ 
 	  //TODO implement method
+	  // insert <category> <name> <price> <quantity> <weight> <optional field1> <optional field2>
 	  /*  For the insert operation, you will need to instantiate an 
 	   * 	object of the appropriate type (Groceries,
 		*	Clothing or Electronics), and add it into an arraylist.*/
   }
   static void search(){
 	  //TODO implement method
+	  // search <name> searches for all OBJECTS with name field as <name> and then
+	  // outputs the number of OBJECTS found to the screen.
   }
   static void delete(){
 	  //TODO implement method
+	  // delete <name> searches and deletes 
+	  // all OBJECTS (not quantity) with the name field that matches the given <name>.
   }
   static void update(){
 	  //TODO implement method
+	  // update <name> <quantity> updates the quantity field for
+	  // the first occurrence of a matching name.
+	  // then output the name and new quantity value for that object to the screen. 
   }
   static void print(){
 	  //TODO implement method
+	/** print the contents of the shopping cart in ascending order by name, 
+	 * show all name, quantity, price after tax and shipping charges
+	 * After, print the total charges for entire cart.
+	 * Output is to the screen, make it readable              */
   }
 
 }
