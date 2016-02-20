@@ -1,3 +1,14 @@
+/** Item ****************************************************
+ * Base Class for shopping cart items
+ * store the common quantities.
+ * provide default price calculation.
+ * 
+ * Section : F 2:00 - 3:30pm
+ * UT EID: rpm953, mm75343
+ * @author Ronald Macmaster, Michael Marino
+ * @version 1.01 2/19/2016
+ ************************************************************/
+
 package Assignment3;
 
 public class Item 
@@ -22,7 +33,7 @@ public class Item
 	}
 	
 	void printItemAttributes(){
-		// Name, Price, and Quantity, Weight
+		// Name, Price, and Quantity
 		String itemString = ""; 
 		
 		// build string

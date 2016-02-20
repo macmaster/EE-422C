@@ -1,20 +1,22 @@
-package Assignment3;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-
-/**
- * Model for general bank account object.  The purpose is to record money,
- * and allow for various financial transactions to be performed over the
- * life of a specific bank account.
+/** ShoppingCartDriver **************************************
+ * Driver to manage the Shopping Cart Classes
+ * perform commands through a transaction file
+ * print out the shopping cart total at the end
+ * 
  * Section : F 2:00 - 3:30pm
  * UT EID: rpm953, mm75343
  * @author Ronald Macmaster, Michael Marino
- * @version 1.01 2/12/2016
- */
+ * @version 1.01 2/19/2016
+ ************************************************************/
 
-import java.util.*;
+package Assignment3;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class A3Driver 
 	{
@@ -46,11 +48,7 @@ public class A3Driver
 			System.err.println(err.getMessage());
 			System.exit(1);
 		}
-		
-		
-		
-		
-		
+
 		// General code example for how to iterate an array list. You will have to modify this heavily, to suit your needs.
 		/*Iterator<Item> i = shoppingCart.iterator();
 		while (i.hasNext()) 
