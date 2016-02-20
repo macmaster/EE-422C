@@ -2,21 +2,26 @@ package Assignment3;
 
 public class Clothing extends Item 
 {
+	// clothing tax rate
 	private boolean tax;
-
-	// variables, constructors as necessary
+	final private double TAX_RATE = 0.10; 
 	
-	Clothing(String n, float p, int q, int w, boolean t) {
-		super(n, p, q, w);
-		tax = t;
+	
+	Clothing(String name, float price, int quantity, int weight, boolean tax)
+	{
+		super(name, price, quantity, weight);
+		this.tax = tax;
 	}
 
 	float calculatePrice () 
 	{
 		float final_price = 0;
 		final_price = this.price;
-		if (this.tax == true)
-			final_price *= 1.1;
+		
+		// clothing tax
+		if (this.tax == true){
+			final_price += final_price * TAX_RATE;
+		}
 		return final_price;
 	}
 	

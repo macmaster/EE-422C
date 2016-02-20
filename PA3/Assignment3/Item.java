@@ -2,10 +2,10 @@ package Assignment3;
 
 public class Item 
 {
-	protected String name;  //item name
-	protected float price;  //item price
-	protected int quantity; //items quantity
-	protected int weight;   //
+	protected String name;  
+	protected float price;  
+	protected int quantity; 
+	protected int weight;   
 
 	
 	Item(String name, float price, int quantity, int weight)
@@ -19,21 +19,20 @@ public class Item
 	float calculatePrice () 
 	{
 		float final_price = 0;
-		final_price = this.price;
-		final_price += (20 * this.weight * this.quantity);
+		float shipping_price = (20 * this.weight * this.quantity); 
+		final_price = this.price + shipping_price;
 		return final_price;
 	}
 	
-
 	void printItemAttributes () 
 	{
-		String itemString = ""; // Name, Price, and Quantity, Weight
+		// Name, Price, and Quantity, Weight
+		String itemString = ""; 
 		
 		// build string
 		itemString += "Item: " + this.name + "\t";
-		itemString += "Price: " + this.calculatePrice() + "\t";
 		itemString += "Quantity: " + this.quantity + "\t";
-		itemString += "Weight: " + this.weight;
+		itemString += "Price: " + this.calculatePrice();
 		
 		// print string
 		System.out.println(itemString);

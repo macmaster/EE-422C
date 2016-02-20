@@ -1,22 +1,26 @@
 package Assignment3;
 
 public class Grocery extends Item {
-
+	
+	private final double PREMIUM = 0.20; // premium shipping rate
 	private boolean perishable;
 	
-	Grocery(String n, float p, int q, int w, boolean pe) {
-		super(n, p, q, w);
-		perishable = pe;
+	Grocery(String name, float price, int quantity, int weight, boolean perishable)
+	{
+		super(name, price, quantity, weight);
+		this.perishable = perishable;
 	}
 	
 	float calculatePrice () 
 	{
 		float final_price = 0;
-		final_price = this.price;
-		if (this.perishable == true)
-			final_price += (20 * this.weight * this.quantity*1.2);
-		else
-			final_price += (20 * this.weight * this.quantity);
+		float shipping_price = (20 * this.weight * this.quantity) ;
+		
+		// premium shipping
+		if (this.perishable == true){ 
+			shipping_price += shipping_price * PREMIUM;
+		}
+		final_price = this.price + shipping_price;
 		return final_price;
 	}
 	

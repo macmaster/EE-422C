@@ -5,10 +5,11 @@ public class Electronics extends Item
 	private boolean fragile;
 	private boolean tax;
 
-	Electronics(String n, float p, int q, int w, boolean f, boolean t) {
-		super(n, p, q, w);
-		fragile = f;
-		tax = t;
+	Electronics(String name, float price, int quantity, int weight, boolean fragile, boolean tax)
+	{
+		super(name, price, quantity, weight);
+		this.fragile = fragile;
+		this.tax = tax;
 	}
 
 	float calculatePrice () 
