@@ -23,7 +23,7 @@ public class A3Driver
 	  {
 		try{  
 			//Open file; file name specified in args (command line)
-			String filename = args[1]; // name of file
+			String filename = args[0]; // name of file
 			FileReader reader = new FileReader(filename);
 			BufferedReader fhand = new BufferedReader(reader);
 			
@@ -31,7 +31,10 @@ public class A3Driver
 			Map<String, Item> itemMap = new HashMap<String, Item>(); // item database		
 			ArrayList<Item> shoppingCart = new ArrayList<Item>(); 	// shopping cart list
 			
-			String transaction;
+			String line; // transaction string
+			while((line = fhand.readLine()) != null){
+				System.out.println(line);
+			}
 			
 			//Close the file
 			reader.close(); 
