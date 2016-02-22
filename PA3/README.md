@@ -9,8 +9,9 @@ runprog  \<transaction_file\>
 
 ###TO DO:
 * implement static transaction methods in Driver class  
-	> done: insert, search and delete 
-	> fix: update print
+	> done: insert, search and delete print
+	> fix: update
 * Design document charts & diagrams
 * Document every public / package visible method with JavaDocs
+* Test like there is no tomorrow
 	
