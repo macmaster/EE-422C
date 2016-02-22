@@ -282,21 +282,37 @@ public class A3Driver
 	  */
   }
   
+  /** Print() ******************************************************************
+   *  prints the contents of the shopping cart in ascending order by name.
+   *  prints each item's the name, quantity, price after tax and shipping charges
+   *  After, prints the total charges for entire cart.
+   *              				
+   * ***************************************************************************/
   private static void print(){
-	  //TODO implement method
-	/** print the contents of the shopping cart in ascending order by name, 
-	 * show all name, quantity, price after tax and shipping charges
-	 * After, print the total charges for entire cart.
-	 * Output is to the screen, make it readable              */
+	  // sorts the shopping Cart by name
+	  // (using merge sort? O(nlogn)?)
+	  Collections.sort(shoppingCart);
 	  
-	  Collections.sort(shoppingCart); // sorts the shopping Cart by name (using merge sort? O(nlogn))
+	  // receipt output prompt
+	  System.out.print("\n");
+	  System.out.println("Printing Shopping Cart Receipt ... ");
+	  System.out.print("\n");
 	  
+	  // print cart items / calculate total
+	  float total_price = 0;
 	  Iterator<Item> cart_itr = shoppingCart.iterator();
 	  while(cart_itr.hasNext()){
 		  Item temp = cart_itr.next();
 		  System.out.print("\t"); //indent item fields
 		  temp.printItemAttributes();
+		  total_price += temp.calculatePrice(); // update total
 	  }
+	  
+	  // total / thank the customer
+	  System.out.print("\n");
+	  System.out.println("Total: " + total_price);
+	  System.out.println("Thank you for shopping at 422CMart. Come again.");
+	  System.out.print("\n");
 	  
   }
   
