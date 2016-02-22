@@ -27,7 +27,7 @@ public class Electronics extends Item
 	private boolean fragile;
 	private static final float PREMIUM = 0.20f; 
 
-	Electronics(String name, float price, int quantity, int weight){
+	public Electronics(String name, float price, int quantity, int weight){
 		super(name, price, quantity, weight);
 		this.tax = true; //taxed by default
 		this.fragile = false; // not fragile by default
@@ -51,6 +51,32 @@ public class Electronics extends Item
 		
 		final_price = this.price + tax_amount + shipping_price;
 		return final_price;
+	}
+	
+	@Override
+	float getPriceAfterTax(){
+		float base_price = 0;
+		float tax_amount = 0; 
+		
+		// electronics tax
+		if (this.tax == true){
+			tax_amount = this.price * TAX_RATE;
+		}
+		base_price = this.price + tax_amount;
+		
+		return base_price;
+	}
+	
+	@Override
+	float getShippingPrice(){
+		float shipping_price = (20 * this.weight * this.quantity);
+		
+		// fragile shipping
+		if (this.fragile == true){
+			shipping_price += shipping_price * PREMIUM;
+		}
+		
+		return shipping_price;
 	}
 	
 	void setStateTax(String state){

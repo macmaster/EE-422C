@@ -36,6 +36,20 @@ public class Clothing extends Item
 		return final_price;
 	}
 	
+	@Override
+	float getPriceAfterTax(){
+		float base_price = 0;
+		float tax_amount = 0; 
+		
+		// clothing tax
+		if (this.tax == true){
+			tax_amount = this.price * TAX_RATE;
+		}
+		base_price = this.price + tax_amount;
+		
+		return base_price;
+	}
+	
 	void printItemAttributes(){
 		//Print all applicable attributes of this sub-class
 	}

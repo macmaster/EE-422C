@@ -92,12 +92,93 @@ public class A3Driver
 	  }
   }
   
+  /** Insert() ******************************************************************
+   * insert <category> <name> <price> <quantity> <weight> 
+   * 			<optional field1> <optional field2>
+   * 
+   * instantiates and object of the appropriate type (Groceries, Clothing, Electronics)
+   * and adds it to the shopping cart
+   * 
+   * @param data : the data string which contains the item fields
+   * ***************************************************************************/  
   private static void insert(String data){ 
-	  //TODO implement method
 	  // insert <category> <name> <price> <quantity> <weight> <optional field1> <optional field2>
 	  /*  For the insert operation, you will need to instantiate an 
 	   * 	object of the appropriate type (Groceries,
 		*	Clothing or Electronics), and add it into an arraylist.*/
+	 String[] fields = data.trim().split(" +");
+	 int fields_count = fields.length;
+	 try{
+		 // parse item fields
+		 String life = ""; 
+		 String destination = ""; 
+		 String category = fields[0].toLowerCase(); 
+		 String name = fields[1];
+		 float price = Float.parseFloat(fields[2]);
+		 int quantity = Integer.parseInt(fields[3]);
+		 int weight = Integer.parseInt(fields[4]);
+		 
+		 // valid numerical input checks
+		 if(price < 0){
+			 throw new IllegalArgumentException(name + " cannot have a negative price!");
+		 }
+		 else if(quantity < 0){
+			 throw new IllegalArgumentException(name + " cannot have a negative quantity!");
+		 }
+		 else if(weight < 0){
+			 throw new IllegalArgumentException(name + " cannot have a negative weight");
+		 }
+		 
+		 // handle item creation by type
+		 if(category.equals("groceries")){
+			 Grocery grocery = new Grocery(name, price, quantity, weight);
+			 if(fields_count > 5){
+			 	 life = fields[5].toLowerCase();
+			 	 if(life.equals("P")){ // perishable groceries
+			 		 grocery.setPersihable(true);
+			 	 }
+			 }
+			 shoppingCart.add(grocery);
+		 }
+		 else if(category.equals("electronics")){
+			 Electronics electronic = new Electronics(name, price, quantity, weight);
+			 if(fields_count == 6){
+			 	 life = fields[5].toUpperCase();
+			 	 if(life.equals("F")){ // fragile electronics
+			 		 electronic.setFragile(true);
+			 	 }
+			 	 else{ // user may try to use 5th field as shipping state
+			 		 destination = fields[5].toUpperCase();
+			 		 electronic.setStateTax(destination);
+			 	 }
+			 }
+			 if(fields_count > 6){
+				 life = fields[5].toUpperCase();
+				 destination = fields[6].toUpperCase();
+				 if(life.equals("F")){ // fragile electronics
+			 		 electronic.setFragile(true);
+			 	 }
+				 electronic.setStateTax(destination);
+			 }
+			 shoppingCart.add(electronic);
+		 }
+		 else if(category.equals("clothing")){
+			 Clothing clothing = new Clothing(name, price, quantity, weight);
+			 shoppingCart.add(clothing);
+		 }
+		 else{ // invalid category
+			 String errmsg = "Error: " + category + " is an invalid item category!\n";
+			 errmsg += "valid categories: groceries electronics clothing";
+			 throw new IllegalArgumentException(errmsg);
+		 }
+	 }catch(NumberFormatException err){
+		 System.err.println("Insert Failed!");
+		 System.err.println("Could not interpret a number field.");
+	 }catch(Exception err){
+		 System.err.println("Insert Failed!");
+		 System.err.println(err.getMessage());
+	 }
+	  
   }
   
   /** Search() ******************************************************************
@@ -156,7 +237,7 @@ public class A3Driver
 		  Item temp = cart_itr.next();
 		  String temp_name = temp.getName();
 		  if(temp_name.equals(name)){
-			  shoppingCart.remove(temp);
+			  cart_itr.remove();
 			  object_count++;
 		  }
 	  }
@@ -200,6 +281,12 @@ public class A3Driver
 	 * show all name, quantity, price after tax and shipping charges
 	 * After, print the total charges for entire cart.
 	 * Output is to the screen, make it readable              */
+	  Iterator<Item> cart_itr = shoppingCart.iterator();
+	  while(cart_itr.hasNext()){
+		  Item temp = cart_itr.next();
+		  temp.printItemAttributes();
+	  }
+	  
   }
   
   /** static int cartSearch(String name){

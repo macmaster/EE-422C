@@ -45,6 +45,17 @@ public class Item
 		System.out.println(itemString);
 	}
 	
+	float getPriceAfterTax(){
+		return price;
+	}
+	
+	float getShippingPrice(){
+		float shipping_price = (20 * this.weight * this.quantity);
+		return shipping_price;
+	}
+	
+	
+	// Auto-gen getters/setters
 
 	/**
 	 * @return the name
