@@ -11,7 +11,7 @@
 
 package Assignment3;
 
-public class Item 
+public class Item implements Comparable<Item>
 {
 	protected String name;  
 	protected float price;  
@@ -55,7 +55,6 @@ public class Item
 	}
 	
 	
-	// Auto-gen getters/setters
 
 	/**
 	 * @return the name
@@ -113,6 +112,12 @@ public class Item
 		this.weight = weight;
 	}
 	
+	/**
+	 *  Compares two items lexicographically by name
+	 */
+   public int compareTo(Item other){
+      return (this.name.toLowerCase()).compareTo(other.name.toLowerCase());
+   }
 	
 	
 }

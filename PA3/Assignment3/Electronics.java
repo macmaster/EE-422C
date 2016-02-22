@@ -79,6 +79,35 @@ public class Electronics extends Item
 		return shipping_price;
 	}
 	
+	void printItemAttributes(){
+		// Name, Price, Quantity and Perishable
+		String itemString = ""; 
+		
+		// build string
+		itemString += "Item: " + this.name + "\t";
+		itemString += "Quantity: " + this.quantity + "\t";
+		itemString += "Price: " + this.calculatePrice() + "\t\t";
+		
+		// fragile electronics
+		if(this.fragile == true){ 
+			itemString += "Fragile: " + "Yes" + "\t\t";
+		}
+		else{
+			itemString += "Fragile: " + "No" + "\t\t";
+		}
+		
+		// taxable electronics
+		if(this.tax == true){ 
+			itemString += "Taxed: " + "Yes";
+		}
+		else{
+			itemString += "Taxed: " + "No";
+		}
+		
+		// print string
+		System.out.println(itemString);
+	}
+	
 	void setStateTax(String state){
 		if(TAX_FREE_STATES.contains(state)){
 			this.tax = false;

@@ -12,6 +12,7 @@
 package Assignment3;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -47,7 +48,7 @@ public class A3Driver
 			  }
 			  
 			  try{ //perform commands
-				  System.out.println("command: "+operation+"\tData: "+data);
+				  // debug System.out.println("command: "+operation+"\tData: "+data);
 				  performCommand(operation, data);
 			  }catch(IllegalArgumentException err){
 				  System.err.println(err.getMessage());
@@ -133,7 +134,7 @@ public class A3Driver
 		 if(category.equals("groceries")){
 			 Grocery grocery = new Grocery(name, price, quantity, weight);
 			 if(fields_count > 5){
-			 	 life = fields[5].toLowerCase();
+			 	 life = fields[5].toUpperCase();
 			 	 if(life.equals("P")){ // perishable groceries
 			 		 grocery.setPersihable(true);
 			 	 }
@@ -171,6 +172,10 @@ public class A3Driver
 			 errmsg += "valid categories: groceries electronics clothing";
 			 throw new IllegalArgumentException(errmsg);
 		 }
+		 
+		 // success message
+		 System.out.println(name + " was inserted into the cart.");
+		 
 	 }catch(NumberFormatException err){
 		 System.err.println("Insert Failed!");
 		 System.err.println("Could not interpret a number field.");
@@ -178,6 +183,8 @@ public class A3Driver
 		 System.err.println("Insert Failed!");
 		 System.err.println(err.getMessage());
 	 }
+	 
+	 
 	  
   }
   
@@ -281,9 +288,13 @@ public class A3Driver
 	 * show all name, quantity, price after tax and shipping charges
 	 * After, print the total charges for entire cart.
 	 * Output is to the screen, make it readable              */
+	  
+	  Collections.sort(shoppingCart); // sorts the shopping Cart by name (using merge sort? O(nlogn))
+	  
 	  Iterator<Item> cart_itr = shoppingCart.iterator();
 	  while(cart_itr.hasNext()){
 		  Item temp = cart_itr.next();
+		  System.out.print("\t"); //indent item fields
 		  temp.printItemAttributes();
 	  }
 	  

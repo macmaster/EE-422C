@@ -50,8 +50,5 @@ public class Clothing extends Item
 		return base_price;
 	}
 	
-	void printItemAttributes(){
-		//Print all applicable attributes of this sub-class
-	}
 	
 }

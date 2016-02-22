@@ -47,11 +47,31 @@ public class Grocery extends Item
 		return shipping_price;
 	}
 	
+	@Override
+	void printItemAttributes(){
+		// Name, Price, Quantity and Perishable
+		String itemString = ""; 
+		
+		// build string
+		itemString += "Item: " + this.name + "\t";
+		itemString += "Quantity: " + this.quantity + "\t";
+		itemString += "Price: " + this.calculatePrice() + "\t\t";
+		
+		// perishable groceries
+		if(this.perishable == true){ 
+			itemString += "Perishable: " + "Yes";
+		}
+		else{
+			itemString += "Perishable: " + "No";
+		}
+		
+		// print string
+		System.out.println(itemString);
+	}
+	
+	
 	void setPersihable(boolean perishable){
 		this.perishable = perishable;
 	}
-	
-	// Implement print methods as necessary	
-	// Only re-implement stuff you cannot get from the superclass (Item)
 	
 }
