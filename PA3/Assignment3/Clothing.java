@@ -41,7 +41,7 @@ public class Clothing extends Item
 		float base_price = 0;
 		float tax_amount = 0; 
 		
-		// clothing tax
+		// electronics tax
 		if (this.tax == true){
 			tax_amount = this.price * TAX_RATE;
 		}
