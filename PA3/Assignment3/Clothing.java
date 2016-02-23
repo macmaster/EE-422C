@@ -17,13 +17,21 @@ public class Clothing extends Item
 	private boolean tax;
 	private static final float TAX_RATE = 0.10f; 
 		
-	Clothing(String name, float price, int quantity, int weight){
+	public Clothing(String name, float price, int quantity, int weight){
 		super(name, price, quantity, weight);
 		this.tax = true; //taxed by default
 	}
 
 	@Override
-	float calculatePrice(){
+  /** calculatePrice() **********************************************************
+   * Calculates the total price of the clothing bundle
+   * Price formula : Total = price * quantity
+   * Include the shipping price.
+   * Include the tax amount
+   *               
+   * @param return : the total price of the item				
+   * ***************************************************************************/
+	public float calculatePrice(){
 		float final_price = this.price * this.quantity;
 		float tax_amount = 0;
 		
@@ -37,11 +45,11 @@ public class Clothing extends Item
 	}
 	
 	@Override
-	float getPriceAfterTax(){
+	public float getPriceAfterTax(){
 		float base_price = 0;
 		float tax_amount = 0; 
 		
-		// electronics tax
+		// clothing tax
 		if (this.tax == true){
 			tax_amount = this.price * TAX_RATE;
 		}

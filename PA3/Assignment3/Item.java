@@ -18,21 +18,28 @@ public class Item implements Comparable<Item>
 	protected int quantity; 
 	protected int weight;   
 	
-	Item(String name, float price, int quantity, int weight){
+	public Item(String name, float price, int quantity, int weight){
 		this.name = name;
 		this.price = price;
 		this.quantity = quantity;
 		this.weight = weight;
 	}
 	
-	float calculatePrice(){
+  /** calculatePrice() **********************************************************
+   * Calculates the total price of the item bundle
+   * Price formula : Total = price * quantity
+   * Include the shipping price.
+   *               
+   * @param return : the total price of the item				
+   * ***************************************************************************/
+	public float calculatePrice(){
 		float final_price = this.price * this.quantity;
 		float shipping_price = (20 * this.weight * this.quantity); 
 		final_price = final_price + shipping_price;
 		return final_price;
 	}
 	
-	void printItemAttributes(){
+	public void printItemAttributes(){
 		// Name, Price, and Quantity
 		String itemString = ""; 
 		
@@ -45,11 +52,11 @@ public class Item implements Comparable<Item>
 		System.out.println(itemString);
 	}
 	
-	float getPriceAfterTax(){
+	public float getPriceAfterTax(){
 		return price;
 	}
 	
-	float getShippingPrice(){
+	public float getShippingPrice(){
 		float shipping_price = (20 * this.weight * this.quantity);
 		return shipping_price;
 	}

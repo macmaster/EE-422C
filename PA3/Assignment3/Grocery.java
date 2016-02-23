@@ -16,13 +16,21 @@ public class Grocery extends Item
 	private boolean perishable;
 	private static final float PREMIUM = 0.20f; 
 	
-	Grocery(String name, float price, int quantity, int weight){
+	public Grocery(String name, float price, int quantity, int weight){
 		super(name, price, quantity, weight);
 		this.perishable = false; //not perishable by default
 	}
 	
 	@Override
-	float calculatePrice(){
+  /** calculatePrice() **********************************************************
+   * Calculates the total price of the clothing bundle
+   * Price formula : Total = price * quantity
+   * Include the shipping price.
+   * Include the premium shipping rate for perishable items
+   *               
+   * @param return : the total price of the item				
+   * ***************************************************************************/
+	public float calculatePrice(){
 		float final_price = this.price * this.quantity;
 		float shipping_price = (20 * this.weight * this.quantity);
 		
@@ -36,7 +44,7 @@ public class Grocery extends Item
 	}
 	
 	@Override
-	float getShippingPrice(){
+	public float getShippingPrice(){
 		float shipping_price = (20 * this.weight * this.quantity);
 		
 		// fragile shipping
@@ -48,7 +56,7 @@ public class Grocery extends Item
 	}
 	
 	@Override
-	void printItemAttributes(){
+	public void printItemAttributes(){
 		// Name, Price, Quantity and Perishable
 		String itemString = ""; 
 		
@@ -70,7 +78,7 @@ public class Grocery extends Item
 	}
 	
 	
-	void setPersihable(boolean perishable){
+	public void setPersihable(boolean perishable){
 		this.perishable = perishable;
 	}
 	

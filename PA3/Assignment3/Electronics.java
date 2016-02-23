@@ -33,6 +33,7 @@ public class Electronics extends Item
 		add("OK"); add("OR"); add("PA"); add("RI"); add("SC"); 
 		add("SD"); add("TN"); add("TX"); add("UT"); add("VT"); 
 		add("VA"); add("WA"); add("WV"); add("WI"); add("WY"); 
+		add("");
 	}};
 	
 	// fragile shipping rate
@@ -45,8 +46,17 @@ public class Electronics extends Item
 		this.fragile = false; // not fragile by default
 	}
 	
-	@Override 
-	float calculatePrice(){
+	@Override
+  /** calculatePrice() **********************************************************
+   * Calculates the total price of the item bundle
+   * Price formula : Total = price * quantity
+   * Include the shipping price.
+   * Include the tax amount
+   * Include the fragile premium shipping cost
+   *               
+   * @param return : the total price of the item				
+   * ***************************************************************************/
+	public float calculatePrice(){
 		float tax_amount = 0; 
 		float final_price = this.price * this.quantity;
 		float shipping_price = (20 * this.weight * this.quantity);
@@ -66,7 +76,7 @@ public class Electronics extends Item
 	}
 	
 	@Override
-	float getPriceAfterTax(){
+	public float getPriceAfterTax(){
 		float base_price = 0;
 		float tax_amount = 0; 
 		
@@ -80,7 +90,7 @@ public class Electronics extends Item
 	}
 	
 	@Override
-	float getShippingPrice(){
+	public float getShippingPrice(){
 		float shipping_price = (20 * this.weight * this.quantity);
 		
 		// fragile shipping
@@ -91,7 +101,7 @@ public class Electronics extends Item
 		return shipping_price;
 	}
 	
-	void printItemAttributes(){
+	public void printItemAttributes(){
 		// Name, Price, Quantity and Perishable
 		String itemString = ""; 
 		
@@ -120,17 +130,17 @@ public class Electronics extends Item
 		System.out.println(itemString);
 	}
 	
-	void setStateTax(String state){
+	public void setStateTax(String state){
 		if(TAX_FREE_STATES.contains(state)){
 			this.tax = false;
 		}
 	}
 	
-	void setFragile(boolean fragile){
+	public void setFragile(boolean fragile){
 		this.fragile = fragile;
 	}
 	
-	static boolean validState(String state){
+	public static boolean validState(String state){
 		if(US_STATES.contains(state)){
 			return true;
 		}

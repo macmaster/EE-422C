@@ -374,6 +374,9 @@ public class A3Driver
 			  if(life.equals("F")){ // fragile electronics
 				  electronic.setFragile(true);
 			  }
+			  else if(life.equals("NF")){
+				  electronic.setFragile(false);
+			  }
 			  else{ // user may try to use 5th field as shipping state
 				  destination = fields[5].toUpperCase();
 				  electronic.setStateTax(destination);
