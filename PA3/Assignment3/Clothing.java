@@ -29,10 +29,10 @@ public class Clothing extends Item
 		
 		// clothing tax
 		if (this.tax == true){
-			tax_amount = this.price * TAX_RATE;
+			tax_amount = this.price * this.quantity * TAX_RATE;
 		}
 		
-		final_price = this.price + tax_amount;
+		final_price = final_price + tax_amount;
 		return final_price;
 	}
 	
