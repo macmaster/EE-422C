@@ -9,5 +9,3 @@ runprog  \<transaction_file\>
 
 ###TO DO:
 * final readme for project.
-* Design document charts & diagrams
-	

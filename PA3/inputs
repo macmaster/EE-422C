@@ -1,7 +1,7 @@
 insert electronics Wii 250 1 4 F TX
 insert electronics PS3 300 1 5 F NM
 insert groceries cabbage 2.00 5 1 NP
-insert clothing shirt 20.50 2 1
+insert clothing shirt 20.50 5 1
 delete cabbage
 update Wii 4
 print
