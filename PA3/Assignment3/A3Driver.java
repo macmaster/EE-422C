@@ -387,6 +387,10 @@ public class A3Driver
 			  }
 			  electronic.setStateTax(destination);
 		  }
+		  // confirm valid destination state
+		  if(!Electronics.validState(destination)){
+			  throw new IllegalArgumentException(name + " cannot ship to " + destination);
+		  }
 		  return electronic;
 	  }
 	  else if(category.equals("clothing")){

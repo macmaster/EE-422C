@@ -22,6 +22,18 @@ public class Electronics extends Item
 	private static final Set<String> TAX_FREE_STATES = new HashSet<String>(){{
 		add("TX"); add("NM"); add("VA"); add("AZ"); add("AK");
 	}};
+	private static final Set<String> US_STATES = new HashSet<String>(){{
+		add("AL"); add("AK"); add("AZ"); add("AR"); add("CA"); 
+		add("CO"); add("CT"); add("DE"); add("FL"); add("GA"); 
+		add("HI"); add("ID"); add("IL"); add("IN"); add("IA"); 
+		add("KS"); add("KY"); add("LA"); add("ME"); add("MD"); 
+		add("MA"); add("MI"); add("MN"); add("MS"); add("MO"); 
+		add("MT"); add("NE"); add("NV"); add("NH"); add("NJ"); 
+		add("NM"); add("NY"); add("NC"); add("ND"); add("OH"); 
+		add("OK"); add("OR"); add("PA"); add("RI"); add("SC"); 
+		add("SD"); add("TN"); add("TX"); add("UT"); add("VT"); 
+		add("VA"); add("WA"); add("WV"); add("WI"); add("WY"); 
+	}};
 	
 	// fragile shipping rate
 	private boolean fragile;
@@ -116,6 +128,15 @@ public class Electronics extends Item
 	
 	void setFragile(boolean fragile){
 		this.fragile = fragile;
+	}
+	
+	static boolean validState(String state){
+		if(US_STATES.contains(state)){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	
 	/* 
