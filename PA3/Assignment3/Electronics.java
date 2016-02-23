@@ -33,7 +33,6 @@ public class Electronics extends Item
 		add("OK"); add("OR"); add("PA"); add("RI"); add("SC"); 
 		add("SD"); add("TN"); add("TX"); add("UT"); add("VT"); 
 		add("VA"); add("WA"); add("WV"); add("WI"); add("WY"); 
-		add("");
 	}};
 	
 	// fragile shipping rate

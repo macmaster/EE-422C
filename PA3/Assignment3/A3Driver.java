@@ -229,16 +229,9 @@ public class A3Driver
 			  Item temp = cart_itr.next();
 			  String temp_name = temp.getName();
 			  if(temp_name.equals(name)){
-				  if(quantity == 0){ // remove item 
-					  System.out.println(name + " was found and removed from the cart (quantity 0).");
-					  cart_itr.remove();
-					  return;
-				  }
-				  else{ // item found, update quantity
-					  item_found = true;
-					  temp.setQuantity(quantity);
-					  break;
-				  }
+				  item_found = true;
+				  temp.setQuantity(quantity);
+				  break;
 			  }
 		  }
 		  
