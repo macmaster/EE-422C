@@ -50,5 +50,23 @@ public class Clothing extends Item
 		return base_price;
 	}
 	
+	/* 
+	 * Automatically generated equals method for two Item objects
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean equals(Clothing other) {
+		if(this == other)
+			return true;
+		if (!this.name.equals(other.getName()))
+			return false;
+		if (this.price != other.getPrice())
+			return false;
+		if (this.weight != other.getWeight())
+			return false;
+		if (this.tax != other.tax)
+			return false;
+		return true;
+	}
+	
 	
 }

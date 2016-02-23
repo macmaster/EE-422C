@@ -117,6 +117,26 @@ public class Electronics extends Item
 	void setFragile(boolean fragile){
 		this.fragile = fragile;
 	}
+	
+	/* 
+	 * Automatically generated equals method for two Item objects
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean equals(Electronics other) {
+		if(this == other)
+			return true;
+		if (!this.name.equals(other.getName()))
+			return false;
+		if (this.price != other.getPrice())
+			return false;
+		if (this.weight != other.getWeight())
+			return false;
+		if (this.fragile != other.fragile)
+			return false;
+		if (this.tax != other.tax)
+			return false;
+		return true;
+	}
 
 	//Implement calculate price/print methods as necessary
 

@@ -74,4 +74,22 @@ public class Grocery extends Item
 		this.perishable = perishable;
 	}
 	
+	/* 
+	 * Automatically generated equals method for two Item objects
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean equals(Grocery other) {
+		if(this == other)
+			return true;
+		if (!this.name.equals(other.getName()))
+			return false;
+		if (this.price != other.getPrice())
+			return false;
+		if (this.weight != other.getWeight())
+			return false;
+		if (this.perishable != other.perishable)
+			return false;
+		return true;
+	}
+	
 }

@@ -103,10 +103,6 @@ public class A3Driver
    * @param data : the data string which contains the item fields
    * ***************************************************************************/  
   private static void insert(String data){ 
-	  // insert <category> <name> <price> <quantity> <weight> <optional field1> <optional field2>
-	  /*  For the insert operation, you will need to instantiate an 
-	   * 	object of the appropriate type (Groceries,
-		*	Clothing or Electronics), and add it into an arraylist.*/
 	 String[] fields = data.trim().split(" +");
 	 int fields_count = fields.length;
 	 try{
@@ -139,7 +135,8 @@ public class A3Driver
 			 		 grocery.setPersihable(true);
 			 	 }
 			 }
-			 shoppingCart.add(grocery);
+			 // check for existing duplicate
+			 addCartItem(grocery);
 		 }
 		 else if(category.equals("electronics")){
 			 Electronics electronic = new Electronics(name, price, quantity, weight);
@@ -161,11 +158,11 @@ public class A3Driver
 			 	 }
 				 electronic.setStateTax(destination);
 			 }
-			 shoppingCart.add(electronic);
+			 addCartItem(electronic);
 		 }
 		 else if(category.equals("clothing")){
 			 Clothing clothing = new Clothing(name, price, quantity, weight);
-			 shoppingCart.add(clothing);
+			 addCartItem(clothing);
 		 }
 		 else{ // invalid category
 			 String errmsg = "Error: " + category + " is an invalid item category!\n";
@@ -207,17 +204,20 @@ public class A3Driver
 	  
 	  //use iterators! (Or Binary Search ... your choice. nothing wrong w. a little O(n))
 	  int object_count = 0;
+	  int object_quantity = 0;
 	  Iterator<Item> cart_itr = shoppingCart.iterator();
 	  while(cart_itr.hasNext()){
 		  Item temp = cart_itr.next();
 		  String temp_name = temp.getName().toLowerCase();
 		  if(temp_name.equals(name)){
 			  object_count++;
+			  object_quantity += temp.getQuantity();
 		  }
 	  }
 	  
 	  // display results
 	  System.out.println("number of " + name + " objects: " + object_count);
+	  System.out.println("quantity of " + name + " objects: " + object_quantity);
   }
   
   /** Delete() ******************************************************************
@@ -349,4 +349,26 @@ public class A3Driver
 	  
   }
 
+  /** addCartItem() *************************************************************
+   *  Checks to see if the item already exists in the cart.
+   *  If it does, it updates the existing quantity
+   *  Otherwise, it adds the item as a new addition
+   *              				
+   * @param obj : item to add to the cart
+   * ***************************************************************************/
+  private static void addCartItem(Item obj){
+	  int obj_quantity = obj.getQuantity(); //quantity of new item
+	  Iterator<Item> cart_itr = shoppingCart.iterator();
+	  while(cart_itr.hasNext()){
+		  Item temp = cart_itr.next();
+		  int temp_quantity = temp.getQuantity(); //quantity of old item
+		  if(temp.equals(obj)){
+			  temp.setQuantity(temp_quantity + obj_quantity);
+			  return;
+		  }
+	  }
+	  //item does not exist in the cart
+	  shoppingCart.add(obj);
+  }
+  
 }

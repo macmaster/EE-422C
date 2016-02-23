@@ -118,6 +118,21 @@ public class Item implements Comparable<Item>
    public int compareTo(Item other){
       return (this.name.toLowerCase()).compareTo(other.name.toLowerCase());
    }
-	
+
+	/* 
+	 * Automatically generated equals method for two Item objects
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean equals(Item other) {
+		if(this == other)
+			return true;
+		if (!this.name.equals(other.getName()))
+			return false;
+		if (this.price != other.getPrice())
+			return false;
+		if (this.weight != other.getWeight())
+			return false;
+		return true;
+	}
 	
 }
