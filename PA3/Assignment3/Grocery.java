@@ -23,7 +23,7 @@ public class Grocery extends Item
 	
 	@Override
 	float calculatePrice(){
-		float final_price = 0;
+		float final_price = this.price * this.quantity;
 		float shipping_price = (20 * this.weight * this.quantity);
 		
 		// premium shipping
@@ -31,7 +31,7 @@ public class Grocery extends Item
 			shipping_price += shipping_price * PREMIUM;
 		}
 		
-		final_price = this.price + shipping_price;
+		final_price = final_price + shipping_price;
 		return final_price;
 	}
 	

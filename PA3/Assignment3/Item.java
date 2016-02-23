@@ -26,9 +26,9 @@ public class Item implements Comparable<Item>
 	}
 	
 	float calculatePrice(){
-		float final_price = 0;
+		float final_price = this.price * this.quantity;
 		float shipping_price = (20 * this.weight * this.quantity); 
-		final_price = this.price + shipping_price;
+		final_price = final_price + shipping_price;
 		return final_price;
 	}
 	
@@ -53,8 +53,6 @@ public class Item implements Comparable<Item>
 		float shipping_price = (20 * this.weight * this.quantity);
 		return shipping_price;
 	}
-	
-	
 
 	/**
 	 * @return the name

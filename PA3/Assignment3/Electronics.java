@@ -35,13 +35,13 @@ public class Electronics extends Item
 	
 	@Override 
 	float calculatePrice(){
-		float final_price = 0;
 		float tax_amount = 0; 
+		float final_price = this.price * this.quantity;
 		float shipping_price = (20 * this.weight * this.quantity);
 		
 		// electronics tax
 		if (this.tax == true){
-			tax_amount = this.price * TAX_RATE;
+			tax_amount = this.price * this.quantity * TAX_RATE;
 		}
 		
 		// fragile shipping
@@ -49,7 +49,7 @@ public class Electronics extends Item
 			shipping_price += shipping_price * PREMIUM;
 		}
 		
-		final_price = this.price + tax_amount + shipping_price;
+		final_price = final_price + tax_amount + shipping_price;
 		return final_price;
 	}
 	
@@ -137,7 +137,5 @@ public class Electronics extends Item
 			return false;
 		return true;
 	}
-
-	//Implement calculate price/print methods as necessary
 
 }

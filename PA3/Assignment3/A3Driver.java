@@ -54,10 +54,9 @@ public class A3Driver
 				  System.err.println(err.getMessage());
 				  continue; //don't crash!
 			  }
-			  
 		  }		  
 		  
-		//Close the file
+		  //Close the file
 		  reader.close(); 
 		  fhand.close();
 	  }catch(ArrayIndexOutOfBoundsException err){
@@ -69,8 +68,20 @@ public class A3Driver
 	  }
   }
   
+  /*----------------------------------------------------------------------------*/
+  /*---------------------Shopping Cart Command Methods--------------------------*/
+  /*----------------------------------------------------------------------------*/
+  
+  /** performCommand() **********************************************************
+   * Calls the correct command procedure based on user command string
+   * Forwards the data to each individual method (except print)
+   *               
+   * @param command : command string to be performed by program.
+   * @param data: data fields forwarded to respective command method.				
+   * ***************************************************************************/
   private static void performCommand(String command, String data){
 	  // resolves command
+	  command = command.trim();
 	  if(command.equals("insert")){
 		  insert(data);
 	  }
@@ -103,74 +114,15 @@ public class A3Driver
    * @param data : the data string which contains the item fields
    * ***************************************************************************/  
   private static void insert(String data){ 
-	 String[] fields = data.trim().split(" +");
-	 int fields_count = fields.length;
 	 try{
-		 // parse item fields
-		 String life = ""; 
-		 String destination = ""; 
-		 String category = fields[0].toLowerCase(); 
-		 String name = fields[1];
-		 float price = Float.parseFloat(fields[2]);
-		 int quantity = Integer.parseInt(fields[3]);
-		 int weight = Integer.parseInt(fields[4]);
+		 // create new cart item
+		 Item cart_item = createCartItem(data);
+		 String name = cart_item.getName();
 		 
-		 // valid numerical input checks
-		 if(price < 0){
-			 throw new IllegalArgumentException(name + " cannot have a negative price!");
-		 }
-		 else if(quantity < 0){
-			 throw new IllegalArgumentException(name + " cannot have a negative quantity!");
-		 }
-		 else if(weight < 0){
-			 throw new IllegalArgumentException(name + " cannot have a negative weight");
-		 }
+		 // insert item into cart
+		 addCartItem(cart_item);
 		 
-		 // handle item creation by type
-		 if(category.equals("groceries")){
-			 Grocery grocery = new Grocery(name, price, quantity, weight);
-			 if(fields_count > 5){
-			 	 life = fields[5].toUpperCase();
-			 	 if(life.equals("P")){ // perishable groceries
-			 		 grocery.setPersihable(true);
-			 	 }
-			 }
-			 // check for existing duplicate
-			 addCartItem(grocery);
-		 }
-		 else if(category.equals("electronics")){
-			 Electronics electronic = new Electronics(name, price, quantity, weight);
-			 if(fields_count == 6){
-			 	 life = fields[5].toUpperCase();
-			 	 if(life.equals("F")){ // fragile electronics
-			 		 electronic.setFragile(true);
-			 	 }
-			 	 else{ // user may try to use 5th field as shipping state
-			 		 destination = fields[5].toUpperCase();
-			 		 electronic.setStateTax(destination);
-			 	 }
-			 }
-			 if(fields_count > 6){
-				 life = fields[5].toUpperCase();
-				 destination = fields[6].toUpperCase();
-				 if(life.equals("F")){ // fragile electronics
-			 		 electronic.setFragile(true);
-			 	 }
-				 electronic.setStateTax(destination);
-			 }
-			 addCartItem(electronic);
-		 }
-		 else if(category.equals("clothing")){
-			 Clothing clothing = new Clothing(name, price, quantity, weight);
-			 addCartItem(clothing);
-		 }
-		 else{ // invalid category
-			 String errmsg = "Error: " + category + " is an invalid item category!\n";
-			 errmsg += "valid categories: groceries electronics clothing";
-			 throw new IllegalArgumentException(errmsg);
-		 }
-		 
-		 // success message
+		 // successful insert message
 		 System.out.println(name + " was inserted into the cart.");
 		 
 	 }catch(NumberFormatException err){
@@ -180,9 +132,7 @@ public class A3Driver
 		 System.err.println("Insert Failed!");
 		 System.err.println(err.getMessage());
 	 }
-	 
-	 
-	  
+
   }
   
   /** Search() ******************************************************************
@@ -252,7 +202,6 @@ public class A3Driver
 	  // display results
 	  System.out.println(name + " objects deleted: " + object_count);
   }
-  
   
   /** Update() ******************************************************************
    * update <name> <quantity> updates the quantity field for
@@ -349,6 +298,10 @@ public class A3Driver
 	  
   }
 
+  /*----------------------------------------------------------------------------*/
+  /*------------------------Shopping Cart Item Methods--------------------------*/
+  /*----------------------------------------------------------------------------*/
+  
   /** addCartItem() *************************************************************
    *  Checks to see if the item already exists in the cart.
    *  If it does, it updates the existing quantity
@@ -371,4 +324,80 @@ public class A3Driver
 	  shoppingCart.add(obj);
   }
   
+  /** createCartItem() *********************************************************
+   *  Generates a new object from a data string
+   *  the data string contains the relevant object parameters
+   *              				
+   * @param obj_string : object fields for item to be created
+   * @return item : reference to the newly created cart item
+   * ***************************************************************************/
+  private static Item createCartItem(String obj_string){
+	  // parse item fields
+	  String[] fields = obj_string.trim().split(" +");
+	  int fields_count = fields.length;
+	  
+	  // object data
+	  String life = ""; 
+	  String destination = ""; 
+	  String category = fields[0].toLowerCase(); 
+	  String name = fields[1];
+	  float price = Float.parseFloat(fields[2]);
+	  int quantity = Integer.parseInt(fields[3]);
+	  int weight = Integer.parseInt(fields[4]);
+		  
+	  // valid numerical input checks
+	  if(price < 0){
+		  throw new IllegalArgumentException(name + " cannot have a negative price!");
+	  }
+	  else if(quantity < 0){
+		  throw new IllegalArgumentException(name + " cannot have a negative quantity!");
+	  }
+	  else if(weight < 0){
+		  throw new IllegalArgumentException(name + " cannot have a negative weight");
+	  }
+ 
+	  // handle item creation by type
+	  if(category.equals("groceries")){
+		  Grocery grocery = new Grocery(name, price, quantity, weight);
+		  if(fields_count > 5){
+			  life = fields[5].toUpperCase();
+			  if(life.equals("P")){ // perishable groceries
+				  grocery.setPersihable(true);
+			  }
+		  }
+		  return grocery;
+	  }
+	  else if(category.equals("electronics")){
+		  Electronics electronic = new Electronics(name, price, quantity, weight);
+		  if(fields_count == 6){
+			  life = fields[5].toUpperCase();
+			  if(life.equals("F")){ // fragile electronics
+				  electronic.setFragile(true);
+			  }
+			  else{ // user may try to use 5th field as shipping state
+				  destination = fields[5].toUpperCase();
+				  electronic.setStateTax(destination);
+			  }
+		  }
+		  if(fields_count > 6){
+			  life = fields[5].toUpperCase();
+			  destination = fields[6].toUpperCase();
+			  if(life.equals("F")){ // fragile electronics
+				  electronic.setFragile(true);
+			  }
+			  electronic.setStateTax(destination);
+		  }
+		  return electronic;
+	  }
+	  else if(category.equals("clothing")){
+		  Clothing clothing = new Clothing(name, price, quantity, weight);
+		  return clothing;
+	  }
+	  else{ // invalid category
+		  String errmsg = "Error: " + category + " is an invalid item category!\n";
+		  errmsg += "valid categories: groceries electronics clothing";
+		  throw new IllegalArgumentException(errmsg);
+	  }
+	  
+  }
 }
