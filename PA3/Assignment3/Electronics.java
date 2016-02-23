@@ -76,6 +76,9 @@ public class Electronics extends Item
 	}
 	
 	@Override
+	/**
+	 * @return the price after tax
+	 */
 	public float getPriceAfterTax(){
 		float base_price = 0;
 		float tax_amount = 0; 
@@ -90,6 +93,9 @@ public class Electronics extends Item
 	}
 	
 	@Override
+	/**
+	 * @return the shipping price
+	 */
 	public float getShippingPrice(){
 		float shipping_price = (20 * this.weight * this.quantity);
 		
@@ -101,6 +107,13 @@ public class Electronics extends Item
 		return shipping_price;
 	}
 	
+  /** printItemAttributes() ****************************************************
+   * Prints all the item attributes in a nice string format
+   * Prints the Item, Quantity, and Price
+   * Indicates fragile and taxable electronics
+   *               
+   * @param return : the total price of the item				
+   * ***************************************************************************/	
 	public void printItemAttributes(){
 		// Name, Price, Quantity and Perishable
 		String itemString = ""; 
@@ -130,16 +143,29 @@ public class Electronics extends Item
 		System.out.println(itemString);
 	}
 	
+	/**
+	 * Set's the tax rules for the shipping state.
+	 * @param state : state to ship to.
+	 */
 	public void setStateTax(String state){
 		if(TAX_FREE_STATES.contains(state)){
 			this.tax = false;
 		}
 	}
 	
+	/**
+	 * Set's the electronics' fragile flag
+	 * @param fragile : new fragile value
+	 */
 	public void setFragile(boolean fragile){
 		this.fragile = fragile;
 	}
 	
+	/**
+	 * ValidState()
+	 * @param state
+	 * @return true if the shipping destination is valid.
+	 */
 	public static boolean validState(String state){
 		if(US_STATES.contains(state)){
 			return true;

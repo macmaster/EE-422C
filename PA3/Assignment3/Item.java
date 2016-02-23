@@ -39,6 +39,12 @@ public class Item implements Comparable<Item>
 		return final_price;
 	}
 	
+  /** printItemAttributes() ****************************************************
+   * Prints all the item attributes in a nice string format
+   * Prints the Item, Quantity, and Price
+   *               
+   * @param return : the total price of the item				
+   * ***************************************************************************/	
 	public void printItemAttributes(){
 		// Name, Price, and Quantity
 		String itemString = ""; 
@@ -52,10 +58,17 @@ public class Item implements Comparable<Item>
 		System.out.println(itemString);
 	}
 	
+	
+	/**
+	 * @return the price after taxes
+	 */
 	public float getPriceAfterTax(){
 		return price;
 	}
 	
+	/**
+	 * @return the shipping price
+	 */
 	public float getShippingPrice(){
 		float shipping_price = (20 * this.weight * this.quantity);
 		return shipping_price;

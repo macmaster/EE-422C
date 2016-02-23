@@ -44,6 +44,9 @@ public class Grocery extends Item
 	}
 	
 	@Override
+	/**
+	 * @return the shipping price
+	 */
 	public float getShippingPrice(){
 		float shipping_price = (20 * this.weight * this.quantity);
 		
@@ -56,6 +59,12 @@ public class Grocery extends Item
 	}
 	
 	@Override
+  /** printItemAttributes() ****************************************************
+   * Prints all the grocery attributes in a nice string format
+   * Prints the Name, Quantity, and Price
+   *               
+   * @param return : the total price of the item				
+   * ***************************************************************************/	
 	public void printItemAttributes(){
 		// Name, Price, Quantity and Perishable
 		String itemString = ""; 
@@ -77,7 +86,10 @@ public class Grocery extends Item
 		System.out.println(itemString);
 	}
 	
-	
+	/**
+	 * Set's the groceries pershiable flag
+	 * @param perishable : new perishable value
+	 */
 	public void setPersihable(boolean perishable){
 		this.perishable = perishable;
 	}

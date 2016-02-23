@@ -45,6 +45,9 @@ public class Clothing extends Item
 	}
 	
 	@Override
+	/**
+	 * @return the price after tax
+	 */
 	public float getPriceAfterTax(){
 		float base_price = 0;
 		float tax_amount = 0; 
