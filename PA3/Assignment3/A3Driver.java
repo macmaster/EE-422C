@@ -253,33 +253,66 @@ public class A3Driver
 	  System.out.println(name + " objects deleted: " + object_count);
   }
   
+  
+  /** Update() ******************************************************************
+   * update <name> <quantity> updates the quantity field for
+   * the first occurrence of a matching name.
+   * then output the name and new quantity value for that object to the screen.
+   * 
+   * @param data : the data string which contains the search name	to delete			
+   * ***************************************************************************/
   private static void update(String data){
-	  //TODO implement method
-	  // update <name> <quantity> updates the quantity field for
-	  // the first occurrence of a matching name.
-	  // then output the name and new quantity value for that object to the screen.
-	  /** Make this stuff nice
 	  try{
-		  int quant = Integer.parseInt(data);
-		  if(quant < 0){
+		  // parse update fields
+		  String[] fields = data.trim().split(" +");
+		  boolean item_found = false;
+		  String name = fields[0]; 
+		  int quantity = Integer.parseInt(fields[1]);
+		  
+		  // check valid quantity
+		  if(quantity < 0){
 			  throw new NumberFormatException();
 		  }
+		  
+		  //search for object to update
+		  Iterator<Item> cart_itr = shoppingCart.iterator();
+		  while(cart_itr.hasNext()){
+			  Item temp = cart_itr.next();
+			  String temp_name = temp.getName();
+			  if(temp_name.equals(name)){
+				  if(quantity == 0){ // remove item 
+					  System.out.println(name + " was found and removed from the cart (quantity 0).");
+					  cart_itr.remove();
+					  return;
+				  }
+				  else{ // item found, update quantity
+					  item_found = true;
+					  temp.setQuantity(quantity);
+					  break;
+				  }
+			  }
+		  }
+		  
+		  // update results
+		  if(item_found){
+			  System.out.println(name + " quantity updated to: " + quantity);
+		  }
+		  else{
+			  System.out.println(name + " was not found in the shopping cart.");
+		  }
+
+	  }catch(ArrayIndexOutOfBoundsException err){
+		  String errmsg = "Error: invalid update command!\n";
+		  errmsg += "Please enter the correct number of update fields.\n";
+		  errmsg += "update <name> <quantity>";
+		  throw new IllegalArgumentException(errmsg);
 	  }
 	  catch(NumberFormatException e){
 		  String errmsg = "Error: invalid quantity!\n";
 		  errmsg += "Please enter quantity as a positive integer.";
 		  throw new IllegalArgumentException(errmsg);
 	  }
-	  
-	  int index = cartSearch(name);
-	  if (index != -1){
-		  shoppingCart.get(index).setQuantity(quantity);
-	  }
-	  else{
-		  String errmsg = "Error: " + name + " is not in your shopping cart!\n";
-		  throw new IllegalArgumentException(errmsg);
-	  }
-	  */
+
   }
   
   /** Print() ******************************************************************
@@ -315,29 +348,5 @@ public class A3Driver
 	  System.out.print("\n");
 	  
   }
-  
-  /** static int cartSearch(String name){
-  
-  // I see what you tried to do  here with the binary search
-  
-  
-  int low = 0;
-  int high = shoppingCart.size() - 1;
-  while (low <= high)
-  {
-	  int mid = low + (high - low) / 2;
-	  if (name.compareTo(shoppingCart.get(mid).getName()) < 0)
-		  high = mid - 1;
-	  else if (name.compareTo(shoppingCart.get(mid).getName()) > 0)
-		  low = mid + 1;
-	  else{ //this ensures we hit the first item of "name" if there are multiple
-		  while (name.compareTo(shoppingCart.get(mid).getName()) == 0)
-			  mid-=1;
-		  return mid+1;
-	  }
-  }
-  return -1;
-  
-}*/
 
 }
