@@ -24,7 +24,7 @@ public class Clothing extends Item
 
 	@Override
 	float calculatePrice(){
-		float final_price = 0;
+		float final_price = this.price * this.quantity;
 		float tax_amount = 0;
 		
 		// clothing tax
