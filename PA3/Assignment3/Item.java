@@ -124,6 +124,8 @@ public class Item implements Comparable<Item>
 	public boolean equals(Item other) {
 		if(this == other)
 			return true;
+		if (!this.getClass().equals(other.getClass()))
+			return false;
 		if (!this.name.equals(other.getName()))
 			return false;
 		if (this.price != other.getPrice())
