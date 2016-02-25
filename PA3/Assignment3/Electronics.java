@@ -178,18 +178,20 @@ public class Electronics extends Item
 	 * Automatically generated equals method for two Item objects
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
-	public boolean equals(Electronics other) {
+	public boolean equals(Item other) {
 		if(this == other)
 			return true;
+		if(!(other instanceof Item))
+			return false;
 		if (!this.name.equals(other.getName()))
 			return false;
 		if (this.price != other.getPrice())
 			return false;
 		if (this.weight != other.getWeight())
 			return false;
-		if (this.fragile != other.fragile)
+		if (this.fragile != ((Electronics)other).fragile)
 			return false;
-		if (this.tax != other.tax)
+		if (this.tax != ((Electronics)other).tax)
 			return false;
 		return true;
 	}

@@ -90,7 +90,7 @@ public class Grocery extends Item
 	 * Set's the groceries pershiable flag
 	 * @param perishable : new perishable value
 	 */
-	public void setPersihable(boolean perishable){
+	public void setPersishable(boolean perishable){
 		this.perishable = perishable;
 	}
 	
@@ -98,16 +98,18 @@ public class Grocery extends Item
 	 * Automatically generated equals method for two Item objects
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
-	public boolean equals(Grocery other) {
+	public boolean equals(Item other) {
 		if(this == other)
 			return true;
+		if(!(other instanceof Grocery))
+			return false;
 		if (!this.name.equals(other.getName()))
 			return false;
 		if (this.price != other.getPrice())
 			return false;
 		if (this.weight != other.getWeight())
 			return false;
-		if (this.perishable != other.perishable)
+		if (this.perishable != ((Grocery)other).perishable)
 			return false;
 		return true;
 	}

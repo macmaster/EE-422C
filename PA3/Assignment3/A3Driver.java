@@ -114,6 +114,11 @@ public class A3Driver
    * @param data : the data string which contains the item fields
    * ***************************************************************************/  
   private static void insert(String data){ 
+	  // data check
+	  if(data == null){
+		  System.err.println("Cannot insert a null cart item!");
+		  return;
+	  }
 	 try{
 		 // create new cart item
 		 Item cart_item = createCartItem(data);
@@ -125,6 +130,11 @@ public class A3Driver
 		 // successful insert message
 		 System.out.println(name + " was inserted into the cart.");
 		 
+	 }catch(ArrayIndexOutOfBoundsException err){
+		  String errmsg = "Error: invalid insert command!\n";
+		  errmsg += "Please enter the correct number of update fields.\n";
+		  errmsg += "insert <name> <quantity> <price> <quantity> <weight> <optional field1> <optional field2>";
+		  throw new IllegalArgumentException(errmsg);
 	 }catch(NumberFormatException err){
 		 System.err.println("Insert Failed!");
 		 System.err.println("Could not interpret a number field.");
@@ -142,8 +152,53 @@ public class A3Driver
    * @param data : the data string which contains the search name					
    * ***************************************************************************/
   private static void search(String data){
+	  // data check
+	  if(data == null){
+		  System.err.println("Cannot search for null search field!");
+		  return;
+	  }
 	  // extract search_name
 	  String name;
+	  int npos = data.indexOf(' ');
+	  if(npos > 0){ 
+		  name = data.substring(0, npos);
+	  }
+	  else{ //single parameter
+		  name = data;
+	  }
+	  
+	  //use iterators! (Or Binary Search ... your choice. nothing wrong w. a little O(n))
+	  int object_count = 0;
+	  int object_quantity = 0;
+	  Iterator<Item> cart_itr = shoppingCart.iterator();
+	  while(cart_itr.hasNext()){
+		  Item temp = cart_itr.next();
+		  String temp_name = temp.getName();
+		  if(temp_name.equals(name)){
+			  object_count++;
+			  object_quantity += temp.getQuantity();
+		  }
+	  }
+	  
+	  // display results
+	  System.out.println("number of " + name + " objects found: " + object_count);
+	  System.out.println("quantity of " + name + " objects found: " + object_quantity);
+  }
+  
+  /** Delete() ******************************************************************
+   * delete <name> searches for and deletes
+   * all OBJECTS (and quantity) with the name field that matches the given <name>.
+   * 
+   * @param data : the data string which contains the search name	to delete				
+   * ***************************************************************************/
+  private static void delete(String data){
+	  // data check
+	  if(data == null){
+		  System.err.println("Cannot delete a null cart item!");
+		  return;
+	  }
+	  // extract search_name
+	  String name;	
 	  int npos = data.indexOf(' ');
 	  if(npos > 0){ 
 		  name = data.substring(0, npos).toLowerCase();
@@ -158,49 +213,17 @@ public class A3Driver
 	  Iterator<Item> cart_itr = shoppingCart.iterator();
 	  while(cart_itr.hasNext()){
 		  Item temp = cart_itr.next();
-		  String temp_name = temp.getName().toLowerCase();
-		  if(temp_name.equals(name)){
-			  object_count++;
-			  object_quantity += temp.getQuantity();
-		  }
-	  }
-	  
-	  // display results
-	  System.out.println("number of " + name + " objects: " + object_count);
-	  System.out.println("quantity of " + name + " objects: " + object_quantity);
-  }
-  
-  /** Delete() ******************************************************************
-   * delete <name> searches for and deletes
-   * all OBJECTS (not quantity) with the name field that matches the given <name>.
-   * 
-   * @param data : the data string which contains the search name	to delete				
-   * ***************************************************************************/
-  private static void delete(String data){
-	  // extract search_name
-	  String name;	
-	  int npos = data.indexOf(' ');
-	  if(npos > 0){ 
-		  name = data.substring(0, npos).toLowerCase();
-	  }
-	  else{ //single parameter
-		  name = data;
-	  }
-	  
-	  //use iterators! (Or Binary Search ... your choice. nothing wrong w. a little O(n))
-	  int object_count = 0;
-	  Iterator<Item> cart_itr = shoppingCart.iterator();
-	  while(cart_itr.hasNext()){
-		  Item temp = cart_itr.next();
 		  String temp_name = temp.getName();
 		  if(temp_name.equals(name)){
 			  cart_itr.remove();
+			  object_quantity += temp.getQuantity();
 			  object_count++;
 		  }
 	  }
 	  
 	  // display results
 	  System.out.println(name + " objects deleted: " + object_count);
+	  System.out.println(name + " quantity deleted: " + object_quantity);
   }
   
   /** Update() ******************************************************************
@@ -211,6 +234,12 @@ public class A3Driver
    * @param data : the data string which contains the search name	to delete			
    * ***************************************************************************/
   private static void update(String data){
+	  // data check
+	  if(data == null){
+		  System.err.println("Cannot update a null cart item!");
+		  return;
+	  }
+	  
 	  try{
 		  // parse update fields
 		  String[] fields = data.trim().split(" +");
@@ -248,8 +277,7 @@ public class A3Driver
 		  errmsg += "Please enter the correct number of update fields.\n";
 		  errmsg += "update <name> <quantity>";
 		  throw new IllegalArgumentException(errmsg);
-	  }
-	  catch(NumberFormatException e){
+	  }catch(NumberFormatException e){
 		  String errmsg = "Error: invalid quantity!\n";
 		  errmsg += "Please enter quantity as a positive integer.";
 		  throw new IllegalArgumentException(errmsg);
@@ -355,7 +383,7 @@ public class A3Driver
 		  if(fields_count > 5){
 			  life = fields[5].toUpperCase();
 			  if(life.equals("P")){ // perishable groceries
-				  grocery.setPersihable(true);
+				  grocery.setPersishable(true);
 			  }
 		  }
 		  return grocery;

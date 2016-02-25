@@ -134,7 +134,7 @@ public class Item implements Comparable<Item>
 	 *  Compares two items lexicographically by name
 	 */
    public int compareTo(Item other){
-      return (this.name.toLowerCase()).compareTo(other.name.toLowerCase());
+      return (this.name).compareTo(other.name);
    }
 
 	/* 
