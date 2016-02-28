@@ -15,19 +15,21 @@ package assignment4;
 import java.util.List;
 
 public class Assign4Driver{
-	
-    public static void main(String[] args){
-   	 
-        // Create a word ladder solver object
-        Assignment4Interface wordLadderSolver = new WordLadderSolver();
 
-        try{
-            List<String> result = wordLadderSolver.computeLadder("money", "honey");
-            boolean correct = wordLadderSolver.validateResult("money", "honey", result);
-        } 
-        catch (NoSuchLadderException e){
-      	  	
-            e.printStackTrace();
-        }
-    }
+	public static void main(String[] args){
+		// Create dictionary
+		Dictionary dict = new Dictionary("A4words.dat");
+		// System.out.println(dict);
+		System.out.println("Dictionary Word count: " + dict.getCapacity());
+
+		// Create a word ladder solver object
+		Assignment4Interface wordLadderSolver = new WordLadderSolver();
+		/*
+		 * try{ List<String> result = wordLadderSolver.computeLadder("money",
+		 * "honey"); boolean correct = wordLadderSolver.validateResult("money",
+		 * "honey", result); } catch (NoSuchLadderException e){
+		 * 
+		 * e.printStackTrace(); }
+		 */
+	}
 }

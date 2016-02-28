@@ -3,6 +3,6 @@
 Group 37  
 Authors : Ronald Macmaster, Horng-Bin Justin Wei  
 UT EID: rpm953, hjw396  
-Main Method: Assign4Driver.Java
+Main Method: Assign4Driver.Java  
 git url : https://github.com/ronny-macmaster/EE-422C/tree/master/PA4
 
