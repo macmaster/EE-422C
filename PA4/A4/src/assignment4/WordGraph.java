@@ -90,6 +90,11 @@ public class WordGraph{
 		// TODO: Return a list of the indexed word's neighbors
 		// can return a null list too.
 		List<Integer> neighbors = new ArrayList<Integer>();
+		for(int i = 0; i < capacity; i++) {
+			if(graph[index][i]) {
+				neighbors.add(i);
+			}
+		}
 		return neighbors;
 	}
 
