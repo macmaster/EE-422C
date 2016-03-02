@@ -31,8 +31,8 @@ public class WordGraph{
 	private boolean[][] graph;
 
 	// Word data
-	Set<String> wordSet;
-	Map<String, Integer> indexMap;
+	private Set<String> wordSet;
+	private Map<String, Integer> indexMap;
 
 	public WordGraph(int capacity){
 		if(capacity < 0){
@@ -45,20 +45,22 @@ public class WordGraph{
 		indexMap = new HashMap<String, Integer>();
 	}
 
-	public void buildGraph(Map<Integer, Word> wordMap){
+	public void buildGraph(Dictionary dictionary){
 		// TODO: Build the adjacency matrix from the word map
+		List<String> wordList = dictionary.getWordList(); // all dictionary words
 		graph = new boolean[capacity][capacity]; // false by default
-
+		
 		// build word sets
-		for(Integer index : wordMap.keySet()){
-			Word word = wordMap.get(index);
+		for(String wordString : wordList){
+			Word word = dictionary.getWord(wordString);
+			Integer index = dictionary.getWordIndex(wordString);
 			wordSet.add(word.getWord()); // mark word
 			indexMap.put(word.getWord(), index); // hash index
 		}
 
 		// check every possible connection and build graph
 		for(String word : wordSet){ // each word in the set
-			System.out.print(word + "\t\t");
+//			System.out.print(word + "\t\t");
 			for(int pos = 0; pos < word.length(); pos++){
 				// permutate every char in the word
 				for(char ch = 'a'; ch < 'z'; ch++){
@@ -71,14 +73,14 @@ public class WordGraph{
 						int index2 = indexMap.get(pstring);
 						graph[index1][index2] = true;
 						graph[index2][index1] = true;
-						System.out.print(pword + ", ");
+//						System.out.print(pword + ", ");
 					}
 				}
 			}
-			System.out.print("\n");
+//			System.out.print("\n");
 		}
 		try{ //debug
-			printGraph();
+			// printGraph();
 		}catch(Exception err){
 			
 		}
@@ -90,6 +92,14 @@ public class WordGraph{
 		// TODO: Return a list of the indexed word's neighbors
 		// can return a null list too.
 		List<Integer> neighbors = new ArrayList<Integer>();
+		
+		//traverse graph
+		for(int neighbor_index = 0; neighbor_index < capacity; neighbor_index++){
+			if(graph[index][neighbor_index] == true){ //words are adjacent
+				neighbors.add(neighbor_index);
+			}
+		}
+		
 		return neighbors;
 	}
 
@@ -102,7 +112,7 @@ public class WordGraph{
 	public void printGraph() throws IOException{
 		
 		// build graph plot
-		FileWriter writer = new FileWriter("graph.csv");
+		FileWriter writer = new FileWriter("test/graph.csv");
 		BufferedWriter fhand = new BufferedWriter(writer);
 		for(int i = 0; i < capacity; i++){
 			//fhand.write(i + "\t[");
@@ -120,7 +130,7 @@ public class WordGraph{
 		
 		
 		// build key file
-		writer = new FileWriter("key.txt");
+		writer = new FileWriter("test/key.txt");
 		fhand = new BufferedWriter(writer);
 		
 		for(String word : wordSet){

@@ -8,6 +8,7 @@
  * @author Ronald Macmaster, Horng-Bin Justin Wei 
  * @version 1.01 2/27/2016
  ************************************************************/
+
 package assignment4;
 
 //file imports
@@ -24,19 +25,21 @@ import java.util.regex.Matcher;
 import java.util.Set;
 import java.util.Map;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.HashMap;
 
 public class Dictionary{
 	// constants
 	private final static int WORD_SIZE = 5;
 
-	// word graph
+	// word count
 	private int capacity;
-	private WordGraph wordGraph;
 
 	// word sets
 	private Set<String> wordSet;
 	private Map<Integer, Word> wordMap;
+	private Map<String, Word> stringMap;
 
 	public Dictionary(String filename){
 		try{
@@ -44,11 +47,10 @@ public class Dictionary{
 			capacity = 0;
 			wordSet = new HashSet<String>();
 			wordMap = new HashMap<Integer, Word>();
+			stringMap = new HashMap<String, Word>();
 
 			// build dictionary from file
 			buildFromFile(filename);
-			wordGraph = new WordGraph(capacity);
-			wordGraph.buildGraph(wordMap);
 
 		} catch(FileNotFoundException ferr){
 			System.err.println("Failed to open dictionary file! Dictionary set to empty");
@@ -87,6 +89,7 @@ public class Dictionary{
 				word = word.toLowerCase();
 				wordSet.add(word);
 				wordMap.put(index, word_node);
+				stringMap.put(word, word_node);
 				capacity++;
 			}
 		}
@@ -95,32 +98,57 @@ public class Dictionary{
 		fhand.close();
 	}
 
-	public void setCapacity(int n){
-		// n is positive
-		int minsize = wordSet.size();
-		if(n < minsize){
-			System.err.println("must have capacity to store word list!");
-			n = minsize;
-		}
-
-		// update capacity.
-		capacity = n;
-		wordGraph = new WordGraph(n);
-		wordGraph.buildGraph(wordMap);
-	}
+	/**
+	 * public void setCapacity(int n){ // n is positive int minsize =
+	 * wordSet.size(); if(n < minsize){ System.err.println(
+	 * "must have capacity to store word list!"); n = minsize; }
+	 * 
+	 * // update capacity. capacity = n; wordGraph = new WordGraph(n);
+	 * wordGraph.buildGraph(wordMap); }
+	 */
 
 	public int getCapacity(){
 		return capacity;
 	}
 
 	public Word getWord(int index){
-		return wordMap.get(index);
+		try{
+			return wordMap.get(index);
+		} catch(Exception err){
+			return null; // get word failed
+		}
 	}
 
-	/**
-	 * public int getWordKey(String word){ if(wordKeys.containsKey(word)){ return
-	 * wordKeys.get(word); } else{ return -1; // nonexistent word } }
-	 */
+	public Word getWord(String word){
+		try{
+			return stringMap.get(word);
+		} catch(Exception err){
+			return null; // get word failed
+		}
+	}
+
+	public int getWordIndex(String word){
+		if(stringMap.containsKey(word)){
+			Word wordNode = stringMap.get(word);
+			return wordNode.getKey();
+		}
+		else{
+			return -1; // nonexistent word }
+		}
+	}
+
+	public List<String> getWordList(){
+		List<String> wordlist = new LinkedList<String>();
+		// compile a word list
+		for(String word : wordSet){
+			wordlist.add(word);
+		}
+		return wordlist;
+	}
+
+	public boolean containsWord(String word){
+		return wordSet.contains(word);
+	}
 
 	public String toString(){
 		int word_count = 0;
