@@ -92,14 +92,23 @@ public class WordGraph{
 		// TODO: Return a list of the indexed word's neighbors
 		// can return a null list too.
 		List<Integer> neighbors = new ArrayList<Integer>();
+<<<<<<< HEAD
 		
 		//traverse graph
+		/*
 		for(int neighbor_index = 0; neighbor_index < capacity; neighbor_index++){
 			if(graph[index][neighbor_index] == true){ //words are adjacent
 				neighbors.add(neighbor_index);
 			}
-		}
+		}*/
 		
+=======
+		for(int i = 0; i < capacity; i++) {
+			if(graph[index][i]) {
+				neighbors.add(i);
+			}
+		}
+>>>>>>> d82ab850c3e627c4a89498e356246aafa061acee
 		return neighbors;
 	}
 
