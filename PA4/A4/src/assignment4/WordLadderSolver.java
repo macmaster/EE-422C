@@ -64,17 +64,20 @@ public class WordLadderSolver implements Assignment4Interface{
 	@Override
 	public List<String> computeLadder(String startWord, String endWord) throws NoSuchLadderException{
 		Word start = dictionary.getWord(startWord);
-		Word end = dictionary.getWord(startWord);
+		Word end = dictionary.getWord(endWord);
 		Queue<Word> searchQueue = new LinkedList<Word>();
 		Set<Word> visitedWords = new HashSet<Word>(); 
 		
 		// same-word empty ladder
-		if(startWord.equals(endWord)){
+		if(start.equals(end)){
+			start.setParent(null);
 			return reconstructPath(start, end);
 		}
 		
 		// Breadth-First search
+		start.setParent(null);
 		searchQueue.add(start);
+		visitedWords.add(start);
 		while(!searchQueue.isEmpty()){
 			// visit next word in queue
 			Word word = searchQueue.remove();
@@ -97,7 +100,7 @@ public class WordLadderSolver implements Assignment4Interface{
 		}
 		
 		//failed to find word ladder
-		System.err.println("No word ladder between: " + start + " and" + end + ".");
+		System.err.println("No word ladder between: " + start.getWord() + " and " + end.getWord() + ".");
 		return new LinkedList<String>();
 		
 	}
@@ -113,6 +116,13 @@ public class WordLadderSolver implements Assignment4Interface{
 		List<Word> wordPath = new LinkedList<Word>();
 		Word current = end;
 		Word parent = current.getParent();
+		
+		// same-word empty ladder
+		if(start.equals(end)){
+			wordLadder.add(start.getWord());
+			wordLadder.add(end.getWord());
+			return wordLadder;
+		}
 		
 		// build reverse path of word objects
 		wordPath.add(current);

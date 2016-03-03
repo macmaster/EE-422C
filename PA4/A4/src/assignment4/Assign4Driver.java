@@ -28,6 +28,15 @@ public class Assign4Driver{
 		try{
 			List<String> result = wordLadderSolver.computeLadder("money", "honey");
 			System.out.println(result);
+			result = wordLadderSolver.computeLadder("cokes", "magic");
+			System.out.println(result);
+			
+			System.out.println(wordLadderSolver.computeLadder("youth", "tiger"));
+			System.out.println(wordLadderSolver.computeLadder("alone", "aloha"));
+			System.out.println(wordLadderSolver.computeLadder("leave", "value"));
+			
+			System.out.println(wordLadderSolver.computeLadder("value", "value"));
+			System.out.println(wordLadderSolver.computeLadder("texas", "roads"));
 		}
 		catch(Exception err){
 			System.err.println("fail!!");
