@@ -122,7 +122,7 @@ public class Dictionary{
 	public Word getWord(String word){
 		try{
 			return stringMap.get(word);
-		} catch(Exception err){
+		} catch(Exception err){ // no need, get returns null if there is no mapping for the key
 			return null; // get word failed
 		}
 	}
