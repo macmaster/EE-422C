@@ -107,8 +107,28 @@ public class WordLadderSolver implements Assignment4Interface{
 
 	@Override
 	public boolean validateResult(String startWord, String endWord, List<String> wordLadder){
-
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if(!startWord.equals(wordLadder.get(0)) || !endWord.equals(wordLadder.get(wordLadder.size()-1))) {
+			return false;
+		}
+		for(int i = 0; i < wordLadder.size() - 1; i++) {
+			if(dictionary.getWord(wordLadder.get(i)) != null && dictionary.getWord(wordLadder.get(i + 1)) != null) {
+				if(!diffByOne(wordLadder.get(i), wordLadder.get(i +1)))
+					return false;
+			} else 
+				return false;
+		}
+		return true;
+//		throw new UnsupportedOperationException("Not implemented yet!");
+	}
+	
+	private boolean diffByOne(String s1, String s2) {
+		int counter = 0;
+		for(int i = 0; i < 5; i++) {
+			if(s1.charAt(i) != s2.charAt(i)) {
+				counter++;
+			}
+		}
+		return counter == 1;
 	}
 	
 	private List<String> reconstructPath(Word start, Word end){
