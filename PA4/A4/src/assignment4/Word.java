@@ -19,6 +19,7 @@ public class Word{
 	private int key; // key for the word map
 	private Word parent; // parent node from visit in graph.
 
+	//constructor
 	public Word(String word){
 		this.parent = null;
 		this.word = word; // word data
@@ -30,29 +31,32 @@ public class Word{
 		this.key = key;
 	}
 
-	/** @return word */
+	/** returns word as a String
+	 * @return word */
 	public String getWord(){
 		return word;
 	}
 
-	/** @return key */
+	/** returns index of word
+	 * @return key */
 	public int getKey(){
 		return key;
 	}
 
-	/** @return parent */
+	/** returns parent of word
+	 * @return parent */
 	public Word getParent(){
 		return parent;
 	}
 
-	/**
+	/**sets index of word
 	 * @param key
 	 */
 	public void setKey(int key){
 		this.key = key;
 	}
 
-	/**
+	/**sets parent of word
 	 * @param parent
 	 */
 	public void setParent(Word parent){

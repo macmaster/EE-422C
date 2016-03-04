@@ -18,12 +18,12 @@ public class Assign4Driver{
 
 	public static void main(String[] args){
 		// Create dictionary
-		// Dictionary dict = new Dictionary("A4words.dat");
+		// Dictionary dict = new Dictionary("A4words.dat");	//takes the input from file of that name
 		// System.out.println(dict);
 		// System.out.println("Dictionary Word count: " + dict.getCapacity());
 
 		// Create a word ladder solver object
-		Assignment4Interface wordLadderSolver = new WordLadderSolver();
+		Assignment4Interface wordLadderSolver = new WordLadderSolver();	//created a wordladdersolver object
 
 		try{
 			List<String> result = wordLadderSolver.computeLadder("money", "honey");
@@ -51,3 +51,5 @@ public class Assign4Driver{
 		 */
 	}
 }
+
+//they are giving us two inputs: first is dictionary, second contains the sets of two words

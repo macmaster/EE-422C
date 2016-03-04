@@ -34,6 +34,7 @@ public class WordGraph{
 	private Set<String> wordSet;
 	private Map<String, Integer> indexMap;
 
+	// constructor
 	public WordGraph(int capacity){
 		if(capacity < 0){
 			this.capacity = 0;
@@ -45,8 +46,8 @@ public class WordGraph{
 		indexMap = new HashMap<String, Integer>();
 	}
 
+	// Build the adjacency matrix from the word map
 	public void buildGraph(Dictionary dictionary){
-		// TODO: Build the adjacency matrix from the word map
 		List<String> wordList = dictionary.getWordList(); // all dictionary words
 		graph = new boolean[capacity][capacity]; // false by default
 		
@@ -87,9 +88,9 @@ public class WordGraph{
 		return;
 	}
 
-	/** @return list of word neighbors */
+	/** Return a list of the indexed word's neighbors
+	 *  @return list of word neighbors */
 	public List<Integer> getNeighbors(int index){
-		// TODO: Return a list of the indexed word's neighbors
 		// can return a null list too.
 		List<Integer> neighbors = new ArrayList<Integer>();
 		
@@ -103,7 +104,8 @@ public class WordGraph{
 		return neighbors;
 	}
 
-	/** @return capacity */
+	/** gets the capacity of the word graph
+	 *  @return capacity */
 	public int getCapacity(){
 		return capacity;
 	}
