@@ -105,10 +105,32 @@ public class WordLadderSolver implements Assignment4Interface{
 		
 	}
 
+	//checks if word ladder is valid: if words are in dictionary, if every two adjacent word are off by only 1 letter
 	@Override
 	public boolean validateResult(String startWord, String endWord, List<String> wordLadder){
-
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if(!startWord.equals(wordLadder.get(0)) || !endWord.equals(wordLadder.get(wordLadder.size()-1))) {
+			return false;
+		}
+		for(int i = 0; i < wordLadder.size() - 1; i++) {
+			if(dictionary.containsWord(wordLadder.get(i)) && dictionary.containsWord(wordLadder.get(i + 1))) {
+				if(!diffByOne(wordLadder.get(i), wordLadder.get(i +1)))
+					return false;
+			} else 
+				return false;
+		}
+		return true;
+//		throw new UnsupportedOperationException("Not implemented yet!");
+	}
+	
+	//makes sure the adjacent words are only off by 1 letter
+	private boolean diffByOne(String s1, String s2) {
+		int counter = 0;
+		for(int i = 0; i < 5; i++) {
+			if(s1.charAt(i) != s2.charAt(i)) {
+				counter++;
+			}
+		}
+		return counter == 1;
 	}
 	
 	private List<String> reconstructPath(Word start, Word end){

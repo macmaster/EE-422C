@@ -31,16 +31,17 @@ import java.util.HashMap;
 
 public class Dictionary{
 	// constants
-	private final static int WORD_SIZE = 5;
+	private final static int WORD_SIZE = 5;	//every word has 5 letters
 
-	// word count
-	private int capacity;
+	// for word count
+	private int capacity;	//size of dictionary
 
 	// word sets
-	private Set<String> wordSet;
-	private Map<Integer, Word> wordMap;
-	private Map<String, Word> stringMap;
+	private Set<String> wordSet;	//dictionary
+	private Map<Integer, Word> wordMap;	//dictionary and each word's index
+	private Map<String, Word> stringMap;	//maps the string to its word object
 
+	//constructor
 	public Dictionary(String filename){
 		try{
 			// data structure
@@ -59,6 +60,7 @@ public class Dictionary{
 		}
 	}
 
+	//creates the dictionary
 	private void buildFromFile(String filename) throws IOException{
 		// open file
 		FileReader reader = new FileReader(filename);
@@ -66,6 +68,10 @@ public class Dictionary{
 
 		String line; // raw word data
 		while((line = fhand.readLine()) != null){
+			if(line.charAt(0) == '*'){
+				continue;	//goes to next iteration (goes to the next line input) just in case they add a name or something in the comments
+			}
+						
 			// word regex (extract word @ start of line)
 			Pattern pattern = Pattern.compile("^([a-zA-Z]+)");
 			Matcher matcher = pattern.matcher(line);
@@ -76,16 +82,16 @@ public class Dictionary{
 				String word = matcher.group();
 				Word word_node = new Word(word, index);
 
-				// bad word size
+				// bad word size then ignore
 				if(word.length() != WORD_SIZE){
 					continue;
 				}
-				// word already in dictionary
+				// word already in dictionary then ignore
 				if(wordSet.contains(word)){
 					continue;
 				}
 
-				// add to dictionary
+				// otherwise add to dictionary
 				word = word.toLowerCase();
 				wordSet.add(word);
 				wordMap.put(index, word_node);
@@ -107,26 +113,22 @@ public class Dictionary{
 	 * wordGraph.buildGraph(wordMap); }
 	 */
 
+	//update capacity of dictionary
 	public int getCapacity(){
 		return capacity;
 	}
 
+	//gets word with given index
 	public Word getWord(int index){
-		try{
-			return wordMap.get(index);
-		} catch(Exception err){
-			return null; // get word failed
-		}
+		return wordMap.get(index);
 	}
 
+	//gets word with given string
 	public Word getWord(String word){
-		try{
-			return stringMap.get(word);
-		} catch(Exception err){
-			return null; // get word failed
-		}
+		return stringMap.get(word);
 	}
 
+	//gets index of given word
 	public int getWordIndex(String word){
 		if(stringMap.containsKey(word)){
 			Word wordNode = stringMap.get(word);
@@ -137,6 +139,7 @@ public class Dictionary{
 		}
 	}
 
+	//returns dictionary as list
 	public List<String> getWordList(){
 		List<String> wordlist = new LinkedList<String>();
 		// compile a word list
@@ -146,10 +149,12 @@ public class Dictionary{
 		return wordlist;
 	}
 
+	//checks if dictionary contains word
 	public boolean containsWord(String word){
 		return wordSet.contains(word);
 	}
 
+	//puts dictionary in a string
 	public String toString(){
 		int word_count = 0;
 		String dict_string = "";
