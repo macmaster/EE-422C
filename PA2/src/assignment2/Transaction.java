@@ -1,5 +1,10 @@
 package assignment2;
 
+import exceptions.AccountTypeException;
+import exceptions.AmountException;
+import exceptions.CustomerIDException;
+import exceptions.TransactionTypeException;
+
 /**
  * Transaction class for managing Transaction data
  * Input Format: Customer-ID#  transaction-type  [ amount]	account-type	[account-type2]
@@ -19,6 +24,7 @@ class Transaction {
 
 	public Transaction(String transaction)
 	throws CustomerIDException, AmountException, AccountTypeException, TransactionTypeException{
+		// Parse Transaction String for ID, action, amount, and account types
 		fields = transaction.trim().split("\\s+", 5);
 		customerID = Integer.parseInt(fields[0]);
 		action = fields[1].toUpperCase().charAt(0);
@@ -32,9 +38,12 @@ class Transaction {
 			case 'W':	//withdraw
 				amount = Double.parseDouble(fields[2]);
 				if(amount < 0){throw new AmountException();} // check negative amount
+				accountType1 = fields[3].toUpperCase().charAt(0);
+				if(!validAccountType(accountType1)){throw new AccountTypeException();} // check valid account type
+				break;
 			case 'I':	//interest
 			case 'G':	//get balance
-				accountType1 = fields[3].toUpperCase().charAt(0);
+				accountType1 = fields[2].toUpperCase().charAt(0);
 				if(!validAccountType(accountType1)){throw new AccountTypeException();} // check valid account type
 				break;
 			default:
@@ -43,13 +52,20 @@ class Transaction {
 
 	}
 	
-	/* Valid account types: 'C', 'S', 'A', 'L' */
-	boolean validAccountType(char accountType){
-		if(accountType == 'C' || accountType == 'S' || accountType == 'A' || accountType == 'L'){
-			return true;
-		}
-		else{
-			return false;
+	/**
+	 * @return The Account String*/
+	public static String getAccountString(char accountChar){
+		switch(accountChar){ //decode account type
+			case 'C': 
+		 		return "checking account";
+		 	case 'S': 
+		 		return "savings account";
+		 	case 'L': 
+		 		return "student loan account";
+		 	case 'A': 
+		 		return "auto loan account";
+		 	default:
+		 		return "";
 		}
 	}
 	
@@ -69,10 +85,12 @@ class Transaction {
 	/**
 	 * @return The Transaction Amount	*/
 	public double getTransactionAmount(){
-		if(action != 'I' && action != 'G')
+		if(action != 'I' && action != 'G'){
 			 return amount;
-		else
+		}
+		else{
 			 return 0;
+		}
 	}
 	    
 	/**
@@ -84,27 +102,12 @@ class Transaction {
 	/**
 	 * @return The Second Account Type	*/
 	public char getAccountType2(){
-		 if(action == 'T')
+		 if(action == 'T'){
 			 return accountType2;
-		 else
+		 }
+		 else{
 			 return '\0';
-	}
-	
-	/**
-	 * @return The Account String*/
-	public String getAccountString(char accountChar){
-		switch(accountChar){ //decode account type
-			case 'C': 
-		 		return "checking account";
-		 	case 'S': 
-		 		return "savings account";
-		 	case 'L': 
-		 		return "student loan account";
-		 	case 'A': 
-		 		return "auto loan account";
-		 	default:
-		 		return "";
-		}
+		 }
 	}
 	
 	/**
@@ -137,9 +140,18 @@ class Transaction {
 		 		tstring += "the interest was computed and added to the balance.";
 		 		break;
 		 }
-		 
-		 return tstring;
-		 
+		 return tstring; 
 	}
-
+	
+	/* Valid account types: 'C', 'S', 'A', 'L' */
+	boolean validAccountType(char accountType){
+		if(accountType == 'C' || accountType == 'S' || accountType == 'A' || accountType == 'L'){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
 }
+	

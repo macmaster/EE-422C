@@ -11,8 +11,8 @@ package assignment2;
  */
 class BankAccount 
 {   
-  protected int accountNumber; // A unique number that identifies the account
   //protected Customer accountOwner // The Customer who owns the account
+  protected int accountNumber; // A unique number that identifies the account
   protected String ownersName; // The name of the person that this account belongs to
   protected double balance; // the current value (in dollars) of the money in this account
    
