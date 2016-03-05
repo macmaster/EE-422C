@@ -20,38 +20,39 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.util.Iterator;
 
-public class Assign4Driver{
+public class Assign4Driver {
 
 	private static Assignment4Interface wordLadderSolver;
 
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		// Create dictionary
-		// Dictionary dict = new Dictionary("A4words.dat"); //takes the input from
+		// Dictionary dict = new Dictionary("A4words.dat"); //takes the input
+		// from
 		// file of that name
 		// System.out.println(dict);
 		// System.out.println("Dictionary Word count: " + dict.getCapacity());
 
 		// Create a word ladder solver object
 
-		try{
+		try {
 			// 1) Read dictionary and filename
 			String dictfile; // dictionary filename
 			String pairfile; // word pairs filename
 
-			if(args.length != 2){ // invalid commandline arguments
+			if (args.length != 2) { // invalid commandline arguments
 				Scanner input = new Scanner(System.in);
 				// prompt filenames
 				System.out.println("Enter your dictionary filename: ");
 				dictfile = input.next();
 				System.out.println("Enter your word pairs filename: ");
 				pairfile = input.next();
-			}
-			else{
+			} else {
 				dictfile = args[0];
 				pairfile = args[1];
 			}
 
-			// 2) create a wordladdersolver object (includes graph and dictionary)
+			// 2) create a wordladdersolver object (includes graph and
+			// dictionary)
 			wordLadderSolver = new WordLadderSolver(dictfile);
 
 			// 3) file input loop:
@@ -60,20 +61,33 @@ public class Assign4Driver{
 
 			String line;
 			Assign4Driver.printBanner();
-			while((line = fhand.readLine()) != null){
+			while ((line = fhand.readLine()) != null) {
 				Pattern pattern = Pattern.compile("[a-zA-Z]{5}[\\s]+[a-zA-Z]{5}");
 				Matcher matcher = pattern.matcher(line);
 
-				if(matcher.find()){
+				if (matcher.find()) {
 					String[] words = matcher.group().split("[\\s]+");
 					String start = words[0];
 					String end = words[1];
-					System.out.println("\tstart word: " + start + "\tend word: " + end);
+
+					// centering the output
+					int remainspace = (65 - (26 + start.length() + end.length()));
+					for (int i = 0; i < (remainspace / 2); i++) {
+						System.out.print(" ");
+					}
+
+					System.out.println("start word: " + start + "    end word: " + end);
 					Assign4Driver.printLadder(start, end);
 					Assign4Driver.printBanner();
-				}
-				else{
+				} else {
 					System.err.println("Error: Input line does not contain a valid 5 letter word pair.");
+
+					// centering the output
+					int remainspace = 65 - (16 + line.length());
+					for (int i = 0; i < (remainspace / 2); i++) {
+						System.out.print(" ");
+					}
+
 					System.err.println("Original input: " + line);
 					Assign4Driver.printBanner();
 					continue;
@@ -81,29 +95,29 @@ public class Assign4Driver{
 
 			}
 
-		} catch(Exception err){
+		} catch (Exception err) {
 			System.err.println("fail!!");
 		}
 
 	}
 
-	private static void printBanner(){
+	private static void printBanner() {
 		int bannerSize = 65;
-		for(int i = 0; i < bannerSize; i++){
+		for (int i = 0; i < bannerSize; i++) {
 			System.out.print("*");
 		}
 		System.out.print("\n");
 	}
 
-	private static void printLadder(String start, String end){
-		try{
+	private static void printLadder(String start, String end) {
+		try {
 			List<String> wordLadder = wordLadderSolver.computeLadder(start, end);
 			Iterator ladderItr = wordLadder.iterator();
 			// iterate through wordladder
-			while(ladderItr.hasNext()){
+			while (ladderItr.hasNext()) {
 				System.out.println(ladderItr.next());
 			}
-		} catch(Exception err){
+		} catch (Exception err) {
 			System.err.println("No word ladder between: " + start + " and " + end + ".");
 		}
 	}
