@@ -44,23 +44,6 @@ public class WordLadderSolver implements Assignment4Interface{
 		this(defaultDictionaryName);
 	}
 	
-
-	/** search algorithm
-		BFS(Graph, roof){
-			For each node in G
-			N distance = infinity
-			N parent = null
-			Empty Queue Q
-			Root distance = 0
-			Q enque(roof)
-			While(not empty){
-					For each node adjacent to current
-					If(n.distance = invfinity)
-						n.distance = current.distance+1
-						n.parent = current
-						Q.enqueue(N)
-	 */
-	// do not change signature of the method implemented from the interface
 	@Override
 	public List<String> computeLadder(String startWord, String endWord) throws NoSuchLadderException{
 		Word start = dictionary.getWord(startWord);
@@ -100,9 +83,7 @@ public class WordLadderSolver implements Assignment4Interface{
 		}
 		
 		//failed to find word ladder
-		System.err.println("No word ladder between: " + start.getWord() + " and " + end.getWord() + ".");
-		return new LinkedList<String>();
-		
+		throw new NoSuchLadderException();
 	}
 
 	//checks if word ladder is valid: if words are in dictionary, if every two adjacent word are off by only 1 letter

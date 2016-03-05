@@ -68,9 +68,6 @@ public class Dictionary{
 
 		String line; // raw word data
 		while((line = fhand.readLine()) != null){
-			if(line.charAt(0) == '*'){
-				continue;	//goes to next iteration (goes to the next line input) just in case they add a name or something in the comments
-			}
 						
 			// word regex (extract word @ start of line)
 			Pattern pattern = Pattern.compile("^([a-zA-Z]+)");
