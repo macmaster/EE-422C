@@ -25,13 +25,12 @@ public class WordLadderSolver implements Assignment4Interface{
 	// Dictionary Data Structure
 	private Dictionary dictionary;
 	private static final String defaultDictionaryName = "A4-words.txt";
-	
-	//word graph
+
+	// word graph
 	private int count;
 	private WordGraph wordGraph;
-	
 
-	// add a constructor for this object. 
+	// add a constructor for this object.
 	// HINT: it would be a good idea to set up the dictionary there
 	WordLadderSolver(String dictionaryName){
 		dictionary = new Dictionary(dictionaryName);
@@ -39,24 +38,24 @@ public class WordLadderSolver implements Assignment4Interface{
 		wordGraph = new WordGraph(count);
 		wordGraph.buildGraph(dictionary);
 	}
-	
+
 	WordLadderSolver(){
 		this(defaultDictionaryName);
 	}
-	
+
 	@Override
 	public List<String> computeLadder(String startWord, String endWord) throws NoSuchLadderException{
 		Word start = dictionary.getWord(startWord);
 		Word end = dictionary.getWord(endWord);
 		Queue<Word> searchQueue = new LinkedList<Word>();
-		Set<Word> visitedWords = new HashSet<Word>(); 
-		
+		Set<Word> visitedWords = new HashSet<Word>();
+
 		// same-word empty ladder
 		if(start.equals(end)){
 			start.setParent(null);
 			return reconstructPath(start, end);
 		}
-		
+
 		// Breadth-First search
 		start.setParent(null);
 		searchQueue.add(start);
@@ -66,7 +65,7 @@ public class WordLadderSolver implements Assignment4Interface{
 			Word word = searchQueue.remove();
 			Integer index = word.getKey();
 			List<Integer> adjacentWords = wordGraph.getNeighbors(index);
-			
+
 			// add each
 			for(Integer neighborIndex : adjacentWords){
 				Word neighbor = dictionary.getWord(neighborIndex);
@@ -79,54 +78,58 @@ public class WordLadderSolver implements Assignment4Interface{
 					}
 				}
 			}
-			
+
 		}
-		
-		//failed to find word ladder
+
+		// failed to find word ladder
 		throw new NoSuchLadderException();
 	}
 
-	//checks if word ladder is valid: if words are in dictionary, if every two adjacent word are off by only 1 letter
+	// checks if word ladder is valid: if words are in dictionary, if every two
+	// adjacent word are off by only 1 letter
 	@Override
 	public boolean validateResult(String startWord, String endWord, List<String> wordLadder){
-		if(!startWord.equals(wordLadder.get(0)) || !endWord.equals(wordLadder.get(wordLadder.size()-1))) {
+		if(!startWord.equals(wordLadder.get(0))
+				|| !endWord.equals(wordLadder.get(wordLadder.size() - 1))){
 			return false;
 		}
-		for(int i = 0; i < wordLadder.size() - 1; i++) {
-			if(dictionary.containsWord(wordLadder.get(i)) && dictionary.containsWord(wordLadder.get(i + 1))) {
-				if(!diffByOne(wordLadder.get(i), wordLadder.get(i +1)))
+		for(int i = 0; i < wordLadder.size() - 1; i++){
+			if(dictionary.containsWord(wordLadder.get(i))
+					&& dictionary.containsWord(wordLadder.get(i + 1))){
+				if(!diffByOne(wordLadder.get(i), wordLadder.get(i + 1)))
 					return false;
-			} else 
+			}
+			else
 				return false;
 		}
 		return true;
-//		throw new UnsupportedOperationException("Not implemented yet!");
+		// throw new UnsupportedOperationException("Not implemented yet!");
 	}
-	
-	//makes sure the adjacent words are only off by 1 letter
-	private boolean diffByOne(String s1, String s2) {
+
+	// makes sure the adjacent words are only off by 1 letter
+	private boolean diffByOne(String s1, String s2){
 		int counter = 0;
-		for(int i = 0; i < 5; i++) {
-			if(s1.charAt(i) != s2.charAt(i)) {
+		for(int i = 0; i < 5; i++){
+			if(s1.charAt(i) != s2.charAt(i)){
 				counter++;
 			}
 		}
 		return counter == 1;
 	}
-	
+
 	private List<String> reconstructPath(Word start, Word end){
 		List<String> wordLadder = new LinkedList<String>();
 		List<Word> wordPath = new LinkedList<Word>();
 		Word current = end;
 		Word parent = current.getParent();
-		
+
 		// same-word empty ladder
 		if(start.equals(end)){
 			wordLadder.add(start.getWord());
 			wordLadder.add(end.getWord());
 			return wordLadder;
 		}
-		
+
 		// build reverse path of word objects
 		wordPath.add(current);
 		while(parent != null){
@@ -134,7 +137,7 @@ public class WordLadderSolver implements Assignment4Interface{
 			current = parent;
 			parent = current.getParent();
 		}
-		
+
 		// reverse iterate through the path
 		// construct word string list
 		ListIterator<Word> listItr = wordPath.listIterator(wordPath.size());
@@ -142,7 +145,7 @@ public class WordLadderSolver implements Assignment4Interface{
 			current = listItr.previous();
 			wordLadder.add(current.getWord());
 		}
-		
+
 		return wordLadder;
 	}
 }

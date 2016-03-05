@@ -50,7 +50,7 @@ public class WordGraph{
 	public void buildGraph(Dictionary dictionary){
 		List<String> wordList = dictionary.getWordList(); // all dictionary words
 		graph = new boolean[capacity][capacity]; // false by default
-		
+
 		// build word sets
 		for(String wordString : wordList){
 			Word word = dictionary.getWord(wordString);
@@ -61,7 +61,7 @@ public class WordGraph{
 
 		// check every possible connection and build graph
 		for(String word : wordSet){ // each word in the set
-//			System.out.print(word + "\t\t");
+			// System.out.print(word + "\t\t");
 			for(int pos = 0; pos < word.length(); pos++){
 				// permutate every char in the word
 				for(char ch = 'a'; ch < 'z'; ch++){
@@ -74,71 +74,77 @@ public class WordGraph{
 						int index2 = indexMap.get(pstring);
 						graph[index1][index2] = true;
 						graph[index2][index1] = true;
-//						System.out.print(pword + ", ");
+						// System.out.print(pword + ", ");
 					}
 				}
 			}
-//			System.out.print("\n");
+			// System.out.print("\n");
 		}
-		try{ //debug
-			// printGraph();
-		}catch(Exception err){
-			
+		try{ // debug
+				// printGraph();
+		} catch(Exception err){
+
 		}
 		return;
 	}
 
-	/** Return a list of the indexed word's neighbors
-	 *  @return list of word neighbors */
+	/**
+	 * Return a list of the indexed word's neighbors
+	 * 
+	 * @return list of word neighbors
+	 */
 	public List<Integer> getNeighbors(int index){
 		// can return a null list too.
 		List<Integer> neighbors = new ArrayList<Integer>();
-		
-		//traverse graph
+
+		// traverse graph
 		for(int neighbor_index = 0; neighbor_index < capacity; neighbor_index++){
-			if(graph[index][neighbor_index] == true){ //words are adjacent
+			if(graph[index][neighbor_index] == true){ // words are adjacent
 				neighbors.add(neighbor_index);
 			}
 		}
-		
+
 		return neighbors;
 	}
 
-	/** gets the capacity of the word graph
-	 *  @return capacity */
+	/**
+	 * gets the capacity of the word graph
+	 * 
+	 * @return capacity
+	 */
 	public int getCapacity(){
 		return capacity;
 	}
-	
-	//debug print graph
+
+	// debug print graph
 	public void printGraph() throws IOException{
-		
+
 		// build graph plot
 		FileWriter writer = new FileWriter("test/graph.csv");
 		BufferedWriter fhand = new BufferedWriter(writer);
 		for(int i = 0; i < capacity; i++){
-			//fhand.write(i + "\t[");
+			// fhand.write(i + "\t[");
 			for(int j = 0; j < capacity; j++){
 				if(graph[i][j]){
 					fhand.write("1, ");
 				}
 				else{
-					fhand.write("0, ");				}
+					fhand.write("0, ");
+				}
 			}
-			//fhand.write("]\n");
+			// fhand.write("]\n");
 			fhand.write("\n");
 		}
 		fhand.close();
-		
-		
+
 		// build key file
 		writer = new FileWriter("test/key.txt");
 		fhand = new BufferedWriter(writer);
-		
+
 		for(String word : wordSet){
 			fhand.write(word + "\t" + indexMap.get(word) + "\n");
 		}
-		
+
 		fhand.close();
 	}
 

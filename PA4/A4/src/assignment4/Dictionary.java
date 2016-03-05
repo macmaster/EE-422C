@@ -31,17 +31,17 @@ import java.util.HashMap;
 
 public class Dictionary{
 	// constants
-	private final static int WORD_SIZE = 5;	//every word has 5 letters
+	private final static int WORD_SIZE = 5; // every word has 5 letters
 
 	// for word count
-	private int capacity;	//size of dictionary
+	private int capacity; // size of dictionary
 
 	// word sets
-	private Set<String> wordSet;	//dictionary
-	private Map<Integer, Word> wordMap;	//dictionary and each word's index
-	private Map<String, Word> stringMap;	//maps the string to its word object
+	private Set<String> wordSet; // dictionary
+	private Map<Integer, Word> wordMap; // dictionary and each word's index
+	private Map<String, Word> stringMap; // maps the string to its word object
 
-	//constructor
+	// constructor
 	public Dictionary(String filename){
 		try{
 			// data structure
@@ -60,7 +60,7 @@ public class Dictionary{
 		}
 	}
 
-	//creates the dictionary
+	// creates the dictionary
 	private void buildFromFile(String filename) throws IOException{
 		// open file
 		FileReader reader = new FileReader(filename);
@@ -68,7 +68,7 @@ public class Dictionary{
 
 		String line; // raw word data
 		while((line = fhand.readLine()) != null){
-						
+
 			// word regex (extract word @ start of line)
 			Pattern pattern = Pattern.compile("^([a-zA-Z]+)");
 			Matcher matcher = pattern.matcher(line);
@@ -110,22 +110,22 @@ public class Dictionary{
 	 * wordGraph.buildGraph(wordMap); }
 	 */
 
-	//update capacity of dictionary
+	// update capacity of dictionary
 	public int getCapacity(){
 		return capacity;
 	}
 
-	//gets word with given index
+	// gets word with given index
 	public Word getWord(int index){
 		return wordMap.get(index);
 	}
 
-	//gets word with given string
+	// gets word with given string
 	public Word getWord(String word){
 		return stringMap.get(word);
 	}
 
-	//gets index of given word
+	// gets index of given word
 	public int getWordIndex(String word){
 		if(stringMap.containsKey(word)){
 			Word wordNode = stringMap.get(word);
@@ -136,7 +136,7 @@ public class Dictionary{
 		}
 	}
 
-	//returns dictionary as list
+	// returns dictionary as list
 	public List<String> getWordList(){
 		List<String> wordlist = new LinkedList<String>();
 		// compile a word list
@@ -146,12 +146,12 @@ public class Dictionary{
 		return wordlist;
 	}
 
-	//checks if dictionary contains word
+	// checks if dictionary contains word
 	public boolean containsWord(String word){
 		return wordSet.contains(word);
 	}
 
-	//puts dictionary in a string
+	// puts dictionary in a string
 	public String toString(){
 		int word_count = 0;
 		String dict_string = "";
