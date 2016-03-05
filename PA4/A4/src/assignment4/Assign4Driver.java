@@ -68,10 +68,9 @@ public class Assign4Driver{
 					String[] words = matcher.group().split("[\\s]+");
 					String start = words[0];
 					String end  = words[1];
-					//finds number of characters subtracts from banner amt and centers the next part
-					int charamt = 26 + start.length() + end.length();
-					int remainspace = (65 - charamt)/2;
-					for(int i = 0; i < remainspace; i++){
+					//centering the output
+					int remainspace = (65 - (26 + start.length() + end.length()));
+					for(int i = 0; i < (remainspace/2); i++){
 						System.out.print(" ");
 					}
 					
@@ -81,6 +80,12 @@ public class Assign4Driver{
 				}
 				else{
 					System.err.println("Error: Input line does not contain a valid 5 letter word pair.");
+					//centering the output
+					int remainspace = 65 - (16 + line.length());
+					for(int i = 0; i < (remainspace/2); i++){
+						System.out.print(" ");
+					}
+					
 					System.err.println("Original input: " + line);
 					Assign4Driver.printBanner();
 					continue;
