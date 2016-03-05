@@ -68,7 +68,14 @@ public class Assign4Driver{
 					String[] words = matcher.group().split("[\\s]+");
 					String start = words[0];
 					String end  = words[1];
-					System.out.println("\tstart word: " + start + "\tend word: " + end);
+					//finds number of characters subtracts from banner amt and centers the next part
+					int charamt = 26 + start.length() + end.length();
+					int remainspace = (65 - charamt)/2;
+					for(int i = 0; i < remainspace; i++){
+						System.out.print(" ");
+					}
+					
+					System.out.println("start word: " + start + "    end word: " + end);
 					Assign4Driver.printLadder(start, end);
 					Assign4Driver.printBanner();
 				}
