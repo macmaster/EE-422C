@@ -3,6 +3,9 @@
    repeatedly start and stop the stopwatch. You can use a
    stopwatch to measure the running time of a program.
 */
+
+package assignment5;
+
 public class StopWatch
 {  
    /**
