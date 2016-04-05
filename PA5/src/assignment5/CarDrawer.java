@@ -1,6 +1,6 @@
 /********************CarDrawer**********************************
  * Car Drawer Applet for 422C
- * Creates an applet for a car racing interface
+ * Creates an Applet for a car racing interface
  * 
  * Section : F 2:00 - 3:30pm
  * Author: Ronny Macmaster
@@ -272,7 +272,7 @@ public class CarDrawer extends Applet{
 	 * Translate Cars and Repaint Applet
 	 * Declare a winner or a tie
 	 * 
-	 * @param event: Action Event trigger
+	 * Input: none
 	 * Precondition: none 
 	 *****************************************************************/
 	private void race(){

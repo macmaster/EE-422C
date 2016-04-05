@@ -11,7 +11,6 @@
 package assignment5;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
@@ -46,6 +45,13 @@ public class Car2D{
 		buildCar();
 	}
 
+	/******************buildCar()**************************************
+	 * Initializes the Car Body Bounds
+	 * Uses Shape classes from the Abstract Windows Toolkit
+	 * 
+	 * Input: none
+	 * Precondition: none 
+	 *****************************************************************/
 	private void buildCar(){
 		// debug
 		//outline = new Rectangle(x, y, width, height);
@@ -66,6 +72,13 @@ public class Car2D{
 		rearTire.setFrame(x + width * 11 / 16, y + height * 2 / 3, width / 6, height / 3);
 	}
 
+	/******************draw()**************************************
+	 * Draws Car2D Body Parts one at a time
+	 * Each Body part is a shape to be drawn individually
+	 * 
+	 * @param g2: Graphics object for painting
+	 * Precondition: none 
+	 *****************************************************************/
 	public void draw(Graphics2D g2){
 		// debug
 		// g2.draw(outline);
@@ -90,6 +103,14 @@ public class Car2D{
 
 	}
 
+	/******************translate()*************************************
+	 * Translates Each Body Part by dx and dy
+	 * Each Body Part is a shape
+	 * 
+	 * @param dx: change of position in the x direction
+	 * @param dy: change of position in the y direction
+	 * Precondition: none 
+	 *****************************************************************/
 	public void translate(int dx, int dy){
 		// translate wheel frames
 		Rectangle rearFrame = rearTire.getBounds();
@@ -106,22 +127,31 @@ public class Car2D{
 		frontTire.setFrame(frontFrame);
 	}
 
+	/** getX()
+	 * @return: x position of car Object */
 	public int getX(){
 		return x;
 	}
-
+	/** getY()
+	 * @return: y position of car Object */
 	public int getY(){
 		return y;
 	}
 
+	/** getNum()
+	 * @return: number string on car's body*/
 	public String getNum(){
 		return num;
 	}
 
+	/** getWidth()
+	 * @return: width of a car Object */
 	public static int getWidth(){
 		return width;
 	}
 
+	/** getHeight()
+	 * @return: height of a car Object */
 	public static int getHeight(){
 		return height;
 	}
