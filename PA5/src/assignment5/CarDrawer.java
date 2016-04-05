@@ -23,6 +23,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Button;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -32,7 +33,7 @@ import java.util.ArrayList;
 
 public class CarDrawer extends Applet{
 	// Applet size
-	private int width = 450;
+	private int width = 900;
 	private int height = 300;
 
 	// GUI buttons
@@ -51,11 +52,11 @@ public class CarDrawer extends Applet{
 	private StopWatch raceTimer;
 	private ArrayList<Car2D> cars;
 	private ArrayList<Car2D> winners;
-	
+
 	private static int random(int range){
 		return (int)((Math.random() * range) + 0.5);
 	}
-	
+
 	public void init(){
 		// initialize GUI
 		this.resize(width, height);
@@ -79,15 +80,21 @@ public class CarDrawer extends Applet{
 	}
 
 	public void paint(Graphics g){
-		// draw cars
+		// start and finish line
 		Graphics2D g2 = (Graphics2D)g;
+		drawBanner("Start!", Car2D.getWidth(), height / 30, g2, Color.red);
+		drawBanner("Finish!", width * 23/24, height / 30, g2, Color.green);
+
+		// draw cars
 		for(Car2D car : cars){
 			car.draw(g2);
 		}
-		// Controls and Timer
+		// controls and timer
+		double raceTime = raceTimer.getElapsedTime() / 1000.0;
 		g2.drawString("Controls", 0, height * 13 / 16);
-		
-		// Winner Banner
+		g2.drawString("Time: " + raceTime, width / 3, height * 13 / 16);
+
+		// winner banner
 		if(winFlag){
 			if(winners.size() > 1){
 				String winString = "Tie between cars: ";
@@ -111,6 +118,29 @@ public class CarDrawer extends Applet{
 		graphics = image.getGraphics();
 		paint(graphics);
 		g.drawImage(image, 0, 0, this);
+	}
+
+	private void drawBanner(String text, int x, int y, Graphics2D g2, Color color){
+		// set font
+		Font originalFont = g2.getFont();
+		Font newFont = new Font("Times New Roman", Font.BOLD, 24);
+		g2.setFont(newFont);
+
+		// draw outline
+		g2.setColor(color);
+		g2.fillRect(x - width / 48, y, width / 18, height * 3/ 5);
+		g2.drawRect(x - width / 48, y, width / 18, height * 3/ 5);
+
+		// transform text
+		g2.setColor(Color.black);
+		g2.translate((float)x, (float)y);
+		g2.rotate(Math.toRadians(90));
+		g2.drawString(text, height / 5, 0);
+		g2.rotate(-Math.toRadians(90));
+		g2.translate(-(float)x, -(float)y);
+
+		// reset font
+		g2.setFont(originalFont);
 	}
 
 	private void initializeButtons(){
@@ -148,7 +178,8 @@ public class CarDrawer extends Applet{
 	private void startAction(ActionEvent event){
 		System.out.println("start button pressed!");
 		if(raceFlag == false && winFlag == false){
-			// start race thread 
+			// start race thread
+			raceTimer.start();
 			race = new Thread(new Runnable(){
 				public void run(){
 					race();
@@ -159,6 +190,7 @@ public class CarDrawer extends Applet{
 	}
 
 	private void stopAction(ActionEvent event){
+		raceTimer.stop();
 		System.out.println("stop button pressed!");
 		raceFlag = false;
 	}
@@ -168,6 +200,7 @@ public class CarDrawer extends Applet{
 		// reinitialize car list
 		if(!raceFlag){
 			cars.clear();
+			raceTimer.reset();
 			winFlag = false; // clear winner
 			cars.add(new Car2D("1", 0, 0));
 			cars.add(new Car2D("2", 0, height * 1 / 8));
@@ -185,7 +218,7 @@ public class CarDrawer extends Applet{
 			// translate cars
 			for(Car2D car : cars){
 				int dx = random(3);
-				int carFront = car.getX() + car.getWidth() + dx;
+				int carFront = car.getX() + Car2D.getWidth() + dx;
 				car.translate(dx, 0);
 				if(carFront > width){
 					winFlag = true;
@@ -194,8 +227,11 @@ public class CarDrawer extends Applet{
 			}
 			// paint and delay
 			repaint();
-			try{Thread.sleep(8);} 
-			catch(InterruptedException e){e.printStackTrace();}
+			try{
+				Thread.sleep(8);
+			} catch(InterruptedException e){
+				e.printStackTrace();
+			}
 		}
 		raceFlag = false;
 	}

@@ -19,16 +19,16 @@ import java.awt.geom.Ellipse2D;
 
 public class Car2D{
 	// top-left corner coordinates of car's square space
-	int x, y; // x-coordinate, y-coordinate
-	int height, width; // car height, width
-	String num; // racecar number
-	Polygon roof; // burnt orange car roof
-	Rectangle body; // burnt orange car body
-	Ellipse2D.Double frontTire; // black front wheel
-	Ellipse2D.Double rearTire; // black front wheel
+	private static int height, width; // car height, width
+	private int x, y; // x-coordinate, y-coordinate
+	private String num; // racecar number
+	private Polygon roof; // burnt orange car roof
+	private Rectangle body; // burnt orange car body
+	private Ellipse2D.Double frontTire; // black front wheel
+	private Ellipse2D.Double rearTire; // black front wheel
 
 	// debug
-	//Rectangle outline;
+	// private Rectangle outline;
 
 	public Car2D(String num, int x, int y){
 		// initialize car data
@@ -118,11 +118,11 @@ public class Car2D{
 		return num;
 	}
 
-	public int getWidth(){
+	public static int getWidth(){
 		return width;
 	}
 
-	public int getHeight(){
+	public static int getHeight(){
 		return height;
 	}
 
