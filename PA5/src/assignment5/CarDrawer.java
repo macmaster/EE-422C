@@ -8,13 +8,6 @@
  * EID: rpm953
  ***************************************************************/
 
-/** the purpose of this example applet it to draw a boxy car out of
- basic graphical shapes (rectangles, circles and lines) on the applet
- window. It's position and size has been predetermined by sketching
- it out on graph paper first. The specific values of the coordinates
- of the shapes have been arbitrarily chosen.
-*/
-
 package assignment5;
 
 // GUI
@@ -57,6 +50,14 @@ public class CarDrawer extends Applet{
 		return (int)((Math.random() * range) + 0.5);
 	}
 
+	/************************init()**********************************
+	 * Runs before the Applet is opened
+	 * Initializes the GUI Applet
+	 * Creates the list of cars
+	 * Initializes Race Manager Variables
+	 * 
+	 * Precondition: none 
+	 ***************************************************************/
 	public void init(){
 		// initialize GUI
 		this.resize(width, height);
@@ -79,6 +80,14 @@ public class CarDrawer extends Applet{
 		winners = new ArrayList<Car2D>();
 	}
 
+	/************************paint()**********************************
+	 * Draws all the Car Race elements to the screen
+	 * Cars, Start / Finish line, Controls and Timer
+	 * Congratulation Banner
+	 * 
+	 * @param g: Graphics object
+	 * Precondition: none 
+	 *****************************************************************/
 	public void paint(Graphics g){
 		// start and finish line
 		Graphics2D g2 = (Graphics2D)g;
@@ -112,6 +121,14 @@ public class CarDrawer extends Applet{
 		}
 	}
 
+	/************************update()**********************************
+	 * Called right before paint method
+	 * Initializes the Double-Buffer Image
+	 * Paints the image graphics to the Applet
+	 * 
+	 * @param g: Graphics object
+	 * Precondition: none 
+	 *****************************************************************/
 	public void update(Graphics g){
 		// use graphics buffering
 		image = createImage(this.getWidth(), this.getHeight());
@@ -120,6 +137,16 @@ public class CarDrawer extends Applet{
 		g.drawImage(image, 0, 0, this);
 	}
 
+	/************************drawBanner()******************************
+	 * Draws a rotated Text Banner
+	 * Useful for Rotated Start and Finish Line
+	 * 
+	 * @param g2: Graphics object
+	 * @param text: string to print
+	 * @param x,y: x and y coordinates to print at
+	 * @param color: banner background color
+	 * Precondition: none 
+	 *****************************************************************/
 	private void drawBanner(String text, int x, int y, Graphics2D g2, Color color){
 		// set font
 		Font originalFont = g2.getFont();
@@ -143,6 +170,13 @@ public class CarDrawer extends Applet{
 		g2.setFont(originalFont);
 	}
 
+	/*****************initializeButtons()******************************
+	 * Build Start, Reset, and Stop buttons
+	 * Initialize the event listeners
+	 * 
+	 * Inputs: none
+	 * Precondition: none 
+	 *****************************************************************/
 	private void initializeButtons(){
 		// start button
 		startButton = new Button("Start");
@@ -175,6 +209,13 @@ public class CarDrawer extends Applet{
 		this.add(resetButton);
 	}
 
+	/*****************startAction()***********************************
+	 * Start race thread
+	 * Start the race timer
+	 * 
+	 * @param event: Action Event trigger
+	 * Precondition: none 
+	 *****************************************************************/
 	private void startAction(ActionEvent event){
 		System.out.println("start button pressed!");
 		if(raceFlag == false && winFlag == false){
@@ -189,12 +230,27 @@ public class CarDrawer extends Applet{
 		}
 	}
 
+	/*****************stopAction()***********************************
+	 * Pause the race thread
+	 * Pause the race timer
+	 * 
+	 * @param event: Action Event trigger
+	 * Precondition: none 
+	 *****************************************************************/
 	private void stopAction(ActionEvent event){
 		raceTimer.stop();
 		System.out.println("stop button pressed!");
 		raceFlag = false;
 	}
 
+	/******************resetAction()**********************************
+	 * Reset the Race variables
+	 * Generate a new list of cars
+	 * Reset the Race Timer
+	 * 
+	 * @param event: Action Event trigger
+	 * Precondition: none 
+	 *****************************************************************/
 	private void resetAction(ActionEvent event){
 		System.out.println("reset button pressed!");
 		// reinitialize car list
@@ -211,6 +267,14 @@ public class CarDrawer extends Applet{
 		}
 	}
 
+	/******************race()**********************************
+	 * Set the Race and Win Flags
+	 * Translate Cars and Repaint Applet
+	 * Declare a winner or a tie
+	 * 
+	 * @param event: Action Event trigger
+	 * Precondition: none 
+	 *****************************************************************/
 	private void race(){
 		raceFlag = true;
 		winFlag = false;
