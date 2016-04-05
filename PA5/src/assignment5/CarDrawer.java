@@ -19,60 +19,185 @@ package assignment5;
 
 // GUI
 import java.applet.Applet;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.Button;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
 
 // Data Structures
 import java.util.ArrayList;
 
-
 public class CarDrawer extends Applet{
-	
-	/**
-		// draw all of the car parts on the screen
-		g2.draw(body);
-		g2.draw(frontTire);
-		g2.draw(rearTire);
-		g2.draw(frontWindshield);
-		g2.draw(roofTop);
-		g2.draw(rearWindshield);
+	// Applet size
+	private int width = 450;
+	private int height = 300;
 
-		// draw the label under the car
-		g2.drawString("UT JavaMobile 1.0", 100, 150);
+	// GUI buttons
+	private Button startButton;
+	private Button stopButton;
+	private Button resetButton;
+
+	// image buffering
+	private Image image;
+	private Graphics graphics;
+
+	// race trackers
+	private Thread race;
+	private boolean raceFlag;
+	private boolean winFlag;
+	private StopWatch raceTimer;
+	private ArrayList<Car2D> cars;
+	private ArrayList<Car2D> winners;
 	
-	 */
+	private static int random(int range){
+		return (int)((Math.random() * range) + 0.5);
+	}
 	
-	
+	public void init(){
+		// initialize GUI
+		this.resize(width, height);
+		this.setLayout(null); // abs position
+		this.initializeButtons();
+		this.setFont(new Font("Times New Roman", Font.BOLD, 14));
+
+		// generate cars
+		cars = new ArrayList<Car2D>();
+		cars.add(new Car2D("1", 0, 0));
+		cars.add(new Car2D("2", 0, height * 1 / 8));
+		cars.add(new Car2D("3", 0, height * 2 / 8));
+		cars.add(new Car2D("4", 0, height * 3 / 8));
+		cars.add(new Car2D("5", 0, height * 4 / 8));
+
+		// initialize race managers
+		winFlag = false;
+		raceFlag = false;
+		raceTimer = new StopWatch();
+		winners = new ArrayList<Car2D>();
+	}
+
 	public void paint(Graphics g){
-		this.resize(450, 300);
+		// draw cars
 		Graphics2D g2 = (Graphics2D)g;
-		ArrayList<Car2D> cars = new ArrayList<Car2D>();
-		cars.add(new Car2D(0,0));
 		for(Car2D car : cars){
 			car.draw(g2);
 		}
+		// Controls and Timer
+		g2.drawString("Controls", 0, height * 13 / 16);
 		
-		/**
-		 * // create the car body
-			Rectangle body = new Rectangle(100, 110, 60, 10);
-			// create the car tires
-			Ellipse2D.Double frontTire = new Ellipse2D.Double(110, 120, 10, 10);
-			Ellipse2D.Double rearTire = new Ellipse2D.Double(140, 120, 10, 10);
-			// create the 4 points connecting the windshields and roof
-			Point2D.Double r1 = new Point2D.Double(110, 110);
-			Point2D.Double r2 = new Point2D.Double(120, 100);
-			Point2D.Double r3 = new Point2D.Double(140, 100);
-			Point2D.Double r4 = new Point2D.Double(150, 110);
-			// create the windshields and roof of the car
-			Line2D.Double frontWindshield = new Line2D.Double(r1, r2);
-			Line2D.Double roofTop = new Line2D.Double(r2, r3);
-			Line2D.Double rearWindshield = new Line2D.Double(r3, r4);
-		 	*
-		 	**/
-		
-		} 
-} 
+		// Winner Banner
+		if(winFlag){
+			if(winners.size() > 1){
+				String winString = "Tie between cars: ";
+				for(Car2D winner : winners){
+					winString += winner.getNum() + ", ";
+				}
+				winners.clear();
+				g2.drawString(winString, width / 2, height * 7 / 8);
+			}
+			else if(winners.size() == 1){
+				Car2D winner = winners.remove(0);
+				String winString = "Congratulations Car #" + winner.getNum();
+				g2.drawString(winString, width / 3, height * 7 / 8);
+			}
+		}
+	}
+
+	public void update(Graphics g){
+		// use graphics buffering
+		image = createImage(this.getWidth(), this.getHeight());
+		graphics = image.getGraphics();
+		paint(graphics);
+		g.drawImage(image, 0, 0, this);
+	}
+
+	private void initializeButtons(){
+		// start button
+		startButton = new Button("Start");
+		startButton.setBounds(0, height * 13 / 16, width / 6, height / 16);
+		startButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
+				startAction(event);
+			}
+		});
+		this.add(startButton);
+
+		// stop button
+		stopButton = new Button("Stop");
+		stopButton.setBounds(0, height * 14 / 16, width / 6, height / 16);
+		stopButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
+				stopAction(event);
+			}
+		});
+		this.add(stopButton);
+
+		// reset button
+		resetButton = new Button("Reset");
+		resetButton.setBounds(0, height * 15 / 16, width / 6, height / 16);
+		resetButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
+				resetAction(event);
+			}
+		});
+		this.add(resetButton);
+	}
+
+	private void startAction(ActionEvent event){
+		System.out.println("start button pressed!");
+		if(raceFlag == false && winFlag == false){
+			// start race thread 
+			race = new Thread(new Runnable(){
+				public void run(){
+					race();
+				}
+			});
+			race.start();
+		}
+	}
+
+	private void stopAction(ActionEvent event){
+		System.out.println("stop button pressed!");
+		raceFlag = false;
+	}
+
+	private void resetAction(ActionEvent event){
+		System.out.println("reset button pressed!");
+		// reinitialize car list
+		if(!raceFlag){
+			cars.clear();
+			winFlag = false; // clear winner
+			cars.add(new Car2D("1", 0, 0));
+			cars.add(new Car2D("2", 0, height * 1 / 8));
+			cars.add(new Car2D("3", 0, height * 2 / 8));
+			cars.add(new Car2D("4", 0, height * 3 / 8));
+			cars.add(new Car2D("5", 0, height * 4 / 8));
+			repaint();
+		}
+	}
+
+	private void race(){
+		raceFlag = true;
+		winFlag = false;
+		while(!winFlag && raceFlag){
+			// translate cars
+			for(Car2D car : cars){
+				int dx = random(3);
+				int carFront = car.getX() + car.getWidth() + dx;
+				car.translate(dx, 0);
+				if(carFront > width){
+					winFlag = true;
+					winners.add(car);
+				}
+			}
+			// paint and delay
+			repaint();
+			try{Thread.sleep(8);} 
+			catch(InterruptedException e){e.printStackTrace();}
+		}
+		raceFlag = false;
+	}
+
+}
