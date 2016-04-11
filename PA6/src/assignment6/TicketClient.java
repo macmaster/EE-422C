@@ -49,27 +49,27 @@ public class TicketClient {
 	String hostName = "";
 	String threadName = "";
 
-	TicketClient(String hostname, String threadname) {
+	public TicketClient(String hostname, String threadname) {
 		tc = new ThreadedTicketClient(this, hostname, threadname);
 		hostName = hostname;
 		threadName = threadname;
 	}
 
-	TicketClient(String name) {
+	public TicketClient(String name) {
 		this("localhost", name);
 	}
 
-	TicketClient() {
+	public TicketClient() {
 		this("localhost", "unnamed client");
 	}
 
-	void requestTicket() {
+	public void requestTicket() {
 		// TODO thread.run()
 		tc.run();
 		System.out.println(hostName + "," + threadName + " got one ticket");
 	}
 
-	void sleep() {
+	public void sleep() {
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
