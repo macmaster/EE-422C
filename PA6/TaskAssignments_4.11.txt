@@ -1,7 +1,15 @@
-To Write:
+Tasks:
 (1)TheaterShow class
 	-Initialize seat map queue
 	-Get best available seat
 	-Is seat available?
 (2)Seat class
 (3)TicketOffice class
+	-init random client queue
+	-handle ticket request
+(4)TicketPrinter class
+(5)TicketServer class
+(6)TicketClient class
+
+Cooper:
+Ron:
