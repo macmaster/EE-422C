@@ -1,0 +1,7 @@
+To Write:
+(1)TheaterShow class
+	-Initialize seat map queue
+	-Get best available seat
+	-Is seat available?
+(2)Seat class
+(3)TicketOffice class
