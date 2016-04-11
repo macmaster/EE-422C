@@ -10,6 +10,7 @@ Tasks:
 (4)TicketPrinter class
 (5)TicketServer class
 (6)TicketClient class
+(7)A6Driver class
 
-Cooper:
-Ron:
+Cooper: (1),(2),(6),(7)
+Ron: (3),(4),(5)
