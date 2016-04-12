@@ -20,15 +20,15 @@ import assignment6.TicketClient;
 import assignment6.TicketOffice;
 import assignment6.TicketServer;
 
-public class TestTicketOffice {
+public class TestTicketOffice{
 
 	public static int score = 0;
 
 	@Test
-	public void basicServerTest() {
-		try {
+	public void basicServerTest(){
+		try{
 			TicketServer.start(16789);
-		} catch (Exception e) {
+		} catch(Exception e){
 			fail();
 		}
 		TicketClient client = new TicketClient();
@@ -36,24 +36,24 @@ public class TestTicketOffice {
 	}
 
 	@Test
-	public void testServerCachedHardInstance() {
-		try {
+	public void testServerCachedHardInstance(){
+		try{
 			TicketServer.start(16790);
-		} catch (Exception e) {
+		} catch(Exception e){
 			fail();
 		}
 		TicketClient client1 = new TicketClient("localhost", "c1");
 		TicketClient client2 = new TicketClient("localhost", "c2");
 		client1.requestTicket();
 		client2.requestTicket();
-		
+
 	}
 
 	@Test
-	public void twoNonConcurrentServerTest() {
-		try {
+	public void twoNonConcurrentServerTest(){
+		try{
 			TicketServer.start(16791);
-		} catch (Exception e) {
+		} catch(Exception e){
 			fail();
 		}
 		TicketClient c1 = new TicketClient("nonconc1");
@@ -65,69 +65,71 @@ public class TestTicketOffice {
 	}
 
 	@Test
-	public void twoConcurrentServerTest() {
-		try {
+	public void twoConcurrentServerTest(){
+		try{
 			TicketServer.start(16792);
-		} catch (Exception e) {
+		} catch(Exception e){
 			fail();
 		}
 		final TicketClient c1 = new TicketClient("conc1");
 		final TicketClient c2 = new TicketClient("conc2");
 		final TicketClient c3 = new TicketClient("conc3");
-		Thread t1 = new Thread() {
-			public void run() {
+		Thread t1 = new Thread(){
+			public void run(){
 				c1.requestTicket();
 			}
 		};
-		Thread t2 = new Thread() {
-			public void run() {
+		Thread t2 = new Thread(){
+			public void run(){
 				c2.requestTicket();
 			}
 		};
-		Thread t3 = new Thread() {
-			public void run() {
+		Thread t3 = new Thread(){
+			public void run(){
 				c3.requestTicket();
 			}
 		};
 		t1.start();
 		t2.start();
 		t3.start();
-		try {
+		try{
 			t1.join();
 			t2.join();
 			t3.join();
-		} catch (Exception e) {
+		} catch(Exception e){
 			e.printStackTrace();
 		}
 
 	}
-	
+
 	@Test
 	public void testTicketOffice(){
+
+		// create office threads
 		TicketOffice o1 = new TicketOffice("localhost1", "office1");
 		TicketOffice o2 = new TicketOffice("localhost2", "office2");
-		
-		Thread o1thread = new Thread() {
-			public void run() {
+		Thread o1thread = new Thread(){
+			public void run(){
 				o1.run();
 			}
 		};
-		Thread o2thread = new Thread() {
-			public void run() {
-				System.out.println("hello world!");
+		Thread o2thread = new Thread(){
+			public void run(){
 				o2.run();
 			}
-		};		
-		
+		};
+
 		// start the office threads
 		o1thread.start();
 		o2thread.start();
-		
-		try {
+
+		// join the office threads
+		try{
 			o1thread.join();
 			o2thread.join();
-		} catch (Exception e) {
+		} catch(Exception e){
 			e.printStackTrace();
 		}
+
 	}
 }

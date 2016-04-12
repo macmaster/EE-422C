@@ -37,6 +37,10 @@ class ThreadedTicketClient implements Runnable {
 			BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
 			BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 			
+			// TODO: client code
+			String seatString = in.readLine();
+			out.println("Thanks for the ticket");
+			sc.result = seatString;
 			
 			echoSocket.close();
 		} catch (Exception e) {
@@ -67,7 +71,7 @@ public class TicketClient {
 
 	public void requestTicket() {
 		tc.run();
-		System.out.println(hostName + ", " + threadName + " got one ticket");
+		System.out.println(hostName + ", " + threadName + " requested one ticket");
 	}
 
 	public void sleep() {
