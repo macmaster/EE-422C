@@ -28,12 +28,6 @@ public class TestTicketOffice{
 	public static int score = 0;
 
 	@Test
-<<<<<<< HEAD
-	public void basicServerTest(){
-		try{
-			TicketServer.start(16789);
-		} catch(Exception e){
-=======
 	public void basicServerTest() {
 		//TheaterShow show = new TheaterShow();
 		Seat seat = new Seat(Section.Middle, 25, 50);
@@ -43,7 +37,6 @@ public class TestTicketOffice{
 		try {
 			//TicketServer.start(16789);
 		} catch (Exception e) {
->>>>>>> origin/master
 			fail();
 		}
 		TicketClient client = new TicketClient();
@@ -51,17 +44,10 @@ public class TestTicketOffice{
 	}
 
 	@Test
-<<<<<<< HEAD
-	public void testServerCachedHardInstance(){
-		try{
-			TicketServer.start(16790);
-		} catch(Exception e){
-=======
 	public void testServerCachedHardInstance() {
 		try {
 			//TicketServer.start(16790);
 		} catch (Exception e) {
->>>>>>> origin/master
 			fail();
 		}
 		TicketClient client1 = new TicketClient("localhost", "c1");
@@ -72,17 +58,10 @@ public class TestTicketOffice{
 	}
 
 	@Test
-<<<<<<< HEAD
-	public void twoNonConcurrentServerTest(){
-		try{
-			TicketServer.start(16791);
-		} catch(Exception e){
-=======
 	public void twoNonConcurrentServerTest() {
 		try {
 			//TicketServer.start(16791);
 		} catch (Exception e) {
->>>>>>> origin/master
 			fail();
 		}
 		TicketClient c1 = new TicketClient("nonconc1");
@@ -94,17 +73,10 @@ public class TestTicketOffice{
 	}
 
 	@Test
-<<<<<<< HEAD
 	public void twoConcurrentServerTest(){
 		try{
-			TicketServer.start(16792);
+			// TicketServer.start(16792);
 		} catch(Exception e){
-=======
-	public void twoConcurrentServerTest() {
-		try {
-			//TicketServer.start(16792);
-		} catch (Exception e) {
->>>>>>> origin/master
 			fail();
 		}
 		final TicketClient c1 = new TicketClient("conc1");
