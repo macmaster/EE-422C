@@ -53,6 +53,17 @@ public class Seat implements Comparable {
 	}
 	
 	/**
+	 * Constructs a Seat from its String representation
+	 * @param seatStr String representation of a Seat object
+	 */
+	public Seat(String seatStr) {
+		String[] splitSeat = seatStr.split(",");
+		section = Section.valueOf(splitSeat[0]);
+		row = Integer.parseInt(splitSeat[1]);
+		number = Integer.parseInt(splitSeat[2]);
+	}
+	
+	/**
 	 * Converts a row number (1-27) to its row name:
 	 *  (1 = "A", 2 = "B", ... , 27 = "AA")
 	 * @param row Row number
@@ -101,15 +112,24 @@ public class Seat implements Comparable {
 		//If in the same row, compare sections
 		if (section != otherSeat.section) {
 			if(section == Section.Middle)
-				return 1;
-			else if(otherSeat.section == Section.Middle) {
 				return -1;
+			else if(otherSeat.section == Section.Middle) {
+				return 1;
 			}
 		}
 		
 		//If seats are in same row and similarly-valued sections, 
 		//they are of equal value
 		return 0;
+	}
+	
+	@Override
+	/**
+	 * Converts this Seat object to its string representation
+	 * @returns String representation of this Seat object
+	 */
+	public String toString() {
+		return "" + section.toString() + "," + row + "," + number;
 	}
 
 }
