@@ -23,7 +23,7 @@ public class TestTicketOffice {
 
 	public static int score = 0;
 
-	// @Test
+	@Test
 	public void basicServerTest() {
 		try {
 			TicketServer.start(16789);

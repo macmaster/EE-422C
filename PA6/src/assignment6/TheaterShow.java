@@ -1,11 +1,9 @@
 /** TheaterShow **********************************************
- * Driver to manage the Word Ladder and Dictionary Classes.
- * find word ladders between pairs from word file.
- * check the data from the dictionary.
- * print out the word ladders for each pair.
+ * Class that represents a single show at Bates Recital Hall
+ * Encapsulates the tracking and finding of available seats
  * 
  * Section : F 2:00 - 3:30pm
- * UT EID: cdr2678 ,rpm953
+ * UT EID: cdr2678, rpm953
  * @author Cooper Raterink, Ronald Macmaster
  * @version 1.01 4/11/2016
  ************************************************************/
@@ -25,8 +23,6 @@ public class TheaterShow{
 	 * Queue of seats at the theater, sorted from best to worst
 	 */
 	protected PriorityQueue<Seat> availableSeats;
-	
-	protected final int RowsAtBatesHall = 27;
 	
 	/**
 	 * Constructs a new TheaterShow object - with all seats available
@@ -61,7 +57,7 @@ public class TheaterShow{
 	private void initSeats() {
 		availableSeats = new PriorityQueue<Seat>();
 		//first row through last row
-		for(int row = 1; row <= RowsAtBatesHall; row++) {
+		for(int row = 1; row <= 27; row++) {
 			//left section to right section
 			for(Seat.Section sect : Seat.Section.values()) {
 				switch (sect) {

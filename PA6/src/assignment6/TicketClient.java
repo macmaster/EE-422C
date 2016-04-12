@@ -1,8 +1,6 @@
 /** TicketClient *********************************************
- * Driver to manage the Word Ladder and Dictionary Classes.
- * find word ladders between pairs from word file.
- * check the data from the dictionary.
- * print out the word ladders for each pair.
+ * Classes representing the ticket client.
+ * Encapsulates connection/communication with the ticket server.
  * 
  * Section : F 2:00 - 3:30pm
  * UT EID: cdr2678 ,rpm953
@@ -17,6 +15,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+/**
+ * Class that handles the background processes of the TicketClient.
+ */
 class ThreadedTicketClient implements Runnable {
 	String hostname = "127.0.0.1";
 	String threadname = "X";
@@ -64,9 +65,8 @@ public class TicketClient {
 	}
 
 	public void requestTicket() {
-		// TODO thread.run()
 		tc.run();
-		System.out.println(hostName + "," + threadName + " got one ticket");
+		System.out.println(hostName + ", " + threadName + " got one ticket");
 	}
 
 	public void sleep() {
