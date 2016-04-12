@@ -17,6 +17,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import assignment6.TicketClient;
+import assignment6.TicketOffice;
 import assignment6.TicketServer;
 
 public class TestTicketOffice {
@@ -99,5 +100,16 @@ public class TestTicketOffice {
 			e.printStackTrace();
 		}
 
+	}
+	
+	@Test
+	public void testTicketOffice(){
+		TicketOffice o1 = new TicketOffice();
+		TicketOffice o2 = new TicketOffice();
+		Thread o1thread = new Thread(o1);
+		Thread o2thread = new Thread(o2);
+		
+		o1thread.start();;
+		o2thread.start();
 	}
 }

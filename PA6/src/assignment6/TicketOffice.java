@@ -15,7 +15,7 @@ package assignment6;
 
 import java.util.Queue;
 
-public class TicketOffice{
+public class TicketOffice implements Runnable{
 
 	private TicketClient client;
 	private TicketPrinter printer;
@@ -27,11 +27,17 @@ public class TicketOffice{
 		printer = new TicketPrinter();
 	}
 	
-	/** open *********************************
+	public TicketOffice(){
+		customersLeftInLine = ((int)Math.random()*900 + 100);
+		client = new TicketClient();
+		printer = new TicketPrinter();
+	}
+	
+	/** run ***********************************
 	 * opens the ticket office for business
 	 * serves all the cutomers in line
 	 *****************************************/
-	public void open(){
+	public void run(){
 		while(customersLeftInLine > 0){
 			client.requestTicket();
 		}
