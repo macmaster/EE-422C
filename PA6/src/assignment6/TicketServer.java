@@ -16,14 +16,11 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-<<<<<<< HEAD
-=======
 /**
  * Class that serves TicketClients.
  * Thread to handle incoming requests from the clients
  * Organizes the ticket client requests
  */
->>>>>>> a6623e140b894eaa664ed2e1d8e23d92f765c939
 public class TicketServer {
 	
 	/**
@@ -31,11 +28,6 @@ public class TicketServer {
 	 */
 	static int PORT = 2222;
 
-	/**
-	 * Maximum number of parallel threads
-	 */
-	final static int MAXPARALLELTHREADS = 3;
-	
 	protected static Thread serverThread = null;
 	
 	public static void start(int portNumber, TheaterShow callbackTheater) throws IOException {
@@ -60,6 +52,7 @@ class ThreadedTicketServer implements Runnable {
 		callbackTheater = theaterShowCallback;
 	}
 
+	
 	public void run() {
 		ServerSocket serverSocket;
 		try {
