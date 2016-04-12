@@ -1,10 +1,7 @@
 /** TicketServer *********************************************
-<<<<<<< HEAD
  * Class that serves TicketClients.
-=======
  * Thread to handle incoming requests from the clients
- * Orgranizes the ticket client requests
->>>>>>> 246fcd6622704683937982f876b9709d2a768fdd
+ * Organizes the ticket client requests
  * 
  * Section : F 2:00 - 3:30pm
  * UT EID: cdr2678 ,rpm953
@@ -20,8 +17,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * 
- *
+ * Class that serves TicketClients.
+ * Thread to handle incoming requests from the clients
+ * Organizes the ticket client requests
  */
 public class TicketServer {
 	
@@ -76,11 +74,6 @@ class ThreadedTicketServer implements Runnable {
 				out.println(seatStr);
 			}
 		} catch (IOException e) {
-<<<<<<< HEAD
-=======
-			
-			// TODO Auto-generated catch block
->>>>>>> 246fcd6622704683937982f876b9709d2a768fdd
 			e.printStackTrace();
 		}
 
