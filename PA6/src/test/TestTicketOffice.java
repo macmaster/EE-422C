@@ -14,6 +14,8 @@ package test;
 
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
 import assignment6.Seat;
@@ -29,10 +31,11 @@ public class TestTicketOffice{
 
 	@Test
 	public void basicServerTest() {
-		//TheaterShow show = new TheaterShow();
-		Seat seat = new Seat(Section.Middle, 25, 50);
-		String seatStr = seat.toString();
-		Seat seatRep = new Seat(seatStr);
+		try{
+			TheaterShow show = new TheaterShow();
+		} catch(IOException e1){
+			fail();
+		}
 		
 		try {
 			//TicketServer.start(16789);
@@ -112,6 +115,13 @@ public class TestTicketOffice{
 
 	@Test
 	public void testTicketOffice(){
+		try{
+			TheaterShow show = new TheaterShow();		
+		}
+		catch(IOException e){
+			System.err.println("server / theater show failed to start");
+			fail();
+		}
 
 		// create office threads
 		TicketOffice o1 = new TicketOffice("localhost1", "office1");
