@@ -1,8 +1,5 @@
 /** TicketPrinter *********************************************
- * Driver to manage the Word Ladder and Dictionary Classes.
- * find word ladders between pairs from word file.
- * check the data from the dictionary.
- * print out the word ladders for each pair.
+ * Prints the seat ticket according to the output specs
  * 
  * Section : F 2:00 - 3:30pm
  * UT EID: cdr2678 ,rpm953
@@ -16,6 +13,15 @@ public class TicketPrinter{
 
 	public TicketPrinter(){
 		// TODO Auto-generated constructor stub
+	}
+	
+	/*Procedure - printTicketSeat(seat)
+	Input: seat is the location of an available seat in the theater.
+	output: A ticket for that seat is printed to the screen – leave it on the screen long enough to be
+	read easily by the client. The output format is up to you, but should contain the essential information
+	found on a theater ticket. */
+	public void printTicketSeat(String seat){
+		
 	}
 
 }

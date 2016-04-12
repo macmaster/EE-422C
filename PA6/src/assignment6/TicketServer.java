@@ -1,8 +1,6 @@
 /** TicketServer *********************************************
- * Driver to manage the Word Ladder and Dictionary Classes.
- * find word ladders between pairs from word file.
- * check the data from the dictionary.
- * print out the word ladders for each pair.
+ * Thread to handle incoming requests from the clients
+ * Orgranizes the ticket client requests
  * 
  * Section : F 2:00 - 3:30pm
  * UT EID: cdr2678 ,rpm953
@@ -49,6 +47,7 @@ class ThreadedTicketServer implements Runnable {
 			PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 		} catch (IOException e) {
+			
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
