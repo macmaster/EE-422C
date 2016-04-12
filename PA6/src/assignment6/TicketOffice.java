@@ -44,8 +44,10 @@ public class TicketOffice implements Runnable{
 	 * serves all the cutomers in line
 	 *****************************************/
 	public void run(){
-		while(customersLeftInLine > 0){
+		for(int i = 0; i < customersLeftInLine; i++){
 			client.requestTicket();
+			System.out.println("Office1 customer #" + i + " gets ticket: " + client.result);
+			customersLeftInLine--;
 		}
 	}
 

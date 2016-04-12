@@ -16,14 +16,11 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-<<<<<<< HEAD
-=======
 /**
  * Class that serves TicketClients.
  * Thread to handle incoming requests from the clients
  * Organizes the ticket client requests
  */
->>>>>>> a6623e140b894eaa664ed2e1d8e23d92f765c939
 public class TicketServer {
 	
 	/**
