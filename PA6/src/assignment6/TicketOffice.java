@@ -21,15 +21,21 @@ public class TicketOffice implements Runnable{
 	private TicketPrinter printer;
 	private int customersLeftInLine;
 	
+	public TicketOffice(){
+		customersLeftInLine = ((int)Math.random()*900 + 100);
+		client = new TicketClient();
+		printer = new TicketPrinter();
+	}
+	
 	public TicketOffice(int customers){
 		customersLeftInLine = customers;
 		client = new TicketClient();
 		printer = new TicketPrinter();
 	}
 	
-	public TicketOffice(){
+	public TicketOffice(String hostname, String threadname){
 		customersLeftInLine = ((int)Math.random()*900 + 100);
-		client = new TicketClient();
+		client = new TicketClient(hostname, threadname);
 		printer = new TicketPrinter();
 	}
 	

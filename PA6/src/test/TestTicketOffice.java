@@ -104,12 +104,30 @@ public class TestTicketOffice {
 	
 	@Test
 	public void testTicketOffice(){
-		TicketOffice o1 = new TicketOffice();
-		TicketOffice o2 = new TicketOffice();
-		Thread o1thread = new Thread(o1);
-		Thread o2thread = new Thread(o2);
+		TicketOffice o1 = new TicketOffice("localhost1", "office1");
+		TicketOffice o2 = new TicketOffice("localhost2", "office2");
 		
-		o1thread.start();;
+		Thread o1thread = new Thread() {
+			public void run() {
+				o1.run();
+			}
+		};
+		Thread o2thread = new Thread() {
+			public void run() {
+				System.out.println("hello world!");
+				o2.run();
+			}
+		};		
+		
+		// start the office threads
+		o1thread.start();
 		o2thread.start();
+		
+		try {
+			o1thread.join();
+			o2thread.join();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
