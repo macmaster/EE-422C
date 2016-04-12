@@ -1,8 +1,9 @@
-/** TicketOffice *****************************************
- * Driver to manage the Word Ladder and Dictionary Classes.
- * find word ladders between pairs from word file.
- * check the data from the dictionary.
- * print out the word ladders for each pair.
+/** TicketOffice ***********************************************
+ * Sells seat tickets to clients
+ * Manages ticket booth workers
+ * Has it's own ticket printer
+ * Interfaces the ticket server and ticket clients
+ * 
  * 
  * Section : F 2:00 - 3:30pm
  * UT EID: cdr2678 ,rpm953
@@ -12,10 +13,40 @@
 
 package assignment6;
 
-public class TicketOffice{
+import java.util.Queue;
 
+public class TicketOffice implements Runnable{
+
+	private TicketClient client;
+	private TicketPrinter printer;
+	private int customersLeftInLine;
+	
 	public TicketOffice(){
-		// TODO Auto-generated constructor stub
+		customersLeftInLine = ((int)Math.random()*900 + 100);
+		client = new TicketClient();
+		printer = new TicketPrinter();
+	}
+	
+	public TicketOffice(int customers){
+		customersLeftInLine = customers;
+		client = new TicketClient();
+		printer = new TicketPrinter();
+	}
+	
+	public TicketOffice(String hostname, String threadname){
+		customersLeftInLine = ((int)Math.random()*900 + 100);
+		client = new TicketClient(hostname, threadname);
+		printer = new TicketPrinter();
+	}
+	
+	/** run ***********************************
+	 * opens the ticket office for business
+	 * serves all the cutomers in line
+	 *****************************************/
+	public void run(){
+		while(customersLeftInLine > 0){
+			client.requestTicket();
+		}
 	}
 
 }

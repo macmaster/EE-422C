@@ -20,6 +20,7 @@ import assignment6.Seat;
 import assignment6.Seat.Section;
 import assignment6.TheaterShow;
 import assignment6.TicketClient;
+import assignment6.TicketOffice;
 import assignment6.TicketServer;
 
 public class TestTicketOffice {
@@ -107,5 +108,34 @@ public class TestTicketOffice {
 			e.printStackTrace();
 		}
 
+	}
+	
+	@Test
+	public void testTicketOffice(){
+		TicketOffice o1 = new TicketOffice("localhost1", "office1");
+		TicketOffice o2 = new TicketOffice("localhost2", "office2");
+		
+		Thread o1thread = new Thread() {
+			public void run() {
+				o1.run();
+			}
+		};
+		Thread o2thread = new Thread() {
+			public void run() {
+				System.out.println("hello world!");
+				o2.run();
+			}
+		};		
+		
+		// start the office threads
+		o1thread.start();
+		o2thread.start();
+		
+		try {
+			o1thread.join();
+			o2thread.join();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
