@@ -16,6 +16,9 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import assignment6.Seat;
+import assignment6.Seat.Section;
+import assignment6.TheaterShow;
 import assignment6.TicketClient;
 import assignment6.TicketOffice;
 import assignment6.TicketServer;
@@ -25,21 +28,40 @@ public class TestTicketOffice{
 	public static int score = 0;
 
 	@Test
+<<<<<<< HEAD
 	public void basicServerTest(){
 		try{
 			TicketServer.start(16789);
 		} catch(Exception e){
+=======
+	public void basicServerTest() {
+		//TheaterShow show = new TheaterShow();
+		Seat seat = new Seat(Section.Middle, 25, 50);
+		String seatStr = seat.toString();
+		Seat seatRep = new Seat(seatStr);
+		
+		try {
+			//TicketServer.start(16789);
+		} catch (Exception e) {
+>>>>>>> origin/master
 			fail();
 		}
 		TicketClient client = new TicketClient();
-		client.requestTicket();
+		//Seat clientTicketSeat = client.requestTicket();
 	}
 
 	@Test
+<<<<<<< HEAD
 	public void testServerCachedHardInstance(){
 		try{
 			TicketServer.start(16790);
 		} catch(Exception e){
+=======
+	public void testServerCachedHardInstance() {
+		try {
+			//TicketServer.start(16790);
+		} catch (Exception e) {
+>>>>>>> origin/master
 			fail();
 		}
 		TicketClient client1 = new TicketClient("localhost", "c1");
@@ -50,10 +72,17 @@ public class TestTicketOffice{
 	}
 
 	@Test
+<<<<<<< HEAD
 	public void twoNonConcurrentServerTest(){
 		try{
 			TicketServer.start(16791);
 		} catch(Exception e){
+=======
+	public void twoNonConcurrentServerTest() {
+		try {
+			//TicketServer.start(16791);
+		} catch (Exception e) {
+>>>>>>> origin/master
 			fail();
 		}
 		TicketClient c1 = new TicketClient("nonconc1");
@@ -65,10 +94,17 @@ public class TestTicketOffice{
 	}
 
 	@Test
+<<<<<<< HEAD
 	public void twoConcurrentServerTest(){
 		try{
 			TicketServer.start(16792);
 		} catch(Exception e){
+=======
+	public void twoConcurrentServerTest() {
+		try {
+			//TicketServer.start(16792);
+		} catch (Exception e) {
+>>>>>>> origin/master
 			fail();
 		}
 		final TicketClient c1 = new TicketClient("conc1");

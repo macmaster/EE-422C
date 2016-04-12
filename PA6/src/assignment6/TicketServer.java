@@ -1,6 +1,10 @@
 /** TicketServer *********************************************
+<<<<<<< HEAD
+ * Class that serves TicketClients.
+=======
  * Thread to handle incoming requests from the clients
  * Orgranizes the ticket client requests
+>>>>>>> 246fcd6622704683937982f876b9709d2a768fdd
  * 
  * Section : F 2:00 - 3:30pm
  * UT EID: cdr2678 ,rpm953
@@ -10,24 +14,36 @@
 
 package assignment6;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * 
+ *
+ */
 public class TicketServer {
+	
+	/**
+	 * Port number for the server to listen on, when started 
+	 */
 	static int PORT = 2222;
-	// EE422C: no matter how many concurrent requests you get,
-	// do not have more than three servers running concurrently
-	final static int MAXPARALLELTHREADS = 3;
 
-	public static void start(int portNumber) throws IOException {
-		PORT = portNumber;
-		Runnable serverThread = new ThreadedTicketServer();
-		Thread t = new Thread(serverThread);
-		t.start();
+	/**
+	 * Maximum number of parallel threads
+	 */
+	final static int MAXPARALLELTHREADS = 3;
+	
+	protected static Thread serverThread = null;
+	
+	public static void start(int portNumber, TheaterShow callbackTheater) throws IOException {
+		if (serverThread == null) {
+			PORT = portNumber;
+			Runnable ticketServer = new ThreadedTicketServer(callbackTheater);
+			serverThread = new Thread(ticketServer);
+			serverThread.start();
+		}
 	}
 }
 
@@ -37,20 +53,37 @@ class ThreadedTicketServer implements Runnable {
 	String threadname = "X";
 	String testcase;
 	TicketClient sc;
+	TheaterShow callbackTheater;
+
+	public ThreadedTicketServer(TheaterShow theaterShowCallback) {
+		callbackTheater = theaterShowCallback;
+	}
 
 	public void run() {
-		// TODO 422C
 		ServerSocket serverSocket;
 		try {
 			serverSocket = new ServerSocket(TicketServer.PORT);
-			Socket clientSocket = serverSocket.accept();
-			PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			while(true){
+				Socket clientSocket = serverSocket.accept();
+				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+				String seatStr;
+				try {
+					seatStr = callbackTheater.reserveBestAvailableSeat().toString();
+				}
+				catch (NoSeatAvailableException e) {
+					seatStr = "null";
+				}
+				out.println(seatStr);
+			}
 		} catch (IOException e) {
+<<<<<<< HEAD
+=======
 			
 			// TODO Auto-generated catch block
+>>>>>>> 246fcd6622704683937982f876b9709d2a768fdd
 			e.printStackTrace();
 		}
 
 	}
+	
 }
