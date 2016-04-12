@@ -10,6 +10,7 @@
 
 package assignment6;
 
+import java.io.IOException;
 import java.util.PriorityQueue;
 
 /**
@@ -25,9 +26,16 @@ public class TheaterShow{
 	protected PriorityQueue<Seat> availableSeats;
 	
 	/**
-	 * Constructs a new TheaterShow object - with all seats available
+	 * Server for ticket offices to request tickets on 
 	 */
-	public TheaterShow(){
+	protected TicketServer ticketServer;
+	
+	/**
+	 * Constructs a new TheaterShow object - with all seats available
+	 * @throws IOException When server fails to start
+	 */
+	public TheaterShow() throws IOException{
+		TicketServer.start(2222, this);
 		initSeats();
 	}
 	
@@ -43,11 +51,14 @@ public class TheaterShow{
 	 * @return Returns the best available Seat
 	 * @throws NoSeatAvailableException If there's no seat available
 	 */
-	public Seat getBestAvailableSeat() throws NoSeatAvailableException {
-		if(isSeatAvailable())
-			return availableSeats.remove();
-		else
-			throw new NoSeatAvailableException();
+	public Seat reserveBestAvailableSeat() throws NoSeatAvailableException {
+		//only one thread can find seats per each theatershow obj
+		synchronized (availableSeats) {
+			if (isSeatAvailable())
+				return availableSeats.remove();
+			else
+				throw new NoSeatAvailableException();
+		}
 	}
 	
 	/**

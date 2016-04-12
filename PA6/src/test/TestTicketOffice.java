@@ -16,6 +16,9 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import assignment6.Seat;
+import assignment6.Seat.Section;
+import assignment6.TheaterShow;
 import assignment6.TicketClient;
 import assignment6.TicketServer;
 
@@ -25,19 +28,24 @@ public class TestTicketOffice {
 
 	@Test
 	public void basicServerTest() {
+		//TheaterShow show = new TheaterShow();
+		Seat seat = new Seat(Section.Middle, 25, 50);
+		String seatStr = seat.toString();
+		Seat seatRep = new Seat(seatStr);
+		
 		try {
-			TicketServer.start(16789);
+			//TicketServer.start(16789);
 		} catch (Exception e) {
 			fail();
 		}
 		TicketClient client = new TicketClient();
-		client.requestTicket();
+		//Seat clientTicketSeat = client.requestTicket();
 	}
 
 	@Test
 	public void testServerCachedHardInstance() {
 		try {
-			TicketServer.start(16790);
+			//TicketServer.start(16790);
 		} catch (Exception e) {
 			fail();
 		}
@@ -51,7 +59,7 @@ public class TestTicketOffice {
 	@Test
 	public void twoNonConcurrentServerTest() {
 		try {
-			TicketServer.start(16791);
+			//TicketServer.start(16791);
 		} catch (Exception e) {
 			fail();
 		}
@@ -66,7 +74,7 @@ public class TestTicketOffice {
 	@Test
 	public void twoConcurrentServerTest() {
 		try {
-			TicketServer.start(16792);
+			//TicketServer.start(16792);
 		} catch (Exception e) {
 			fail();
 		}
