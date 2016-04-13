@@ -27,16 +27,12 @@ public class TicketServer {
 	 * Port number for the server to listen on, when started 
 	 */
 	static int PORT = 2222;
-
-	protected static Thread serverThread = null;
 	
 	public static void start(int portNumber, TheaterShow callbackTheater) throws IOException {
-		if (serverThread == null) {
-			PORT = portNumber;
-			Runnable ticketServer = new ThreadedTicketServer(callbackTheater);
-			serverThread = new Thread(ticketServer);
-			serverThread.start();
-		}
+		PORT = portNumber;
+		Runnable ticketServer = new ThreadedTicketServer(callbackTheater);
+		Thread serverThread = new Thread(ticketServer);
+		serverThread.start();
 	}
 }
 
@@ -57,6 +53,7 @@ class ThreadedTicketServer implements Runnable {
 		ServerSocket serverSocket;
 		try {
 			serverSocket = new ServerSocket(TicketServer.PORT);
+			//boolean keepServicing = true; do we need this?
 			while(true){
 				Socket clientSocket = serverSocket.accept();
 				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);

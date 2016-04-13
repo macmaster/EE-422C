@@ -16,6 +16,7 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import assignment6.Seat;
@@ -115,17 +116,12 @@ public class TestTicketOffice{
 
 	@Test
 	public void testTicketOffice(){
-		try{
-			TheaterShow show = new TheaterShow();		
-		}
-		catch(IOException e){
-			System.err.println("server / theater show failed to start");
-			fail();
-		}
+		TheaterShow show = new TheaterShow("Romeo and Juliet");
+		Assert.assertTrue(show.startServicingTicketRequests(50000));
 
 		// create office threads
-		TicketOffice o1 = new TicketOffice("localhost", "office1");
-		TicketOffice o2 = new TicketOffice("localhost", "office2");
+		TicketOffice o1 = new TicketOffice("localhost", "Office 1");
+		TicketOffice o2 = new TicketOffice("localhost", "Office 2");
 		Thread o1thread = new Thread(){
 			public void run(){
 				o1.run();
@@ -148,6 +144,8 @@ public class TestTicketOffice{
 		} catch(Exception e){
 			e.printStackTrace();
 		}
+		
+		System.out.println(show.getBookingMessage());
 
 	}
 }

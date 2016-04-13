@@ -22,7 +22,7 @@ public class TicketOffice implements Runnable{
 	private int customersLeftInLine;
 	
 	public TicketOffice(){
-		customersLeftInLine = ((int)Math.random()*900 + 100);
+		customersLeftInLine = ((int)(Math.random()*900) + 1000);
 		client = new TicketClient();
 		printer = new TicketPrinter();
 	}
@@ -34,19 +34,25 @@ public class TicketOffice implements Runnable{
 	}
 	
 	public TicketOffice(String hostname, String threadname){
-		customersLeftInLine = ((int)Math.random()*900 + 100);
+		customersLeftInLine = ((int)(Math.random()*900) + 1000);
 		client = new TicketClient(hostname, threadname);
 		printer = new TicketPrinter();
 	}
 	
 	/** run ***********************************
 	 * opens the ticket office for business
-	 * serves all the cutomers in line
+	 * serves all the customers in line
 	 *****************************************/
 	public void run(){
-		for(int i = 0; i < customersLeftInLine; i++){
+		int custNo = 1;
+		while(customersLeftInLine > 0){
 			client.requestTicket();
-			System.out.println("Office1 customer #" + i + " gets ticket: " + client.result);
+			if(client.result.equals("null")) { //customer did not get a ticket
+				System.out.println(client.threadName + ": Customer #" + (custNo++) + " did not receive a ticket.");
+			}
+			else { //customer got a ticket!
+				System.out.println(client.threadName + ": Customer #" + (custNo++) + " gets ticket: " + client.result);
+			}
 			customersLeftInLine--;
 		}
 	}

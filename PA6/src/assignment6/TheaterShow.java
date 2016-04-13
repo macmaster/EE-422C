@@ -25,6 +25,10 @@ public class TheaterShow{
 	 */
 	protected PriorityQueue<Seat> availableSeats;
 	
+	protected int totalSeats;
+	
+	protected String theaterShowing;
+	
 	/**
 	 * Server for ticket offices to request tickets on 
 	 */
@@ -34,9 +38,19 @@ public class TheaterShow{
 	 * Constructs a new TheaterShow object - with all seats available
 	 * @throws IOException When server fails to start
 	 */
-	public TheaterShow() throws IOException{
-		TicketServer.start(2222, this);
+	public TheaterShow(String showName){
+		theaterShowing = showName;
 		initSeats();
+	}
+	
+	public boolean startServicingTicketRequests(int port){
+		try {
+			TicketServer.start(port, this);
+			return true;
+		}
+		catch(IOException ex) {
+			return false;
+		}
 	}
 	
 	/**
@@ -64,6 +78,7 @@ public class TheaterShow{
 	/**
 	 * Generates the available seats queue, containing all seats
 	 * at Bates Recital Hall sorted automatically by best to worst.
+	 * @return 
 	 */
 	private void initSeats() {
 		availableSeats = new PriorityQueue<Seat>();
@@ -110,8 +125,13 @@ public class TheaterShow{
 				}
 			}
 		}
-		
-		
+		totalSeats = availableSeats.size();
 	}
 
+	public String getBookingMessage() {
+		return  "\n<============= Booking at Bates Recital Hall: " + theaterShowing + " =============>\n"
+				+ "" + (totalSeats - availableSeats.size()) + " seats have been booked.\n"
+				+ availableSeats.size() + " seats are open.";
+	}
+	
 }
