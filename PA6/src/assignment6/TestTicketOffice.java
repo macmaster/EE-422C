@@ -19,13 +19,22 @@ import java.util.ArrayList;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * Class that implements and runs tests of our design solution
+ */
 public class TestTicketOffice{
 
+	/**
+	 * Number of offices for the "many ticket offices" test
+	 */
 	public int many = 6;
 	
 	@Test
+	/*
+	 * Tests our design with one ticket office and one theater show.
+	 */
 	public void oneTicketOfficeOneShowTest() {
-		//Create a theater showing
+		//Create the theater showing
 		TheaterShow show = new TheaterShow("Mcdonald's Commercial");
 		Assert.assertTrue(show.startServicingTicketRequests(50000));
 		
@@ -45,32 +54,26 @@ public class TestTicketOffice{
 	}
 
 	@Test
+	/*
+	 * Tests our design with two ticket offices and one theater show.
+	 */
 	public void twoTicketOfficeOneShowTest(){
-		TheaterShow show = new TheaterShow("Romeo and Juliet");
+		//Create the theater showing
+		TheaterShow show = new TheaterShow("The Hunt for Thread October");
 		Assert.assertTrue(show.startServicingTicketRequests(50001));
 
 		// create office threads
-		TicketOffice o1 = new TicketOffice("localhost", "Office 1");
-		TicketOffice o2 = new TicketOffice("localhost", "Office 2");
-		Thread o1thread = new Thread(){
-			public void run(){
-				o1.run();
-			}
-		};
-		Thread o2thread = new Thread(){
-			public void run(){
-				o2.run();
-			}
-		};
+		Thread o1 = new Thread(new TicketOffice("localhost", "Office 1"));
+		Thread o2 = new Thread(new TicketOffice("localhost", "Office 2"));
 
 		// start the office threads
-		o1thread.start();
-		o2thread.start();
+		o1.start();
+		o2.start();
 
 		// join the office threads
 		try{
-			o1thread.join();
-			o2thread.join();
+			o1.join();
+			o2.join();
 		} catch(Exception e){
 			e.printStackTrace();
 		}
@@ -79,7 +82,11 @@ public class TestTicketOffice{
 	}
 	
 	@Test
+	/*
+	 * Tests our design with many ticket offices and one theater show.
+	 */
 	public void manyTicketOfficeOneShowTest(){
+		//Create the theater showing
 		TheaterShow show = new TheaterShow("Antman vs. Superman");
 		Assert.assertTrue(show.startServicingTicketRequests(50002));
 

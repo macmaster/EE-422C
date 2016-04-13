@@ -131,7 +131,6 @@ public class Seat implements Comparable {
 	public String toString() {
 		return "" + section.toString() + "," + row + "," + number;
 	}
-
 }
 
 

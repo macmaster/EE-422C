@@ -51,7 +51,9 @@ public class TicketOffice implements Runnable{
 				System.out.println(client.threadName + ": Customer #" + (custNo++) + " did not receive a ticket.");
 			}
 			else { //customer got a ticket!
-				System.out.println(client.threadName + ": Customer #" + (custNo++) + " gets ticket: " + client.result);
+				System.out.println(client.threadName + ": Customer #" + (custNo++) + " gets ticket:");
+				Seat ticketSeat = new Seat(client.result);
+				printer.printTicketSeat(ticketSeat);
 			}
 			customersLeftInLine--; //customer leaves b/c he is satisfied
 		}
