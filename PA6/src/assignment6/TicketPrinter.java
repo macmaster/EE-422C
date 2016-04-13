@@ -9,11 +9,10 @@
 
 package assignment6;
 
+/**
+ * Prints a ticket stub for a seat reserved at Bates Recital Hall
+ */
 public class TicketPrinter{
-
-	public TicketPrinter(){
-		// TODO Auto-generated constructor stub
-	}
 	
 	/*Procedure - printTicketSeat(seat)
 	Input: seat is the location of an available seat in the theater.
@@ -23,7 +22,7 @@ public class TicketPrinter{
 	public void printTicketSeat(Seat seat){
 		String ticket = "<==== Bates Recital Hall Ticket ====>\n"
 				+ "Seat Section: " + seat.section + "\n"
-				+ "Seat Row: " + seat.row + "\n"
+				+ "Seat Row: " + seat.rowToRowName(seat.row) + "\n"
 				+ "Seat Number: " + seat.number + "\n"
 				+    "<===================================>\n";
 		System.out.println(ticket);

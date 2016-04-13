@@ -18,7 +18,7 @@ public class Seat implements Comparable {
 	/**
 	 * Enum classifying the section of the theater
 	 */
-	public enum Section { Left, Middle, Right }
+	public enum Section { HouseLeft, HouseMiddle, HouseRight }
 	
 	/**
 	 * Represents which section this Seat is in
@@ -73,7 +73,7 @@ public class Seat implements Comparable {
 		if(row > 27 || row < 1)
 			return null;
 		else
-			return (row <= 26) ? String.valueOf('A' + row - 1) : "AA";
+			return (row <= 26) ? String.valueOf(new char[]{(char)('A' + row - 1)}) : "AA";
 	}
 	
 	/**
@@ -111,9 +111,9 @@ public class Seat implements Comparable {
 		
 		//If in the same row, compare sections
 		if (section != otherSeat.section) {
-			if(section == Section.Middle)
+			if(section == Section.HouseMiddle)
 				return -1;
-			else if(otherSeat.section == Section.Middle) {
+			else if(otherSeat.section == Section.HouseMiddle) {
 				return 1;
 			}
 		}

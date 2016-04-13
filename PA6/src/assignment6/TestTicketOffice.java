@@ -1,8 +1,6 @@
 /** TestTicketOffice *****************************************
- * Driver to manage the Word Ladder and Dictionary Classes.
- * find word ladders between pairs from word file.
- * check the data from the dictionary.
- * print out the word ladders for each pair.
+ * JUnit tests for our Theater Ticket Booking design solution
+ * for EE422C A6.
  * 
  * Section : F 2:00 - 3:30pm
  * UT EID: cdr2678 ,rpm953
@@ -35,7 +33,7 @@ public class TestTicketOffice{
 	 */
 	public void oneTicketOfficeOneShowTest() {
 		//Create the theater showing
-		TheaterShow show = new TheaterShow("Mcdonald's Commercial");
+		TheaterShow show = new TheaterShow("Threadpool starring Ryan Reynolds");
 		Assert.assertTrue(show.startServicingTicketRequests(50000));
 		
 		//Open a single office
@@ -87,7 +85,7 @@ public class TestTicketOffice{
 	 */
 	public void manyTicketOfficeOneShowTest(){
 		//Create the theater showing
-		TheaterShow show = new TheaterShow("Antman vs. Superman");
+		TheaterShow show = new TheaterShow("Threadman vs. Superman");
 		Assert.assertTrue(show.startServicingTicketRequests(50002));
 
 		// create office threads

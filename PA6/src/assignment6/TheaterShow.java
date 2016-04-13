@@ -25,6 +25,7 @@ public class TheaterShow{
 	 */
 	protected PriorityQueue<Seat> availableSeats;
 	
+	
 	protected int totalSeats;
 	
 	protected String theaterShowing;
@@ -89,14 +90,14 @@ public class TheaterShow{
 				switch (sect) {
 				//left section has seat numbers 122-128 
 				//except for last row which has seats 127-128
-				case Left:
+				case HouseLeft:
 					int seatStart = (row < 27) ? 122 : 127;
 					for(int seatNum = seatStart; seatNum <= 128; seatNum++) {
 						availableSeats.add(new Seat(sect, row, seatNum));
 					}
 				//middle section has seat numbers 108-121
 				//except has no last 3 rows
-				case Middle:
+				case HouseMiddle:
 					if(row < 25) {
 						for(int seatNum = 108; seatNum <= 121; seatNum++) {
 							availableSeats.add(new Seat(sect, row, seatNum));
@@ -107,7 +108,7 @@ public class TheaterShow{
 				//101-106 for row 3
 				//101-107 for rows 4-26
 				//101-104 and 116-118 for last row
-				case Right:
+				case HouseRight:
 					if(row > 2 && row != 27) {
 						int seatStop = (row != 3)? 107 : 106;
 						for(int seatNum = 101; seatNum <= seatStop; seatNum++) {
