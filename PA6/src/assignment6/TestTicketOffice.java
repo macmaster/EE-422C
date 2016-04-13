@@ -10,7 +10,7 @@
  * @version 1.01 4/11/2016
  ************************************************************/
 
-package test;
+package assignment6;
 
 import static org.junit.Assert.fail;
 
@@ -18,9 +18,6 @@ import java.util.ArrayList;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import assignment6.TheaterShow;
-import assignment6.TicketOffice;
 
 public class TestTicketOffice{
 
