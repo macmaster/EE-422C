@@ -35,15 +35,39 @@ public class TicketServer {
 		serverThread.start();
 	}
 }
-
+/**
+ * Helper class for the TicketServer interface
+ */
 class ThreadedTicketServer implements Runnable {
 
+	/** 
+	 * host to run server on
+	 */
 	String hostname = "127.0.0.1";
+	
+	/**
+	 * name of the running server thread
+	 */
 	String threadname = "X";
+	
+	/**
+	 * name of the calling test case
+	 */
 	String testcase;
+	
+	/**
+	 * local variable for requesting ticket client
+	 */
 	TicketClient sc;
+	
+	/**
+	 * manageable ADT for Theater Seat Map
+	 */
 	TheaterShow callbackTheater;
 
+	/**
+	 * Create a Ticket Server thread that manages a specific Theater Show
+	 */
 	public ThreadedTicketServer(TheaterShow theaterShowCallback) {
 		callbackTheater = theaterShowCallback;
 	}
