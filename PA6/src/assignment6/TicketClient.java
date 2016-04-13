@@ -21,10 +21,27 @@ import java.net.UnknownHostException;
  * Class that handles the background processes of the TicketClient.
  */
 class ThreadedTicketClient implements Runnable{
-	String hostname = "127.0.0.1";
-	String threadname = "X";
-	TicketClient sc;
+	
+	/**
+	 * Host to connect to
+	 */
+	protected String hostname;
+	
+	/**
+	 * Name of this client
+	 */
+	protected String threadname;
+	
+	/**
+	 * Associated TicketClient for result access purposes
+	 */
+	protected TicketClient sc;
 
+	/**
+	 * Constructed this client with the given parameters
+	 * @param hostname Host to connect to
+	 * @param threadname Name of this client
+	 */
 	public ThreadedTicketClient(TicketClient sc, String hostname, String threadname){
 		this.sc = sc;
 		this.hostname = hostname;
