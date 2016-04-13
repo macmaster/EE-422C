@@ -30,23 +30,26 @@ public class TestTicketOffice{
 
 	public static int score = 0;
 
-	/*@Test
-	public void basicServerTest() {
-		try{
-			TheaterShow show = new TheaterShow();
-		} catch(IOException e1){
-			fail();
-		}
+	@Test
+	public void oneTicketOfficeTest() {
+		//Create a theater showing
+		TheaterShow show = new TheaterShow("Mcdonald's Commercial");
+		Assert.assertTrue(show.startServicingTicketRequests(50001));
+		
+		//Open a single office
+		TicketOffice office = new TicketOffice("localhost", "Single Office");
+		Thread thread = new Thread(office);
+		thread.start();
 		
 		try {
-			//TicketServer.start(16789);
-		} catch (Exception e) {
+			thread.join();
+		}
+		catch(Exception ex) {
 			fail();
 		}
-		TicketClient client = new TicketClient();
-		//Seat clientTicketSeat = client.requestTicket();
 	}
 
+	/*
 	@Test
 	public void testServerCachedHardInstance() {
 		try {
@@ -59,8 +62,8 @@ public class TestTicketOffice{
 		client1.requestTicket();
 		client2.requestTicket();
 
-	}
-
+	}*/
+/*
 	@Test
 	public void twoNonConcurrentServerTest() {
 		try {
@@ -75,8 +78,8 @@ public class TestTicketOffice{
 		c2.requestTicket();
 		c3.requestTicket();
 	}
-
-	@Test
+*/
+	/*@Test
 	public void twoConcurrentServerTest(){
 		try{
 			// TicketServer.start(16792);

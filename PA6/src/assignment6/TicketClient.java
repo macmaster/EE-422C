@@ -77,7 +77,6 @@ public class TicketClient{
 
 	public void requestTicket(){
 		tc.run();
-		System.out.println(hostName + ", " + threadName + " requested one ticket");
 	}
 
 	public void sleep(){
