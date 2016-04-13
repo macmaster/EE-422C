@@ -72,7 +72,11 @@ class ThreadedTicketServer implements Runnable {
 		callbackTheater = theaterShowCallback;
 	}
 
-	
+	/**
+	 * Method that repeatedly accepts clients and handles their ticket requests
+	 * Replies to ticket request with String version of Seat OR "null" if there's 
+	 * no seat available
+	 */
 	public void run() {
 		ServerSocket serverSocket;
 		try {

@@ -143,9 +143,16 @@ public class TheaterShow{
 	 * @return Message regarding how many seats are booked and unbooked.
 	 */
 	public String getBookingMessage() {
-		return  "\n<============= Booking at Bates Recital Hall: " + theaterShowing + " =============>\n"
+		String heading = "<============= Booking at Bates Recital Hall: " + theaterShowing + " =============>";
+		String footer = "<";
+		for(int i = 0; i < heading.length() - 2; i++) {
+			footer += "=";
+		}
+		footer += ">";
+		return  "\n" + heading + "\n"
 				+ "" + (totalSeats - availableSeats.size()) + " seats have been booked.\n"
-				+ availableSeats.size() + " seats are open.\n";
+				+ availableSeats.size() + " seats are open.\n"
+				+ footer + "\n";
 	}
 	
 }

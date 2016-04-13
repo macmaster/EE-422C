@@ -33,7 +33,7 @@ public class TestTicketOffice{
 	 */
 	public void oneTicketOfficeOneShowTest() {
 		//Create the theater showing
-		TheaterShow show = new TheaterShow("Threadpool starring Ryan Reynolds");
+		TheaterShow show = new TheaterShow("Thread Poets Society");
 		Assert.assertTrue(show.startServicingTicketRequests(50000));
 		
 		//Open a single office
@@ -85,7 +85,7 @@ public class TestTicketOffice{
 	 */
 	public void manyTicketOfficeOneShowTest(){
 		//Create the theater showing
-		TheaterShow show = new TheaterShow("Threadman vs. Superman");
+		TheaterShow show = new TheaterShow("Night of the Living Thread");
 		Assert.assertTrue(show.startServicingTicketRequests(50002));
 
 		// create office threads
