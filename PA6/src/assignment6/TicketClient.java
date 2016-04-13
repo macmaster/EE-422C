@@ -36,7 +36,6 @@ class ThreadedTicketClient implements Runnable{
 		try{
 			// setup server socket
 			Socket echoSocket = new Socket(hostname, TicketServer.PORT);
-			PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
 			
 			String seatString = in.readLine();
