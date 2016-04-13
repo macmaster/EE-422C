@@ -48,6 +48,10 @@ class ThreadedTicketClient implements Runnable{
 		this.threadname = threadname;
 	}
 
+	/**
+	 * Connects to the ticket server using data specified and
+	 * requests a ticket, the receives ticket information
+	 */
 	public void run(){
 		System.out.flush();
 		try{
@@ -72,35 +76,46 @@ class ThreadedTicketClient implements Runnable{
 	}
 }
 
+/**
+ * Ticket requesting client class: interacts with TicketServer
+ */
 public class TicketClient{
-	ThreadedTicketClient tc;
-	String result = "dummy";
-	String hostName = "";
-	String threadName = "";
 
+	/**
+	 * ThreadedTicketClient used behind-the-scenes
+	 */
+	protected ThreadedTicketClient tc;
+	
+	/**
+	 * Holds the result of the ticket request
+	 */
+	protected String result;
+	
+	/**
+	 * Name of the host to connect to
+	 */
+	protected String hostName;
+	
+	/**
+	 * Name of this client
+	 */
+	protected String threadName;
+
+	/**
+	 * Constructs a client with the given information
+	 * @param hostname Host for this client to connect to
+	 * @param threadname Name of this client
+	 */
 	public TicketClient(String hostname, String threadname){
 		tc = new ThreadedTicketClient(this, hostname, threadname);
 		hostName = hostname;
 		threadName = threadname;
 	}
 
-	public TicketClient(String name){
-		this("localhost", name);
-	}
-
-	public TicketClient(){
-		this("localhost", "unnamed client");
-	}
-
+	/**
+	 * Tells this client to request a ticket
+	 */
 	public void requestTicket(){
 		tc.run();
-	}
-
-	public void sleep(){
-		try{
-			Thread.sleep(100);
-		} catch(InterruptedException e){
-			e.printStackTrace();
-		}
 	}
 }

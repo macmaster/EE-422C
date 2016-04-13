@@ -14,11 +14,13 @@ package assignment6;
  */
 public class TicketPrinter{
 	
-	/*Procedure - printTicketSeat(seat)
-	Input: seat is the location of an available seat in the theater.
-	output: A ticket for that seat is printed to the screen – leave it on the screen long enough to be
-	read easily by the client. The output format is up to you, but should contain the essential information
-	found on a theater ticket. */
+	/**
+	 * Procedure - printTicketSeat(seat)
+	 * Input: seat is the location of an available seat in the theater.
+	 * output: A ticket for that seat is printed to the screen – leave it on the screen long enough to be
+	 * read easily by the client. The output format is up to you, but should contain the essential information
+	 * found on a theater ticket. 
+	 */
 	public void printTicketSeat(Seat seat){
 		String ticket = "<==== Bates Recital Hall Ticket ====>\n"
 				+ "Seat Section: " + seat.section + "\n"

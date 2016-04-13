@@ -13,36 +13,42 @@
 
 package assignment6;
 
-import java.util.Queue;
-
+/**
+ * Class representing an office selling tickets. 
+ */
 public class TicketOffice implements Runnable{
 
+	/**
+	 * Client used by this office to request tickets
+	 */
 	private TicketClient client;
+	
+	/**
+	 * Printer used by this office to print ticket stubs
+	 */
 	private TicketPrinter printer;
+	
+	/**
+	 * Costumers left in the line that want a ticket
+	 */
 	private int customersLeftInLine;
 	
-	public TicketOffice(){
-		customersLeftInLine = ((int)(Math.random()*900) + 100);
-		client = new TicketClient();
-		printer = new TicketPrinter();
-	}
-	
-	public TicketOffice(int customers){
-		customersLeftInLine = customers;
-		client = new TicketClient();
-		printer = new TicketPrinter();
-	}
-	
+	/**
+	 * Constructs a ticket office with the given info.
+	 * @param hostname Host to connect to
+	 * @param threadname Name of the ticket office
+	 */
 	public TicketOffice(String hostname, String threadname){
 		customersLeftInLine = ((int)(Math.random()*900) + 100);
 		client = new TicketClient(hostname, threadname);
 		printer = new TicketPrinter();
 	}
 	
-	/** run ***********************************
+	/** 
+	 * run:
 	 * opens the ticket office for business
 	 * serves all the customers in line
-	 *****************************************/
+	 */
 	public void run(){
 		int custNo = 1;
 		while(customersLeftInLine > 0){

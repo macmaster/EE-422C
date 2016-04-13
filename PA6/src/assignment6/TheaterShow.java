@@ -25,9 +25,14 @@ public class TheaterShow{
 	 */
 	protected PriorityQueue<Seat> availableSeats;
 	
-	
+	/**
+	 * Total seats at the recital hall
+	 */
 	protected int totalSeats;
 	
+	/**
+	 * Name of the show
+	 */
 	protected String theaterShowing;
 	
 	/**
@@ -44,6 +49,11 @@ public class TheaterShow{
 		initSeats();
 	}
 	
+	/**
+	 * Starts servicing ticket requests at the given port.
+	 * @param port Port to service requests at
+	 * @return True if successful, False otherwise
+	 */
 	public boolean startServicingTicketRequests(int port){
 		try {
 			TicketServer.start(port, this);
@@ -129,6 +139,9 @@ public class TheaterShow{
 		totalSeats = availableSeats.size();
 	}
 
+	/**
+	 * @return Message regarding how many seats are booked and unbooked.
+	 */
 	public String getBookingMessage() {
 		return  "\n<============= Booking at Bates Recital Hall: " + theaterShowing + " =============>\n"
 				+ "" + (totalSeats - availableSeats.size()) + " seats have been booked.\n"
