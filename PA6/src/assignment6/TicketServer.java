@@ -28,11 +28,6 @@ public class TicketServer {
 	 */
 	static int PORT = 2222;
 
-	/**
-	 * Maximum number of parallel threads
-	 */
-	final static int MAXPARALLELTHREADS = 3;
-	
 	protected static Thread serverThread = null;
 	
 	public static void start(int portNumber, TheaterShow callbackTheater) throws IOException {
@@ -57,6 +52,7 @@ class ThreadedTicketServer implements Runnable {
 		callbackTheater = theaterShowCallback;
 	}
 
+	
 	public void run() {
 		ServerSocket serverSocket;
 		try {
