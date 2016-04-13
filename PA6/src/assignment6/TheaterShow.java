@@ -131,7 +131,7 @@ public class TheaterShow{
 	public String getBookingMessage() {
 		return  "\n<============= Booking at Bates Recital Hall: " + theaterShowing + " =============>\n"
 				+ "" + (totalSeats - availableSeats.size()) + " seats have been booked.\n"
-				+ availableSeats.size() + " seats are open.";
+				+ availableSeats.size() + " seats are open.\n";
 	}
 	
 }

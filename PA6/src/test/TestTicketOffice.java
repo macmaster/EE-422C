@@ -14,27 +14,23 @@ package test;
 
 import static org.junit.Assert.fail;
 
-import java.io.IOException;
+import java.util.ArrayList;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import assignment6.Seat;
-import assignment6.Seat.Section;
 import assignment6.TheaterShow;
-import assignment6.TicketClient;
 import assignment6.TicketOffice;
-import assignment6.TicketServer;
 
 public class TestTicketOffice{
 
-	public static int score = 0;
-
+	public int many = 6;
+	
 	@Test
-	public void oneTicketOfficeTest() {
+	public void oneTicketOfficeOneShowTest() {
 		//Create a theater showing
 		TheaterShow show = new TheaterShow("Mcdonald's Commercial");
-		Assert.assertTrue(show.startServicingTicketRequests(50001));
+		Assert.assertTrue(show.startServicingTicketRequests(50000));
 		
 		//Open a single office
 		TicketOffice office = new TicketOffice("localhost", "Single Office");
@@ -47,80 +43,14 @@ public class TestTicketOffice{
 		catch(Exception ex) {
 			fail();
 		}
+		
+		System.out.println(show.getBookingMessage());
 	}
 
-	/*
 	@Test
-	public void testServerCachedHardInstance() {
-		try {
-			//TicketServer.start(16790);
-		} catch (Exception e) {
-			fail();
-		}
-		TicketClient client1 = new TicketClient("localhost", "c1");
-		TicketClient client2 = new TicketClient("localhost", "c2");
-		client1.requestTicket();
-		client2.requestTicket();
-
-	}*/
-/*
-	@Test
-	public void twoNonConcurrentServerTest() {
-		try {
-			//TicketServer.start(16791);
-		} catch (Exception e) {
-			fail();
-		}
-		TicketClient c1 = new TicketClient("nonconc1");
-		TicketClient c2 = new TicketClient("nonconc2");
-		TicketClient c3 = new TicketClient("nonconc3");
-		c1.requestTicket();
-		c2.requestTicket();
-		c3.requestTicket();
-	}
-*/
-	/*@Test
-	public void twoConcurrentServerTest(){
-		try{
-			// TicketServer.start(16792);
-		} catch(Exception e){
-			fail();
-		}
-		final TicketClient c1 = new TicketClient("conc1");
-		final TicketClient c2 = new TicketClient("conc2");
-		final TicketClient c3 = new TicketClient("conc3");
-		Thread t1 = new Thread(){
-			public void run(){
-				c1.requestTicket();
-			}
-		};
-		Thread t2 = new Thread(){
-			public void run(){
-				c2.requestTicket();
-			}
-		};
-		Thread t3 = new Thread(){
-			public void run(){
-				c3.requestTicket();
-			}
-		};
-		t1.start();
-		t2.start();
-		t3.start();
-		try{
-			t1.join();
-			t2.join();
-			t3.join();
-		} catch(Exception e){
-			e.printStackTrace();
-		}
-
-	} */
-
-	@Test
-	public void testTicketOffice(){
+	public void twoTicketOfficeOneShowTest(){
 		TheaterShow show = new TheaterShow("Romeo and Juliet");
-		Assert.assertTrue(show.startServicingTicketRequests(50000));
+		Assert.assertTrue(show.startServicingTicketRequests(50001));
 
 		// create office threads
 		TicketOffice o1 = new TicketOffice("localhost", "Office 1");
@@ -149,6 +79,35 @@ public class TestTicketOffice{
 		}
 		
 		System.out.println(show.getBookingMessage());
-
 	}
+	
+	@Test
+	public void manyTicketOfficeOneShowTest(){
+		TheaterShow show = new TheaterShow("Antman vs. Superman");
+		Assert.assertTrue(show.startServicingTicketRequests(50002));
+
+		// create office threads
+		ArrayList<Thread> officeThreads = new ArrayList<Thread>();
+		for(int i = 1; i <= many; i++) {
+			officeThreads.add(new Thread(new TicketOffice("localhost", "Office " + i)));
+		}
+
+		// start the office threads
+		for(Thread thr : officeThreads) {
+			thr.start();
+		}
+
+		// join the office threads
+		try{
+			for(Thread thr: officeThreads) {
+				thr.join();
+			}
+		} catch(Exception e){
+			e.printStackTrace();
+			fail();
+		}
+		
+		System.out.println(show.getBookingMessage());
+	}
+	
 }
