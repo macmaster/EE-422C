@@ -23,9 +23,9 @@ public class TicketPrinter{
 	 */
 	public void printTicketSeat(Seat seat){
 		String ticket = "<==== Bates Recital Hall Ticket ====>\n"
-				+ "Seat Section: " + seat.section + "\n"
-				+ "Seat Row: " + seat.rowToRowName(seat.row) + "\n"
-				+ "Seat Number: " + seat.number + "\n"
+				+ "Seat Section: " + seat.getSection() + "\n"
+				+ "Seat Row: " + seat.rowToRowName(seat.getRow()) + "\n"
+				+ "Seat Number: " + seat.getNumber() + "\n"
 				+    "<===================================>\n";
 		System.out.println(ticket);
 	}

@@ -131,6 +131,27 @@ public class Seat implements Comparable {
 	public String toString() {
 		return "" + section.toString() + "," + row + "," + number;
 	}
+	
+	/** getNumber()
+	 * @return seat number
+	 */
+	public int getNumber(){
+		return number;
+	}
+	
+	/** getRow()
+	 * @return seat number
+	 */
+	public int getRow(){
+		return row;
+	}
+
+	/** getNumber()
+	 * @return seat number
+	 */
+	public Section getSection(){
+		return section;
+	}
 }
 
 
