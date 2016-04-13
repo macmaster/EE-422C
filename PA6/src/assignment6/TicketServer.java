@@ -79,6 +79,7 @@ class ThreadedTicketServer implements Runnable {
 			serverSocket = new ServerSocket(TicketServer.PORT);
 			//boolean keepServicing = true; do we need this?
 			while(true){
+				// service client seat requests
 				Socket clientSocket = serverSocket.accept();
 				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 				String seatStr;
