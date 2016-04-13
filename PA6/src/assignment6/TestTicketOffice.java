@@ -28,7 +28,7 @@ public class TestTicketOffice{
 	public int many = 6;
 	
 	@Test
-	/*
+	/**
 	 * Tests our design with one ticket office and one theater show.
 	 */
 	public void oneTicketOfficeOneShowTest() {
@@ -52,7 +52,7 @@ public class TestTicketOffice{
 	}
 
 	@Test
-	/*
+	/**
 	 * Tests our design with two ticket offices and one theater show.
 	 */
 	public void twoTicketOfficeOneShowTest(){
@@ -80,7 +80,7 @@ public class TestTicketOffice{
 	}
 	
 	@Test
-	/*
+	/**
 	 * Tests our design with many ticket offices and one theater show.
 	 */
 	public void manyTicketOfficeOneShowTest(){
