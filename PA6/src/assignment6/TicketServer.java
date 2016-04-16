@@ -20,6 +20,8 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Class that serves TicketClients. 
@@ -31,7 +33,7 @@ public class TicketServer{
 	/**
 	 * port number for the server to listen on, when started
 	 */
-	static int PORT = 20000;
+	static int PORT = 10000;
 
 	/**
 	 * Default port number for assignment failures
@@ -189,7 +191,13 @@ class TicketServerListener implements Runnable{
 	 * TheaterShow for the listener
 	 */
 	TheaterShow show;
-
+	
+	/**
+	 * Lock for the port assignment section
+	 */
+	private final Lock lock = new ReentrantLock();
+	ArrayList<Integer> ports = new ArrayList<Integer>(); // assigned ports
+	
 	/**
 	 * Create a Ticket Server Listener on the default port
 	 */
@@ -219,7 +227,7 @@ class TicketServerListener implements Runnable{
 	 * assigns them a new server thread
 	 */
 	public void run(){
-		ArrayList<Integer> ports = new ArrayList<Integer>(); // assigned ports
+		
 		try{
 			// listen for new client requests
 			serverSocket = new ServerSocket(port);
@@ -229,12 +237,14 @@ class TicketServerListener implements Runnable{
 				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 
 				// assign a new port for a new server thread
-				int count = ports.size() + 1;
+				//TODO: SYNCHRONIZE THIS PART!!!
+				lock.lock();
+				int count = ports.size() + (int)(Math.random() * 5000);
 				int port = TicketServer.DEFAULT_PORT + count;
 				ports.add(port);
+				lock.unlock();
 
 				// start independent ticket thread
-
 				Runnable ticketServer = new ThreadedTicketServer(port, show);
 				Thread serverThread = new Thread(ticketServer);
 				serverThread.start();
@@ -253,5 +263,4 @@ class TicketServerListener implements Runnable{
 			e.printStackTrace();
 		}
 	}
-
 }

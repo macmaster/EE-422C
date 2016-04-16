@@ -81,6 +81,7 @@ class ThreadedTicketClient implements Runnable{
 		} catch(IOException e){
 			// client IO error
 			System.err.println("Port: " + port);
+			System.err.println(Thread.currentThread().getName());
 			System.err.println("Client Error: IO exception (error in input / output)!");
 			e.printStackTrace();
 		}
