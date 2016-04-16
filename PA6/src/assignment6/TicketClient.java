@@ -28,6 +28,11 @@ class ThreadedTicketClient implements Runnable{
 	protected String hostname;
 	
 	/**
+	 * port to connect on
+	 */
+	protected int port;
+	
+	/**
 	 * Name of this client
 	 */
 	protected String threadname;
@@ -43,6 +48,7 @@ class ThreadedTicketClient implements Runnable{
 	 * @param threadname Name of this client
 	 */
 	public ThreadedTicketClient(TicketClient sc, String hostname, String threadname){
+		this.port = TicketServer.requestPortNumber();
 		this.sc = sc;
 		this.hostname = hostname;
 		this.threadname = threadname;
@@ -56,7 +62,7 @@ class ThreadedTicketClient implements Runnable{
 		System.out.flush();
 		try{
 			// setup server socket
-			Socket echoSocket = new Socket(hostname, TicketServer.PORT);
+			Socket echoSocket = new Socket(hostname, port);
 			BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
 			
 			String seatString = in.readLine();

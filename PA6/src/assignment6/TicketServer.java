@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  * Class that serves TicketClients.
@@ -24,19 +25,42 @@ import java.net.Socket;
 public class TicketServer {
 	
 	/**
-	 * Port number for the server to listen on, when started 
+	 * Default port number for the server to listen on, when started 
 	 */
-	static int PORT = 2222;
+	static int PORT = 5000;
 	
-	public static void start(int portNumber, TheaterShow callbackTheater) throws IOException {
-		PORT = portNumber;
-		Runnable ticketServer = new ThreadedTicketServer(callbackTheater);
-		Thread serverThread = new Thread(ticketServer);
-		serverThread.start();
+	/**
+	 * list of all the ports that have been assigned
+	 */
+	private static ArrayList<Integer> ports = new ArrayList<Integer>();
+	
+	/** start
+	 * starts the server thread execution
+	 * @param portNumber default port number
+	 * @param callbackTheater Theater show for server to manage
+	 * @throws IOException 
+	 */
+	public static void start(TheaterShow callbackTheater) throws IOException {
+		for(int port : ports){
+			Runnable ticketServer = new ThreadedTicketServer(port, callbackTheater);
+			Thread serverThread = new Thread(ticketServer);
+			serverThread.start();	
+		}
 	}
+	
+	public static int requestPortNumber(){
+		int count = ports.size();
+		int port = TicketServer.PORT + count;
+		ports.add(port);
+		return port;
+	}
+	
+	
 }
+
 /**
  * Helper class for the TicketServer interface
+ * Listens to a specific client
  */
 class ThreadedTicketServer implements Runnable {
 
@@ -49,6 +73,11 @@ class ThreadedTicketServer implements Runnable {
 	 * name of the running server thread
 	 */
 	String threadname = "X";
+	
+	/**
+	 * port number for current server thread
+	 */
+	int port;
 	
 	/**
 	 * name of the calling test case
@@ -66,9 +95,19 @@ class ThreadedTicketServer implements Runnable {
 	TheaterShow callbackTheater;
 
 	/**
-	 * Create a Ticket Server thread that manages a specific Theater Show
+	 * Create a Ticket Server thread that manages a specific Theater Show 
+	 * runs on the default port
 	 */
 	public ThreadedTicketServer(TheaterShow theaterShowCallback) {
+		port = TicketServer.PORT;
+		callbackTheater = theaterShowCallback;
+	}
+	
+	/**
+	 * Create a Ticket Server thread that manages a specific Theater Show
+	 */
+	public ThreadedTicketServer(int port, TheaterShow theaterShowCallback) {
+		this.port = port;
 		callbackTheater = theaterShowCallback;
 	}
 
@@ -80,8 +119,79 @@ class ThreadedTicketServer implements Runnable {
 	public void run() {
 		ServerSocket serverSocket;
 		try {
-			serverSocket = new ServerSocket(TicketServer.PORT);
-			//boolean keepServicing = true; do we need this?
+			serverSocket = new ServerSocket(port);
+			while(true){
+				// service client seat requests
+				Socket clientSocket = serverSocket.accept();
+				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+				String seatStr;
+				try {
+					seatStr = callbackTheater.reserveBestAvailableSeat().toString();
+				}
+				catch (NoSeatAvailableException e) {
+					seatStr = "null";
+				}
+				out.println(seatStr);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+}
+
+
+
+/**
+ * Listens for Clients, then assigns them a server thread
+ */
+class TicketServerListener implements Runnable {
+
+	/** 
+	 * host to run server on
+	 */
+	String hostname = "127.0.0.1";
+	
+	/**
+	 * name of the running server thread
+	 */
+	String threadname = "X";
+	
+	/**
+	 * port number for current server thread
+	 */
+	int port;
+	
+	/**
+	 * name of the calling test case
+	 */
+	String testcase;
+
+	/**
+	 * Create a Ticket Server thread that manages a specific Theater Show 
+	 * runs on the default port
+	 */
+	public TicketServerListener() {
+		port = TicketServer.PORT;
+	}
+	
+	/**
+	 * Create a Ticket Server thread that manages a specific Theater Show
+	 */
+	public TicketServerListener(int port) {
+		this.port = port;
+	}
+
+	/**
+	 * Method that repeatedly accepts clients and handles their ticket requests
+	 * Replies to ticket request with String version of Seat OR "null" if there's 
+	 * no seat available
+	 */
+	public void run() {
+		ServerSocket serverSocket;
+		try {
+			serverSocket = new ServerSocket(port);
 			while(true){
 				// service client seat requests
 				Socket clientSocket = serverSocket.accept();
