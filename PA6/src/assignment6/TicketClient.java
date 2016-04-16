@@ -25,7 +25,7 @@ class ThreadedTicketClient implements Runnable{
 	/**
 	 * Host to connect to
 	 */
-	protected String hostname;
+	protected String hostname = "localhost";
 	
 	/**
 	 * port to connect on
@@ -48,7 +48,7 @@ class ThreadedTicketClient implements Runnable{
 	 * @param threadname Name of this client
 	 */
 	public ThreadedTicketClient(TicketClient sc, String hostname, String threadname){
-		this.port = TicketServer.requestPortNumber();
+		this.port = requestPortNumber();
 		this.sc = sc;
 		this.hostname = hostname;
 		this.threadname = threadname;
@@ -78,6 +78,22 @@ class ThreadedTicketClient implements Runnable{
 			// client IO error
 			System.err.println("Client Error: IO exception (error in input / output)!");
 			e.printStackTrace();
+		}
+	}
+	
+	/** requestPortNumber()
+	 * requests a port number from the server listener
+	 */
+	private int requestPortNumber(){
+		try{
+			Socket echoSocket = new Socket(hostname, TicketServer.PORT);
+			BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
+			int portNumber = Integer.parseInt(in.readLine());
+			echoSocket.close();
+			return portNumber;
+		}
+		catch(Exception e){
+			return TicketServer.DEFAULT_PORT;
 		}
 	}
 }

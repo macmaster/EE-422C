@@ -58,7 +58,7 @@ public class TestTicketOffice{
 	public void twoTicketOfficeOneShowTest(){
 		//Create the theater showing
 		TheaterShow show = new TheaterShow("The Hunt for Thread October");
-		Assert.assertTrue(show.startServicingTicketRequests(50001));
+		Assert.assertTrue(show.startServicingTicketRequests(60000));
 
 		// create office threads
 		Thread o1 = new Thread(new TicketOffice("localhost", "Office 1"));
@@ -86,7 +86,7 @@ public class TestTicketOffice{
 	public void manyTicketOfficeOneShowTest(){
 		//Create the theater showing
 		TheaterShow show = new TheaterShow("Night of the Living Thread");
-		Assert.assertTrue(show.startServicingTicketRequests(50002));
+		Assert.assertTrue(show.startServicingTicketRequests(40000));
 
 		// create office threads
 		ArrayList<Thread> officeThreads = new ArrayList<Thread>();
