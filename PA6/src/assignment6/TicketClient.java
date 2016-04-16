@@ -14,29 +14,32 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
+import sun.applet.resources.MsgAppletViewer;
 
 /**
  * Class that handles the background processes of the TicketClient.
  */
 class ThreadedTicketClient implements Runnable{
-	
+
 	/**
 	 * Host to connect to
 	 */
 	protected String hostname = "localhost";
-	
+
 	/**
 	 * port to connect on
 	 */
 	protected int port;
-	
+
 	/**
 	 * Name of this client
 	 */
 	protected String threadname;
-	
+
 	/**
 	 * Associated TicketClient for result access purposes
 	 */
@@ -44,6 +47,7 @@ class ThreadedTicketClient implements Runnable{
 
 	/**
 	 * Constructed this client with the given parameters
+	 * 
 	 * @param hostname Host to connect to
 	 * @param threadname Name of this client
 	 */
@@ -55,18 +59,18 @@ class ThreadedTicketClient implements Runnable{
 	}
 
 	/**
-	 * Connects to the ticket server using data specified and
-	 * requests a ticket, the receives ticket information
+	 * Connects to the ticket server using data specified and requests a ticket,
+	 * the receives ticket information
 	 */
 	public void run(){
 		System.out.flush();
 		try{
 			// setup server socket
 			Socket echoSocket = new Socket(hostname, port);
-			BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
-			
+			BufferedReader in = new BufferedReader(
+					new InputStreamReader(echoSocket.getInputStream()));
+
 			String seatString = in.readLine();
-			//out.println("Thanks for the ticket.");
 			sc.result = seatString;
 
 			echoSocket.close();
@@ -80,19 +84,42 @@ class ThreadedTicketClient implements Runnable{
 			e.printStackTrace();
 		}
 	}
-	
-	/** requestPortNumber()
-	 * requests a port number from the server listener
+
+	/**
+	 * Informs the server that the port client has completed
+	 */
+	public void notifyServer(){
+		try{
+			// setup server notification socket
+			Socket notifySocket = new Socket(hostname, port);
+			PrintWriter out = new PrintWriter(notifySocket.getOutputStream(), true);
+			BufferedReader in = new BufferedReader(
+					new InputStreamReader(notifySocket.getInputStream()));
+			out.println("client finished"); // notification message
+
+			// wait for server handshake
+			while(in.readLine() == null){
+				Thread.sleep(10); // polling delay
+			}
+			notifySocket.close();
+		} catch(Exception e){
+			System.err.println("failed to notify server after client finished!");
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * requestPortNumber() requests a port number from the server listener
 	 */
 	private int requestPortNumber(){
 		try{
 			Socket echoSocket = new Socket(hostname, TicketServer.PORT);
-			BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
+			BufferedReader in = 
+					new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
 			int portNumber = Integer.parseInt(in.readLine());
 			echoSocket.close();
 			return portNumber;
-		}
-		catch(Exception e){
+		} catch(Exception e){
 			return TicketServer.DEFAULT_PORT;
 		}
 	}
@@ -107,17 +134,17 @@ public class TicketClient{
 	 * ThreadedTicketClient used behind-the-scenes
 	 */
 	protected ThreadedTicketClient tc;
-	
+
 	/**
 	 * Holds the result of the ticket request
 	 */
 	protected String result;
-	
+
 	/**
 	 * Name of the host to connect to
 	 */
 	protected String hostName;
-	
+
 	/**
 	 * Name of this client
 	 */
@@ -125,6 +152,7 @@ public class TicketClient{
 
 	/**
 	 * Constructs a client with the given information
+	 * 
 	 * @param hostname Host for this client to connect to
 	 * @param threadname Name of this client
 	 */
@@ -139,5 +167,12 @@ public class TicketClient{
 	 */
 	public void requestTicket(){
 		tc.run();
+	}
+
+	/**
+	 * Informs the client that the port client has completed
+	 */
+	public void notifyServer(){
+		tc.notifyServer();
 	}
 }

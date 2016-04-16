@@ -11,7 +11,9 @@
 
 package assignment6;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -36,47 +38,42 @@ public class TicketServer{
 	/**
 	 * Theater show that the server manages
 	 */
-	static TheaterShow SHOW = null;
+	protected TheaterShow show;
 	
 	/**
-	 * flag indicating whether or not the listener has started
+	 * Listener Thread for the ticket server
 	 */
-	private static boolean started;
+	private Thread listener;
 
+	/** TicketServer()
+	 * creates a new ticket server object
+	 * 
+	 * @param portNumber default port number
+	 * @param callbackTheater Theater show for server to manage
+	 */
+	public TicketServer(int port, TheaterShow callbackTheater){
+		setDefaultPort(port);
+		show = callbackTheater;
+		Runnable ticketServerListener = new TicketServerListener(TicketServer.PORT, show);
+		listener = new Thread(ticketServerListener);
+	}
+	 
 	/**
 	 * start starts the listener thread and begins listening for new client
 	 * requests
 	 * 
-	 * @param portNumber default port number
-	 * @param callbackTheater Theater show for server to manage
+	 * @precondition: start has not been called yet
 	 * @throws IOException
 	 */
-	public static void start(int port, TheaterShow callbackTheater) throws IOException{
-		if(!started){
-			DEFAULT_PORT = port;
-			started = true;
-			SHOW = callbackTheater;
-			Runnable ticketServerListener = new TicketServerListener(TicketServer.PORT);
-			Thread serverThread = new Thread(ticketServerListener);
-			serverThread.start();
-		}
+	public void start() throws IOException{
+		listener.start();
 	}
-	
-	/**
-	 * initializes the ticket server for operation
-	 */
-	public static void start(int port, TheaterShow callbackTheater) throws IOException{
-		if(!started){
-			DEFAULT_PORT = port;
-			started = true;
-			SHOW = callbackTheater;
-			Runnable ticketServerListener = new TicketServerListener(TicketServer.PORT);
-			Thread serverThread = new Thread(ticketServerListener);
-			serverThread.start();
-		}
-	}
-	
 
+	public static void setDefaultPort(int port){
+		PORT = port;
+		DEFAULT_PORT = port;
+	}
+	
 }
 
 /**
@@ -125,8 +122,9 @@ class ThreadedTicketServer implements Runnable{
 	public void run(){
 		ServerSocket serverSocket;
 		try{
+			boolean clientOpen = true;
 			serverSocket = new ServerSocket(port);
-			while(true){
+			while(clientOpen){
 				// service client seat requests
 				Socket clientSocket = serverSocket.accept();
 				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
@@ -137,7 +135,18 @@ class ThreadedTicketServer implements Runnable{
 					seatStr = "null";
 				}
 				out.println(seatStr);
+				
+				// check for end thread request
+				BufferedReader in = new BufferedReader(
+						new InputStreamReader(clientSocket.getInputStream()));
+				String msg = in.readLine();
+				if(msg != null){
+					System.err.println("client finished!");
+					out.println("received client termination request.");
+					clientOpen = false;
+				}
 			}
+			serverSocket.close();
 		} catch(IOException e){
 			e.printStackTrace();
 		}
@@ -165,18 +174,33 @@ class TicketServerListener implements Runnable{
 	 * port number for current server thread
 	 */
 	int port;
+	
+	/**
+	 * TheaterShow for the listener
+	 */
+	TheaterShow show;
 
 	/**
 	 * Create a Ticket Server Listener on the default port
 	 */
 	TicketServerListener(){
-		port = TicketServer.PORT;
+		this.show = null;
+		this.port = TicketServer.PORT;
 	}
 
 	/**
 	 * Create a Ticket Server Listener on this port
 	 */
 	TicketServerListener(int port){
+		this.show = null;
+		this.port = port;
+	}
+	
+	/**
+	 * Create a Ticket Server Listener on this port for a specific show
+	 */
+	TicketServerListener(int port, TheaterShow show){
+		this.show = show;
 		this.port = port;
 	}
 
@@ -200,7 +224,8 @@ class TicketServerListener implements Runnable{
 				ports.add(port);
 
 				// start independent ticket thread
-				Runnable ticketServer = new ThreadedTicketServer(port, TicketServer.SHOW);
+
+				Runnable ticketServer = new ThreadedTicketServer(port, show);
 				Thread serverThread = new Thread(ticketServer);
 				serverThread.start();
 
@@ -210,7 +235,6 @@ class TicketServerListener implements Runnable{
 		} catch(IOException e){
 			e.printStackTrace();
 		}
-
 	}
 
 }

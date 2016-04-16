@@ -63,6 +63,8 @@ public class TicketOffice implements Runnable{
 			}
 			customersLeftInLine--; //customer leaves b/c he is satisfied
 		}
+		
+		client.notifyServer();
 	}
 
 }
