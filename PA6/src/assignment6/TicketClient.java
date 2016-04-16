@@ -80,6 +80,7 @@ class ThreadedTicketClient implements Runnable{
 			e.printStackTrace();
 		} catch(IOException e){
 			// client IO error
+			System.err.println("Port: " + port);
 			System.err.println("Client Error: IO exception (error in input / output)!");
 			e.printStackTrace();
 		}
@@ -89,9 +90,10 @@ class ThreadedTicketClient implements Runnable{
 	 * Informs the server that the port client has completed
 	 */
 	public void notifyServer(){
+;		Socket notifySocket = null;
 		try{
 			// setup server notification socket
-			Socket notifySocket = new Socket(hostname, port);
+			notifySocket = new Socket(hostname, port);
 			PrintWriter out = new PrintWriter(notifySocket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(
 					new InputStreamReader(notifySocket.getInputStream()));
