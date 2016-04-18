@@ -84,22 +84,24 @@ public class TheaterShow{
 	 * @throws NoSeatAvailableException If there's no seat available
 	 */
 	public Seat reserveBestAvailableSeat() throws NoSeatAvailableException {
+		Seat seat = null;
+		
 		//only one thread can find seats per each theatershow obj
-		boolean safe = threadLock.tryLock();
-		while(!safe) {
-			safe = threadLock.tryLock();
-		}
-		if (isSeatAvailable())
-		{
-			Seat returnSeat = availableSeats.remove();
-			threadLock.unlock();
-			return returnSeat;
-		}
-		else {
-			threadLock.unlock();
-			throw new NoSeatAvailableException();
-		}
+		threadLock.lock();
+		try {
+			if (isSeatAvailable())
+				seat = availableSeats.remove();
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			threadLock.unlock();
+		}
+		
+		if(seat == null) 
+			throw new NoSeatAvailableException();
+		
+		return seat;
 		
 	}
 	
