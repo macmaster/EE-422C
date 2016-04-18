@@ -12,6 +12,7 @@ package assignment6;
 
 import java.io.IOException;
 import java.util.PriorityQueue;
+import java.util.concurrent.locks.*;
 
 /**
  * Class representing a single show at Bates Recital Hall. 
@@ -34,6 +35,11 @@ public class TheaterShow{
 	 * Name of the show
 	 */
 	protected String theaterShowing;
+	
+	/**
+	 * Used to prevent multiple threads from accessing the seat map
+	 */
+	private final Lock threadLock = new ReentrantLock();
 	
 	/**
 	 * Server for ticket offices to request tickets on 
@@ -78,12 +84,22 @@ public class TheaterShow{
 	 */
 	public Seat reserveBestAvailableSeat() throws NoSeatAvailableException {
 		//only one thread can find seats per each theatershow obj
-		synchronized (availableSeats) {
-			if (isSeatAvailable())
-				return availableSeats.remove();
-			else
-				throw new NoSeatAvailableException();
+		boolean safe = threadLock.tryLock();
+		while(!safe) {
+			safe = threadLock.tryLock();
 		}
+		if (isSeatAvailable())
+		{
+			Seat returnSeat = availableSeats.remove();
+			threadLock.unlock();
+			return returnSeat;
+		}
+		else {
+			threadLock.unlock();
+			throw new NoSeatAvailableException();
+		}
+			
+		
 	}
 	
 	/**
