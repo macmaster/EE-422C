@@ -62,7 +62,8 @@ public class TheaterShow{
 	 */
 	public boolean startServicingTicketRequests(int port){
 		try {
-			TicketServer.start(port, this);
+			ticketServer = new TicketServer(port, this);
+			ticketServer.start();
 			return true;
 		}
 		catch(IOException ex) {
