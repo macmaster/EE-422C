@@ -239,10 +239,17 @@ class TicketServerListener implements Runnable{
 				// assign a new port for a new server thread
 				//TODO: SYNCHRONIZE THIS PART!!!
 				lock.lock();
-				int count = ports.size() + (int)(Math.random() * 5000);
-				int port = TicketServer.DEFAULT_PORT + count;
-				ports.add(port);
-				lock.unlock();
+				int port;
+				try {
+					int count = ports.size() + (int)(Math.random() * 5000);
+					port = TicketServer.DEFAULT_PORT + count;
+					ports.add(port);
+				} catch (Exception e) {
+					throw e;
+				}
+				finally {
+					lock.unlock();
+				}
 
 				// start independent ticket thread
 				Runnable ticketServer = new ThreadedTicketServer(port, show);

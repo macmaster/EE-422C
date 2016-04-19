@@ -25,7 +25,7 @@ public class Seat implements Comparable {
 	 */
 	protected Section section;
 	
-	/**
+	/** 
 	 * The row this Seat is in
 	 */
 	protected int row;
@@ -111,15 +111,19 @@ public class Seat implements Comparable {
 		
 		//If in the same row, compare sections
 		if (section != otherSeat.section) {
-			if(section == Section.HouseMiddle)
+			if(section.equals(Section.HouseMiddle))
 				return -1;
-			else if(otherSeat.section == Section.HouseMiddle) {
+			else if(otherSeat.section.equals(Section.HouseMiddle)) {
 				return 1;
 			}
 		}
 		
 		//If seats are in same row and similarly-valued sections, 
-		//they are of equal value
+		//they are of equal value but we will dispense in order of seat number
+		if(this.number < otherSeat.number)
+			return -1;
+		if(this.number > otherSeat.number)
+			return 1;
 		return 0;
 	}
 	

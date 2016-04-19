@@ -124,6 +124,7 @@ public class TheaterShow{
 					for(int seatNum = seatStart; seatNum <= 128; seatNum++) {
 						availableSeats.add(new Seat(sect, row, seatNum));
 					}
+					break;
 				//middle section has seat numbers 108-121
 				//except has no last 3 rows
 				case HouseMiddle:
@@ -132,6 +133,7 @@ public class TheaterShow{
 							availableSeats.add(new Seat(sect, row, seatNum));
 						}
 					}
+					break;
 				//right section has seat numbers:
 				//no rows 1-2
 				//101-106 for row 3
@@ -152,6 +154,7 @@ public class TheaterShow{
 							availableSeats.add(new Seat(sect, row, seatNum));
 						}
 					}
+					break;
 				}
 			}
 		}
