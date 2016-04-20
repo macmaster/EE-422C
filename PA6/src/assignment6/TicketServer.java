@@ -237,7 +237,6 @@ class TicketServerListener implements Runnable{
 				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 
 				// assign a new port for a new server thread
-				//TODO: SYNCHRONIZE THIS PART!!!
 				lock.lock();
 				int port;
 				try {
