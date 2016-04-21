@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.junit.Assert;
+
 /**
  * Class that serves TicketClients. 
  * Thread to handle incoming requests from the
@@ -73,7 +75,26 @@ public class TicketServer{
 	public void start() throws IOException{
 		listener.start();
 	}
-
+	
+	/**
+	 * static start 
+	 * starts the listener thread on a new default port
+	 * and begins listening for new client
+	 * 
+	 * Uses a default theater show class
+	 * 
+	 * @precondition: start has not been called yet
+	 * @throws IOException
+	 */
+	public static void start(int port) throws IOException{
+		TheaterShow show = new TheaterShow("Default T");
+		show.startServicingTicketRequests(port);
+	}
+	
+	/**
+	 * setDefaultPort
+	 * set the default listener port on the server.
+	 *********************************************/
 	public static void setDefaultPort(int port){
 		PORT = port;
 		DEFAULT_PORT = port;

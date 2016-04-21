@@ -164,6 +164,27 @@ public class TicketClient{
 		hostName = hostname;
 		threadName = threadname;
 	}
+	
+	/**
+	 * Constructs a client with the given information
+	 * default host is localhost
+	 * 
+	 * @param threadname Name of this client
+	 ******************************************************/
+	public TicketClient(String threadname){
+		this("localhost", threadname);
+	}
+	
+	/**
+	 * Constructs a client with the given information
+	 * default host is localhost
+	 * default threadname is default_office_thread
+	 * 
+	 * @param threadname Name of this client
+	 ******************************************************/
+	public TicketClient(){
+		this("localhost", "default_office_thread");
+	}
 
 	/**
 	 * Tells this client to request a ticket
