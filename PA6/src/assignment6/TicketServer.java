@@ -137,7 +137,7 @@ class ThreadedTicketServer implements Runnable{
 				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 				String seatStr;
 				try{
-					seatStr = callbackTheater.reserveBestAvailableSeat().toString();
+					seatStr = callbackTheater.bestAvailableSeat().toString();
 				} catch(NoSeatAvailableException e){
 					seatStr = "null";
 				}

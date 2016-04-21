@@ -12,6 +12,7 @@ package assignment6;
 
 import java.io.IOException;
 import java.util.PriorityQueue;
+import java.util.SortedMap;
 import java.util.concurrent.locks.*;
 
 /**
@@ -22,7 +23,7 @@ import java.util.concurrent.locks.*;
 public class TheaterShow{
 
 	/**
-	 * Queue of seats at the theater, sorted from best to worst
+	 * seats at the theater, sorted from best to worst, with boolean indicating whether they are reserved
 	 */
 	protected PriorityQueue<Seat> availableSeats;
 	
@@ -83,7 +84,7 @@ public class TheaterShow{
 	 * @return Returns the best available Seat
 	 * @throws NoSeatAvailableException If there's no seat available
 	 */
-	public Seat reserveBestAvailableSeat() throws NoSeatAvailableException {
+	public Seat bestAvailableSeat() throws NoSeatAvailableException {
 		Seat seat = null;
 		
 		//only one thread can find seats per each theatershow obj
@@ -103,6 +104,15 @@ public class TheaterShow{
 		
 		return seat;
 		
+	}
+	
+	/**
+	 * Marks the given seat as taken
+	 */
+	public void markAvailableSeatTaken(Seat seat) {
+		if(availableSeats.contains(seat)) {
+			availableSeats.remove(seat);
+		}
 	}
 	
 	/**
