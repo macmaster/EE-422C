@@ -11,6 +11,7 @@
 package assignment6;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.concurrent.locks.*;
 
@@ -22,9 +23,14 @@ import java.util.concurrent.locks.*;
 public class TheaterShow{
 
 	/**
-	 * Queue of seats at the theater, sorted from best to worst
+	 * seats at the theater, sorted from best to worst, with boolean indicating whether they are reserved
 	 */
 	protected PriorityQueue<Seat> availableSeats;
+	
+	/**
+	 * seats that have been reserved
+	 */
+	protected ArrayList<Seat> reservedSeats;
 	
 	/**
 	 * Total seats at the recital hall
@@ -80,17 +86,27 @@ public class TheaterShow{
 	}
 	
 	/**
+	 * Determines if a certain seat is available
+	 */
+	public boolean isSeatAvailable(Seat seat) {
+		return !reservedSeats.contains(seat);
+	}
+	
+	/**
 	 * @return Returns the best available Seat
 	 * @throws NoSeatAvailableException If there's no seat available
 	 */
-	public Seat reserveBestAvailableSeat() throws NoSeatAvailableException {
+	public Seat bestAvailableSeat() throws NoSeatAvailableException {
 		Seat seat = null;
 		
 		//only one thread can find seats per each theatershow obj
 		threadLock.lock();
 		try {
-			if (isSeatAvailable())
+			if (isSeatAvailable()) {
 				seat = availableSeats.remove();
+				reservedSeats.add(seat);
+			}
+				
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -106,12 +122,33 @@ public class TheaterShow{
 	}
 	
 	/**
+	 * Marks the given seat as taken
+	 */
+	public void markAvailableSeatTaken(Seat seat) {
+		if(availableSeats.contains(seat)) {
+			availableSeats.remove(seat);
+			reservedSeats.add(seat);
+		}
+	}
+	
+	/**
+	 * Marks the given seat as available
+	 */
+	public void markReservedSeatAvailable(Seat seat) {
+		if(reservedSeats.contains(seat)) {
+			reservedSeats.remove(seat);
+			availableSeats.add(seat);
+		}
+	}
+	
+	/**
 	 * Generates the available seats queue, containing all seats
 	 * at Bates Recital Hall sorted automatically by best to worst.
 	 * @return 
 	 */
 	private void initSeats() {
 		availableSeats = new PriorityQueue<Seat>();
+		reservedSeats = new ArrayList<Seat>();
 		//first row through last row
 		for(int row = 1; row <= 27; row++) {
 			//left section to right section
