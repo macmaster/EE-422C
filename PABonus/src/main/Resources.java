@@ -17,7 +17,7 @@ public class Resources {
 				panel.getClass().getResourceAsStream(IMG_PATH)
 			);
 		for(int i = 0; i < 100; i++) {
-			double scale = Math.random() * 0.3 + 0.01;
+			double scale = 0.01 + (.99/100.0) * i * .4;
 			BufferedImage image = toBufferedImage(imageSrc.getScaledInstance(
 					(int) (imageSrc.getWidth() * scale),
 					(int) (imageSrc.getHeight() * scale),
@@ -35,7 +35,6 @@ public class Resources {
 	 */
 	public static BufferedImage toBufferedImage(Image img)
 	{
-		double start = System.currentTimeMillis();
 	    if (img instanceof BufferedImage)
 	    {
 	        return (BufferedImage) img;
@@ -49,8 +48,6 @@ public class Resources {
 	    bGr.drawImage(img, 0, 0, null);
 	    bGr.dispose();
 
-	    double end = System.currentTimeMillis();
-	    System.out.println(end - start);
 	    // Return the buffered image
 	    return bimage;
 	}

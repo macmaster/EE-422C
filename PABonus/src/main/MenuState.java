@@ -19,21 +19,24 @@ public class MenuState extends GameState {
 	
 	private Font font;
 	
+	private int frameUnit;
+	
 	public MenuState(GameStateManager gsm) {
 		
 		this.gsm = gsm;
+		this.frameUnit = 0;
 		
 		try {
 			
 			brains = new ArrayList<RandomBrain>();
 			
-			titleColor = Color.BLUE;
+			titleColor = Color.white;
 			titleFont = new Font(
 					"Century Gothic",
 					Font.PLAIN,
-					56);
+					108);
 			
-			font = new Font("Arial", Font.PLAIN, 24);
+			font = new Font("Arial", Font.PLAIN, 48);
 			
 		}
 		catch(Exception e) {
@@ -42,12 +45,16 @@ public class MenuState extends GameState {
 		
 	}
 	
-	public void init() {}
+	public void init() {
+		for(int i = 0; i < 3000; i++) {
+			update();
+		}
+	}
 	
 	public void update() {
 		
 		//generate random arrivals:
-		boolean brainArrival = Math.random() < .053;
+		boolean brainArrival = Math.random() < .13;
 		if(brainArrival) {
 			brains.add(new RandomBrain());
 		}
@@ -56,34 +63,64 @@ public class MenuState extends GameState {
 		for(RandomBrain brain : brains) {
 			brain.update();
 		}
+		
+		for(int i = 0; i < brains.size(); i++) {
+			if(brains.get(i).x > GamePanel.WIDTH) {
+				brains.remove(i);
+			}
+		}
 	}
 	
 	public void draw(Graphics2D g) {
 		//draw bg
-		g.setColor(Color.lightGray);
+		g.setColor(Color.black);
 		g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
 
 		//draw brains
+		int sizeThreshold = 30;
 		for(RandomBrain brain : brains) {
-			brain.draw(g);
+			if(frameUnit < 240 || brain.index < sizeThreshold) brain.draw(g);
+		}
+		
+		if(frameUnit < 240) {
+			if(frameUnit > 120) {
+				Composite comp = g.getComposite();
+				float alpha = (float)((240 - frameUnit) * (0.1/12.0));
+				g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha ));
+			    g.fillRect(0,0,GamePanel.WIDTH, GamePanel.HEIGHT);
+			    g.setComposite(comp);
+			}
+			else {
+				g.fillRect(0,0,GamePanel.WIDTH, GamePanel.HEIGHT);
+			}
+			frameUnit++;
 		}
 		
 		// draw title
 		g.setColor(titleColor);
 		g.setFont(titleFont);
-		g.drawString(Game.GAME_NAME, 160, 140);
+		g.drawString(Game.GAME_NAME, 320, 280);
 		
 		// draw menu options
 		g.setFont(font);
 		for(int i = 0; i < options.length; i++) {
 			if(i == currentChoice) {
-				g.setColor(Color.BLUE);
+				g.setColor(Color.YELLOW);
 			}
 			else {
-				g.setColor(Color.BLACK);
+				g.setColor(Color.WHITE);
 			}
-			g.drawString(options[i], 290, 280 + i * 30);
+			g.drawString(options[i], 580, 560 + i * 60);
 		}
+		
+		//draw brains
+		if(frameUnit >= 240) {
+			for(RandomBrain brain : brains) {
+				if(brain.index >= sizeThreshold) brain.draw(g);
+			}
+		}
+		
+		
 		
 	}
 	
