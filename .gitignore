@@ -1,6 +1,7 @@
 .metadata
 bin/
 tmp/
+Dragon Tale Tutorial p01/
 *.tmp
 *.bak
 *.swp

@@ -1,0 +1,18 @@
+**When a customer gets a ticket:
+
+Office 3: Customer #228 gets ticket:
+<==== Bates Recital Hall Ticket ====>
+Seat Section: HouseLeft
+Seat Row: AA
+Seat Number: 103
+<===================================>
+
+**When a customer doesn't get a ticket :'(
+
+Office 1: Customer #226 did not receive a ticket.
+
+**After all customers are gone from the ticket office:
+
+<============= Booking at Bates Recital Hall: Threadman vs. Superman =============>
+1378 seats have been booked.
+0 seats are open.
