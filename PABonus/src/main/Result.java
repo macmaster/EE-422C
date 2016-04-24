@@ -1,7 +1,7 @@
 /**
  * 
  */
-package computer;
+package main;
 
 
 public class Result{

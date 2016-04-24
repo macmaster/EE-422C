@@ -1,7 +1,7 @@
 /**
  * 
  */
-package computer;
+package main;
 
 import java.awt.Color;
 import java.util.Map;
