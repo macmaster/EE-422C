@@ -1,12 +1,14 @@
 package main;
 
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 import computer.Code;
 
 public class GraphicalCode {
 
 	protected Code code;
+	protected ArrayList<GraphicalPeg> pegs;
 	
 	protected int x;
 	protected int y;
@@ -15,6 +17,8 @@ public class GraphicalCode {
 		this.code = code;
 		this.x = x;
 		this.y = y;
+		
+		pegs = new ArrayList<GraphicalPeg>();
 	}
 	
 	public Code getCode() {
@@ -32,5 +36,4 @@ public class GraphicalCode {
 	public void draw(Graphics2D g) {
 		
 	}
-	
 }
