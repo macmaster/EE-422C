@@ -14,7 +14,8 @@ import java.util.ArrayList;
 public class Code{
 	
 	protected int length;
-	protected List<Integer> colorCode = new ArrayList<Integer>();
+	protected List<Integer> valueList = new ArrayList<Integer>();
+	protected List<Color> colorList = new ArrayList<Color>();
 	
 	private static final Map<Color, Integer> COLOR_MAP= new HashMap<Color, Integer>(){{
 		put(Color.red, 0); put(Color.RED, 0);
@@ -33,14 +34,33 @@ public class Code{
 	 */
 	public Code(List<Color> colorList){
 		for(Color color : colorList){
-			colorCode.add(COLOR_MAP.get(color));			
+			colorList.add(color);
+			valueList.add(COLOR_MAP.get(color));
 		}
 		
 		// length of the color code
-		length = colorCode.size();
+		length = colorList.size();
 	}
 	
 	/** getColor()
+	 * 
+	 * returns the color of the
+	 * color at position index in the code object 
+	 * 
+	 * @param index
+	 * @return color 
+	 */
+	public Color getColor(int index){
+		if(index >= length || index < 0){
+			return Color.LIGHT_GRAY;
+		}
+		else{
+			Color color = colorList.get(index);
+			return color == null ? Color.LIGHT_GRAY : color;
+		}
+	}
+	
+	/** getColorValue()
 	 * 
 	 * returns the color number of the
 	 * color at position index in the code object 
@@ -48,12 +68,12 @@ public class Code{
 	 * @param index
 	 * @return color number
 	 */
-	public Integer getColor(int index){
+	public Integer getColorValue(int index){
 		if(index >= length || index < 0){
 			return -1;
 		}
 		else{
-			Integer colorID = colorCode.get(index);
+			Integer colorID = valueList.get(index);
 			return colorID == null ? -1 : colorID;
 		}
 	}
