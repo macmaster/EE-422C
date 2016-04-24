@@ -2,6 +2,8 @@ package main;
 
 import java.awt.Graphics2D;
 
+import computer.Result;
+
 public class GraphicalResult {
 
 	protected Result result;

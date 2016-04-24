@@ -2,6 +2,8 @@ package main;
 
 import java.awt.Graphics2D;
 
+import computer.Code;
+
 public class GraphicalCode {
 
 	protected Code code;
@@ -16,7 +18,7 @@ public class GraphicalCode {
 	}
 	
 	public Code getCode() {
-		return Code;
+		return code;
 	}
 	
 	public void setCode(Code code) {
