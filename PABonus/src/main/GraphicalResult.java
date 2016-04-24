@@ -1,10 +1,12 @@
 package main;
 
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 public class GraphicalResult {
 
 	protected Result result;
+	protected ArrayList<GraphicalPeg> pegs;
 	
 	protected int x;
 	protected int y;
@@ -24,11 +26,12 @@ public class GraphicalResult {
 	}
 	
 	public void update() {
-		
 	}
 	
 	public void draw(Graphics2D g) {
-		
+		for(GraphicalPeg peg : pegs) {
+			peg.draw(g);
+		}
 	}
 	
 }

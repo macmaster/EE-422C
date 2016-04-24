@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -17,6 +18,7 @@ public class MastermindState extends GameState {
 	private GameStateManager gsm;
 	private BufferedImage mastermindImage;
 	private MastermindBoard board;
+	private ArrayList<Code> guesses;
 	
 	private Color titleColor;
 	private Font titleFont;
