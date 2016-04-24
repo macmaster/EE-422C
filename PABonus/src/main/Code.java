@@ -92,7 +92,8 @@ public class Code{
 		}
 		else{
 			Integer colorID = COLOR_MAP.get(color);
-			colorCode.set(index, colorID);
+			colorList.set(index, color);
+			valueList.set(index, colorID);
 			return true;
 		}
 	}
