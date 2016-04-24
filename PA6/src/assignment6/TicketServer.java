@@ -17,7 +17,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.concurrent.locks.Lock;
@@ -132,6 +131,11 @@ class ThreadedTicketServer implements Runnable{
 	 * manageable ADT for Theater Seat Map
 	 */
 	TheaterShow callbackTheater;
+	
+	/**
+	 * Socket for the server socket to listen on.
+	 */
+	ServerSocket serverSocket;
 
 	/**
 	 * Create a Ticket Server thread that 
@@ -148,10 +152,10 @@ class ThreadedTicketServer implements Runnable{
 	 * no seat available
 	 */
 	public void run(){
-		ServerSocket serverSocket;
 		try{
 			boolean clientOpen = true;
 			serverSocket = new ServerSocket(port);
+			serverSocket.setSoTimeout(3000);
 			while(clientOpen){
 				// service client seat requests
 				Socket clientSocket = serverSocket.accept();
@@ -175,7 +179,13 @@ class ThreadedTicketServer implements Runnable{
 				}
 			}
 			serverSocket.close();
-		} catch(IOException e){
+		} catch(SocketTimeoutException e){
+			try{
+				serverSocket.close();
+			} catch(IOException e1){
+				e1.printStackTrace();
+			}
+		}catch(IOException e){
 			e.printStackTrace();
 		}
 
@@ -281,7 +291,6 @@ class TicketServerListener implements Runnable{
 			}
 		} catch(SocketTimeoutException e){
 			try{
-				System.err.println("Closing Listener Socket!");
 				serverSocket.close();
 			} catch(IOException e1){
 				e1.printStackTrace();

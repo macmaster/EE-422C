@@ -24,7 +24,6 @@ public class Game {
 		try {
 			Resources.initResources(panel);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

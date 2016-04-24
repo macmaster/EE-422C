@@ -64,26 +64,27 @@ class ThreadedTicketClient implements Runnable{
 	 */
 	public void run(){
 		System.out.flush();
-		try{
-			// setup server socket
-			Socket echoSocket = new Socket(hostname, port);
-			BufferedReader in = new BufferedReader(
-					new InputStreamReader(echoSocket.getInputStream()));
+		boolean exitFlag = false;
+		while(!exitFlag){
+			try{
+				// setup server socket
+				Socket echoSocket = new Socket(hostname, port);
+				BufferedReader in = new BufferedReader(
+						new InputStreamReader(echoSocket.getInputStream()));
 
-			String seatString = in.readLine();
-			sc.result = seatString;
+				String seatString = in.readLine();
+				sc.result = seatString;
 
-			echoSocket.close();
-		} catch(UnknownHostException e){
-			// client host error
-			System.err.println("Client Error: contact server host (Unknown Host Exception)!");
-			e.printStackTrace();
-		} catch(IOException e){
-			// client IO error
-			System.err.println("Port: " + port);
-			System.err.println(Thread.currentThread().getName());
-			System.err.println("Client Error: IO exception (error in input / output)!");
-			e.printStackTrace();
+				echoSocket.close();
+				exitFlag = true;
+			} catch(UnknownHostException e){
+				// client host error
+				System.out.println("Client Error: contact server host (Unknown Host Exception)!");
+				exitFlag = true;
+			} catch(IOException e){
+				System.out.println("Port in use. Retrying.. Cust no: " + sc.custNo);
+				exitFlag = false;
+			} 
 		}
 	}
 
@@ -106,8 +107,8 @@ class ThreadedTicketClient implements Runnable{
 			}
 			notifySocket.close();
 		} catch(Exception e){
-			System.err.println("failed to notify server after client finished!");
-			e.printStackTrace();
+			System.out.println("failed to notify server after client finished!");
+			//e.printStackTrace();
 		}
 	}
 
@@ -149,9 +150,19 @@ public class TicketClient{
 	protected String hostName;
 
 	/**
+	 * Stores the customer number on the current thread
+	 */
+	protected int custNo;
+	
+	/**
 	 * Name of this client
 	 */
 	protected String threadName;
+	
+	/**
+	 * Printer used by this office to print ticket stubs
+	 */
+	private TicketPrinter printer;
 
 	/**
 	 * Constructs a client with the given information
@@ -161,8 +172,10 @@ public class TicketClient{
 	 */
 	public TicketClient(String hostname, String threadname){
 		tc = new ThreadedTicketClient(this, hostname, threadname);
+		custNo = 1;
 		hostName = hostname;
 		threadName = threadname;
+		printer = new TicketPrinter();
 	}
 	
 	/**
@@ -191,6 +204,16 @@ public class TicketClient{
 	 */
 	public void requestTicket(){
 		tc.run();
+		if(result.equals("null")) { //customer did not get a ticket
+			System.out.println(threadName + ": Customer #" + (custNo++) + " did not receive a ticket.");
+		}
+		else { //customer got a ticket!
+			System.out.println(threadName + ": Customer #" + (custNo++) + " gets ticket:");
+			Seat ticketSeat = new Seat(result);
+			printer.printTicketSeat(ticketSeat);
+		}
+		
+		
 	}
 
 	/**

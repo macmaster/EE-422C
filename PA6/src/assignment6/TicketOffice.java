@@ -24,11 +24,6 @@ public class TicketOffice implements Runnable{
 	private TicketClient client;
 	
 	/**
-	 * Printer used by this office to print ticket stubs
-	 */
-	private TicketPrinter printer;
-	
-	/**
 	 * Costumers left in the line that want a ticket
 	 */
 	private int customersLeftInLine;
@@ -39,9 +34,8 @@ public class TicketOffice implements Runnable{
 	 * @param threadname Name of the ticket office
 	 */
 	public TicketOffice(String hostname, String threadname){
-		customersLeftInLine = ((int)(Math.random()*900) + 100);
+		customersLeftInLine = ((int)(Math.random() * 900) + 100);
 		client = new TicketClient(hostname, threadname);
-		printer = new TicketPrinter();
 	}
 	
 	/** 
@@ -50,9 +44,9 @@ public class TicketOffice implements Runnable{
 	 * serves all the customers in line
 	 */
 	public void run(){
-		int custNo = 1;
 		while(customersLeftInLine > 0){
 			client.requestTicket();
+			/*
 			if(client.result.equals("null")) { //customer did not get a ticket
 				System.out.println(client.threadName + ": Customer #" + (custNo++) + " did not receive a ticket.");
 			}
@@ -60,7 +54,7 @@ public class TicketOffice implements Runnable{
 				System.out.println(client.threadName + ": Customer #" + (custNo++) + " gets ticket:");
 				Seat ticketSeat = new Seat(client.result);
 				printer.printTicketSeat(ticketSeat);
-			}
+			}*/
 			customersLeftInLine--; //customer leaves b/c he is satisfied
 		}
 		
