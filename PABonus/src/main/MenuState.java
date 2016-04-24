@@ -86,7 +86,7 @@ public class MenuState extends GameState {
 			if(frameUnit > 120) {
 				Composite comp = g.getComposite();
 				float alpha = (float)((240 - frameUnit) * (0.1/12.0));
-				g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha ));
+				g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
 			    g.fillRect(0,0,GamePanel.WIDTH, GamePanel.HEIGHT);
 			    g.setComposite(comp);
 			}
@@ -126,7 +126,7 @@ public class MenuState extends GameState {
 	
 	private void select() {
 		if(currentChoice == 0) {
-			brains.add(new RandomBrain());
+			gsm.setState(GameStateManager.GAMESTATE);
 		}
 		if(currentChoice == 1) {
 			System.exit(0);
