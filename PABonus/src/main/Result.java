@@ -6,7 +6,13 @@ package main;
 
 public class Result{
 	
+	/** default length */
+	private int length = 4;
+	
+	/** number of whites */
 	private int whites = 0;
+	
+	/** number of blacks */
 	private int blacks = 0;
 	
 	/**
@@ -19,6 +25,19 @@ public class Result{
 	public Result(int whites, int blacks){
 		this.whites = whites;
 		this.blacks = blacks;
+	}
+	
+	/**
+	 * creates a Result object to encapsulate
+	 * the number of white and black answer pegs
+	 * 
+	 * @param whites number of whites in the answer pegs
+	 * @param blacks number of blacks in the answer pegs
+	 * @param length color code length
+	 */
+	public Result(int whites, int blacks, int length){
+		this(whites, blacks);
+		this.length = length;
 	}
 	
 	/** getWhites()
@@ -48,7 +67,7 @@ public class Result{
 	 * @param whites
 	 */
 	public void setWhites(int whites){
-		if(whites > 4 - blacks){
+		if(whites > length - blacks){
 			this.whites = 4 - blacks;
 		}
 		else if(whites < 0){
@@ -66,8 +85,8 @@ public class Result{
 	 * @param blacks
 	 */
 	public void setBlacks(int blacks){
-		if(blacks > 4 - blacks){
-			this.blacks = 4 - whites;
+		if(blacks > length - blacks){
+			this.blacks = length - whites;
 		}
 		else if(blacks < 0){
 			this.blacks = 0;
@@ -75,6 +94,14 @@ public class Result{
 		else{
 			this.blacks = blacks;
 		}
+	}
+	
+	/** getLength()
+	 * 
+	 * @return length of the result code
+	 */
+	public int getLength(){
+		return length;
 	}
 
 }

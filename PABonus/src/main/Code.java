@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class Code{
 	
+	protected int length;
 	protected List<Integer> colorCode = new ArrayList<Integer>();
 	
 	private static final Map<Color, Integer> COLOR_MAP= new HashMap<Color, Integer>(){{
@@ -25,19 +26,18 @@ public class Code{
 	}};
 	
 	/**
-	 * creates a Code object to represent a mastermind code
+	 * creates a Code object to represent a master mind code
 	 * manages a list of it's valid color codes.
 	 * 
-	 * @param one first color
-	 * @param two second color
-	 * @param three third color
-	 * @param four fourth color
+	 * @param colorList
 	 */
-	public Code(Color one, Color two, Color three, Color four){
-		colorCode.add(COLOR_MAP.get(one));
-		colorCode.add(COLOR_MAP.get(two));
-		colorCode.add(COLOR_MAP.get(three));
-		colorCode.add(COLOR_MAP.get(four));
+	public Code(List<Color> colorList){
+		for(Color color : colorList){
+			colorCode.add(COLOR_MAP.get(color));			
+		}
+		
+		// length of the color code
+		length = colorCode.size();
 	}
 	
 	/** getColor()
@@ -49,7 +49,7 @@ public class Code{
 	 * @return color number
 	 */
 	public Integer getColor(int index){
-		if(index >= colorCode.size() || index < 0){
+		if(index >= length || index < 0){
 			return -1;
 		}
 		else{
@@ -67,7 +67,7 @@ public class Code{
 	 * @return color number
 	 */
 	public boolean setColor(int index, Color color){
-		if(index >= colorCode.size() || index < 0){
+		if(index >= length || index < 0){
 			return false;
 		}
 		else{
@@ -75,6 +75,14 @@ public class Code{
 			colorCode.set(index, colorID);
 			return true;
 		}
+	}
+	
+	/** getLength()
+	 * 
+	 * @return length of the color code
+	 */
+	public int getLength(){
+		return length;
 	}
 	
 }
