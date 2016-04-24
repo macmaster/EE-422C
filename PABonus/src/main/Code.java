@@ -14,8 +14,8 @@ import java.util.ArrayList;
 public class Code{
 	
 	protected int length;
-	protected List<Integer> valueList = new ArrayList<Integer>();
 	protected List<Color> colorList = new ArrayList<Color>();
+	protected List<Integer> valueList = new ArrayList<Integer>();
 	
 	private static final Map<Color, Integer> COLOR_MAP= new HashMap<Color, Integer>(){{
 		put(Color.red, 0); put(Color.RED, 0);
@@ -34,8 +34,8 @@ public class Code{
 	 */
 	public Code(List<Color> colorList){
 		for(Color color : colorList){
-			colorList.add(color);
-			valueList.add(COLOR_MAP.get(color));
+			this.colorList.add(color);
+			this.valueList.add(COLOR_MAP.get(color));
 		}
 		
 		// length of the color code
@@ -92,8 +92,8 @@ public class Code{
 		}
 		else{
 			Integer colorID = COLOR_MAP.get(color);
-			colorList.set(index, color);
 			valueList.set(index, colorID);
+			colorList.set(index, color);
 			return true;
 		}
 	}
