@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -14,10 +15,10 @@ import javax.imageio.ImageIO;
 public class Resources {
 
 	public static BufferedImage[] BRAIN_IMAGES = new BufferedImage[100];
-	private static final String BRAIN_PATH = "/brain.png";
+	private static final String BRAIN_PATH = "Resources/brain.png";
 	
 	public static BufferedImage MASTERMIND_IMAGE;
-	private static final String MASTERMIND_PATH = "/mastermind.jpg";
+	private static final String MASTERMIND_PATH = "Resources/mastermind.jpg";
 	
 	//public static BufferedImage[] TRANSPARENT_BLACK_ARRAY = new BufferedImage[100];
 	
@@ -25,7 +26,7 @@ public class Resources {
 		
 		//generate BRAINZ
 		BufferedImage imageSrc = ImageIO.read(
-				panel.getClass().getResourceAsStream(BRAIN_PATH)
+				new FileInputStream(BRAIN_PATH)
 			);
 		for(int i = 0; i < 100; i++) {
 			double scale = 0.01 + (.99/100.0) * i * .4;
@@ -39,7 +40,7 @@ public class Resources {
 		//generate mastermind
 		double scale = 0.5;
 		imageSrc = ImageIO.read(
-				panel.getClass().getResourceAsStream(MASTERMIND_PATH)
+				new FileInputStream(MASTERMIND_PATH)
 			);
 		MASTERMIND_IMAGE = toBufferedImage(imageSrc.getScaledInstance(
 				(int) (imageSrc.getWidth() * scale),
