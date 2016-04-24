@@ -17,6 +17,9 @@ public class GraphicalCode {
 		this.y = y;
 		
 		pegs = new ArrayList<GraphicalPeg>();
+		for(int i = 0; i < code.getLength(); i++) {
+			pegs.add(new GraphicalPeg(x, y + i*30, 10, null));
+		}
 	}
 	
 	public Code getCode() {
@@ -32,6 +35,8 @@ public class GraphicalCode {
 	}
 	
 	public void draw(Graphics2D g) {
-		
+		for(GraphicalPeg peg : pegs) {
+			peg.draw(g);
+		}
 	}
 }

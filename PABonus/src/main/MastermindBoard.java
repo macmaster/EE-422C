@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class MastermindBoard {
 
@@ -21,6 +22,8 @@ public class MastermindBoard {
 	protected int resultHeight;
 	protected int guessHeight;
 	
+	protected ArrayList<GraphicalCode> codes;
+	
 	public MastermindBoard(int x, int y, int width, int height) {
 		
 		this.x = x;
@@ -33,10 +36,22 @@ public class MastermindBoard {
 		
 		resultHeight = (int)(1.0*height/4.0);
 		guessHeight = height - resultHeight;
+		
+		codes = new ArrayList<GraphicalCode>();
+		ArrayList<Color> colors = new ArrayList<Color>();
+		colors.add(Color.RED);
+		colors.add(Color.BLUE);
+		colors.add(Color.GREEN);
+		colors.add(Color.MAGENTA);
+		for(int i = 0; i < 12; i++) {
+			codes.add(new GraphicalCode(new Code(colors), x + brimWidth + 20 + i * guessWidth, y + resultHeight + 20));
+		}
 	}
 	
 	public void update() {
-		
+		for(GraphicalCode code : codes) {
+			code.update();
+		}
 	}
 	
 	public void draw(Graphics2D g) {
@@ -59,5 +74,10 @@ public class MastermindBoard {
 		g.drawString("Guess", x + 40, y + 40);
 		g.drawString("Secret", x + width + 40 - brimWidth, y + 40);
 		g.drawString("Code", x + width + 45 - brimWidth, y + 70);
+		
+		//draw codes
+		for(GraphicalCode code : codes) {
+			code.draw(g);
+		}
 	}
 }
