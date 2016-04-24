@@ -3,8 +3,6 @@ package main;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-import computer.Code;
-
 public class GraphicalCode {
 
 	protected Code code;
