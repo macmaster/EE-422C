@@ -16,6 +16,7 @@ public class Code{
 	protected int length;
 	protected List<Color> colorList = new ArrayList<Color>();
 	protected List<Integer> valueList = new ArrayList<Integer>();
+	protected static final Color EMPTY_COLOR = new Color(225, 169, 95);
 	
 	private static final Map<Color, Integer> COLOR_MAP= new HashMap<Color, Integer>(){{
 		put(Color.red, 0); put(Color.RED, 0);
@@ -42,6 +43,14 @@ public class Code{
 		length = colorList.size();
 	}
 	
+	public Code(int length) {
+		for(int i = 0; i < length; i++) {
+			this.colorList.add(null);
+			this.valueList.add(COLOR_MAP.get(null));
+		}
+		this.length = length;
+	}
+	
 	/** getColor()
 	 * 
 	 * returns the color of the
@@ -52,11 +61,11 @@ public class Code{
 	 */
 	public Color getColor(int index){
 		if(index >= length || index < 0){
-			return Color.LIGHT_GRAY;
+			return EMPTY_COLOR;
 		}
 		else{
 			Color color = colorList.get(index);
-			return color == null ? Color.LIGHT_GRAY : color;
+			return color == null ? EMPTY_COLOR : color;
 		}
 	}
 	

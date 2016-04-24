@@ -43,8 +43,11 @@ public class MastermindBoard {
 		colors.add(Color.BLUE);
 		colors.add(Color.GREEN);
 		colors.add(Color.MAGENTA);
-		for(int i = 0; i < 12; i++) {
-			codes.add(new GraphicalCode(new Code(colors), x + brimWidth + 20 + i * guessWidth, y + resultHeight + 20));
+		for(int i = 0; i < 7; i++) {
+			codes.add(new GraphicalCode(new Code(colors), x + brimWidth + 21 + i * guessWidth, y + resultHeight + 20));
+		}
+		for(int i = 7; i < 12; i++) {
+			codes.add(new GraphicalCode(new Code(4), x + brimWidth + 21 + i * guessWidth, y + resultHeight + 20));
 		}
 	}
 	

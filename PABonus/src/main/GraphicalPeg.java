@@ -16,8 +16,7 @@ public class GraphicalPeg {
 		this.x = x;
 		this.y = y;
 		this.radius = radius;
-		
-		this.color = color == null ? Color.LIGHT_GRAY : color;
+		this.color = color;
 	}
 	
 	public void draw(Graphics2D g) {

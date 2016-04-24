@@ -18,7 +18,7 @@ public class GraphicalCode {
 		
 		pegs = new ArrayList<GraphicalPeg>();
 		for(int i = 0; i < code.getLength(); i++) {
-			pegs.add(new GraphicalPeg(x, y + i*30, 10, null));
+			pegs.add(new GraphicalPeg(x, y + i*60, 21, code.getColor(i)));
 		}
 	}
 	
