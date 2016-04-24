@@ -15,6 +15,7 @@ public class Result{
 	/** number of blacks */
 	private int blacks = 0;
 	
+	
 	/**
 	 * creates a Result object to encapsulate
 	 * the number of white and black answer pegs
@@ -68,7 +69,7 @@ public class Result{
 	 */
 	public void setWhites(int whites){
 		if(whites > length - blacks){
-			this.whites = 4 - blacks;
+			this.whites = length - blacks;
 		}
 		else if(whites < 0){
 			this.whites = 0;
@@ -102,6 +103,16 @@ public class Result{
 	 */
 	public int getLength(){
 		return length;
+	}
+	
+	/** checkSuccess()
+	 * 
+	 * success if all of the pegs are black
+	 * 
+	 * @return success true or false
+	 */
+	public boolean getSuccess(){
+		return length == blacks;
 	}
 
 }
