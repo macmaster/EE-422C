@@ -14,7 +14,7 @@ public class GameStateManager {
 		
 		gameStates = new ArrayList<GameState>();
 		
-		currentState = MENUSTATE;
+		currentState = GAMESTATE;
 		gameStates.add(new MenuState(this));
 		gameStates.add(new MastermindState(this));
 		setState(currentState);
