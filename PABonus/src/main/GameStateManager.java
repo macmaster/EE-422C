@@ -30,10 +30,9 @@ public class GameStateManager {
 	 * based on current state of the game
 	 */
 	public GameStateManager() {
-		
-		gameStates = new ArrayList<GameState>();
-		
+		// build game state list
 		currentState = GAMESTATE;
+		gameStates = new ArrayList<GameState>();
 		gameStates.add(new MenuState(this));
 		gameStates.add(new MastermindState(this));
 		setState(currentState);

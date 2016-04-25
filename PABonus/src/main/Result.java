@@ -11,7 +11,6 @@
  ************************************************************/
 package main;
 
-
 public class Result{
 	
 	/** default length */
@@ -49,30 +48,24 @@ public class Result{
 		this.length = length;
 	}
 	
-	/** getWhites()
-	 * 
+	/** getWhites
 	 * returns the number of whites in the response
-	 * 
 	 * @return number of whites
 	 */
 	public Integer getWhites(){
 		return whites;
 	}
 	
-	/** getBlacks()
-	 * 
+	/** getBlacks
 	 * returns the number of blacks in the response
-	 * 
 	 * @return number of blacks
 	 */
 	public Integer getBlacks(){
 		return blacks;
 	}
 	
-	/** setWhites()
-	 * 
+	/** setWhites
 	 * sets the number of whites in the result
-	 * 
 	 * @param whites
 	 */
 	public void setWhites(int whites){
@@ -88,10 +81,8 @@ public class Result{
 		}
 	}
 	
-	/** setBlacks()
-	 * 
+	/** setBlacks
 	 * sets the number of blacks in the result
-	 * 
 	 * @param blacks
 	 */
 	public void setBlacks(int blacks){
@@ -107,8 +98,7 @@ public class Result{
 		}
 	}
 	
-	/** getLength()
-	 * 
+	/** getLength
 	 * @return length of the result code
 	 */
 	public int getLength(){
@@ -116,9 +106,7 @@ public class Result{
 	}
 	
 	/** checkSuccess()
-	 * 
 	 * success if all of the pegs are black
-	 * 
 	 * @return success true or false
 	 */
 	public boolean getSuccess(){

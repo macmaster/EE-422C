@@ -46,17 +46,16 @@ public class GraphicalCode {
 		}
 	}
 	
-	/** getCode()
-	 * back-end code object
-	 * @return
+	/** getCode
+	 * fetch back-end code object
+	 * @return code
 	 */
 	public Code getCode() {
 		return code;
 	}
 	
-	/** setCode()
+	/** setCode
 	 * re initialize the back-end code object
-	 * @return
 	 */
 	public void setCode(Code code) {
 		for(int i = 0; i < code.getLength(); i++) {
@@ -65,14 +64,14 @@ public class GraphicalCode {
 		this.code = code;
 	}
 	
-	/** update()
+	/** update
 	 * called before the draw method
 	 */
 	public void update() {
 		
 	}
 	
-	/** draw()
+	/** draw
 	 * overloaded draw method to draw all the pegs at once
 	 * @param g game graphics
 	 */

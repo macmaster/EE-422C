@@ -1,3 +1,12 @@
+/** MasterMindState ********************************************
+ * Manages the current state of the mastermind GUI game
+ * Contains the mastermind image
+ * 
+ * Section : F 2:00 - 3:30pm
+ * UT EID: cdr2678 ,rpm953
+ * @author Cooper Raterink, Ronald Macmaster
+ * @version 1.01 4/25/2016
+ ************************************************************/
 package main;
 
 import java.awt.AlphaComposite;
@@ -12,7 +21,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-
+/**
+ * Manages the current state of the master mind GUI game
+ * Contains the master mind image
+ */
 public class MastermindState extends GameState {
 
 	private GameStateManager gsm;
