@@ -23,6 +23,9 @@ public class MastermindBoard {
 	protected int guessHeight;
 	
 	protected ArrayList<GraphicalCode> codes;
+	protected ArrayList<GraphicalResult> results;
+	protected SecretCode secretCode;
+	protected GraphicalCode pendingGuess;
 	
 	public MastermindBoard(int x, int y, int width, int height) {
 		
@@ -37,24 +40,34 @@ public class MastermindBoard {
 		resultHeight = (int)(1.0*height/4.0);
 		guessHeight = height - resultHeight;
 		
+		//init codes
 		codes = new ArrayList<GraphicalCode>();
 		ArrayList<Color> colors = new ArrayList<Color>();
-		colors.add(Color.RED);
-		colors.add(Color.BLUE);
-		colors.add(Color.GREEN);
-		colors.add(Color.MAGENTA);
-		for(int i = 0; i < 7; i++) {
-			codes.add(new GraphicalCode(new Code(colors), x + brimWidth + 21 + i * guessWidth, y + resultHeight + 20));
+		for(int i = 0; i < 12; i++) {
+			codes.add(new GraphicalCode(new Code(4), x + brimWidth + 21 + i * guessWidth, y + resultHeight + 20, 21));
 		}
-		for(int i = 7; i < 12; i++) {
-			codes.add(new GraphicalCode(new Code(4), x + brimWidth + 21 + i * guessWidth, y + resultHeight + 20));
+		
+		//init results
+		results = new ArrayList<GraphicalResult>();
+		for(int i = 0; i < 12; i++) {
+			results.add(new GraphicalResult(new Result(0, 0), x + brimWidth + 21 + i * guessWidth, y + 20, 4));
 		}
+		
+		pendingGuess = new GraphicalCode(new Code(4), x + brimWidth / 3, y + resultHeight + 20, 30);
+		secretCode = new SecretCode(x + width - brimWidth + brimWidth / 3, y + resultHeight + 20, 30);
 	}
 	
 	public void update() {
 		for(GraphicalCode code : codes) {
 			code.update();
 		}
+		
+		for(GraphicalResult result : results) {
+			result.update();
+		}
+		
+		secretCode.update();
+		pendingGuess.update();
 	}
 	
 	public void draw(Graphics2D g) {
@@ -82,5 +95,13 @@ public class MastermindBoard {
 		for(GraphicalCode code : codes) {
 			code.draw(g);
 		}
+		
+		//draw results
+		for(GraphicalResult result : results) {
+			result.draw(g);
+		}
+		
+		secretCode.draw(g);
+		pendingGuess.draw(g);
 	}
 }

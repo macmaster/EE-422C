@@ -20,8 +20,13 @@ public class MastermindState extends GameState {
 	private MastermindBoard board;
 	private ArrayList<Code> guesses;
 	
-	private Color titleColor;
-	private Font titleFont;
+	private int totalNumGuesses;
+	private int guessNumber;
+	private int numberOfColors;
+	private int numberOfPegHoles;
+	
+	protected Color titleColor;
+	protected Font titleFont;
 	
 	private int frameUnit;
 	
@@ -32,7 +37,7 @@ public class MastermindState extends GameState {
 				"Century Gothic",
 				Font.PLAIN,
 				108);
-		frameUnit = 480;
+		frameUnit = gsm.currentlyTesting ? 480 : 0;
 		board = new MastermindBoard(0, 420, GamePanel.WIDTH, GamePanel.HEIGHT - 420);
 	}
 

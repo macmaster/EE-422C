@@ -9,12 +9,13 @@ public class GameStateManager {
 	
 	public static final int MENUSTATE = 0;
 	public static final int GAMESTATE = 1;
+	public static final boolean currentlyTesting = true;
 	
 	public GameStateManager() {
 		
 		gameStates = new ArrayList<GameState>();
 		
-		currentState = GAMESTATE;
+		currentState = currentlyTesting ? GAMESTATE : MENUSTATE;
 		gameStates.add(new MenuState(this));
 		gameStates.add(new MastermindState(this));
 		setState(currentState);

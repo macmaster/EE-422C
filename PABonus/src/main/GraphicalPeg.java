@@ -11,6 +11,7 @@ public class GraphicalPeg {
 	protected int y;
 	protected int radius;
 	protected Color color;
+	protected static final Color EMPTY_COLOR = new Color(225, 169, 95);
 	
 	public GraphicalPeg(int x, int y, int radius, Color color) {
 		this.x = x;

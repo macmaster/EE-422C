@@ -10,15 +10,17 @@ public class GraphicalCode {
 	
 	protected int x;
 	protected int y;
+	protected int radius;
 	
-	public GraphicalCode(Code code, int x, int y) {
+	public GraphicalCode(Code code, int x, int y, int radius) {
 		this.code = code;
 		this.x = x;
 		this.y = y;
+		this.radius = radius;
 		
 		pegs = new ArrayList<GraphicalPeg>();
 		for(int i = 0; i < code.getLength(); i++) {
-			pegs.add(new GraphicalPeg(x, y + i*60, 21, code.getColor(i)));
+			pegs.add(new GraphicalPeg(x, y + i*(radius + 50), radius, code.getColor(i)));
 		}
 	}
 	
