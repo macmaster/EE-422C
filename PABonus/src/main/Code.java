@@ -1,11 +1,19 @@
-/**
+/** Code *****************************************************
+ * Representation of a Mastermind Code
+ * Used as a guess or a secret code
+ * Get and set the colors of the code at integer indexes
  * 
- */
+ * Section : F 2:00 - 3:30pm
+ * UT EID: cdr2678 ,rpm953
+ * @author Cooper Raterink, Ronald Macmaster
+ * @version 1.01 4/25/2016
+ ************************************************************/
 package main;
 
 import java.awt.Color;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -13,9 +21,26 @@ import java.util.ArrayList;
 
 public class Code{
 	
+	/**
+	 * length of the game code
+	 */
 	protected int length;
+	
+	/**
+	 * list of code's colors, list.size() 
+	 * must equal length
+	 */
 	protected List<Color> colorList = new ArrayList<Color>();
+	
+	/**
+	 * list of code's colors, list.size() 
+	 * must equal length
+	 */
 	protected List<Integer> valueList = new ArrayList<Integer>();
+	
+	/**
+	 * default value for an empty color code
+	 */
 	protected static final Color EMPTY_COLOR = new Color(225, 169, 95);
 	
 	private static final Map<Color, Integer> COLOR_MAP= new HashMap<Color, Integer>(){{
@@ -27,13 +52,14 @@ public class Code{
 		put(Color.magenta, 5); put(Color.MAGENTA, 5);
 	}};
 	
-	/**
+	/** Code
 	 * creates a Code object to represent a master mind code
 	 * manages a list of it's valid color codes.
 	 * 
 	 * @param colorList
 	 */
 	public Code(List<Color> colorList){
+		// build color lists
 		for(Color color : colorList){
 			this.colorList.add(color);
 			this.valueList.add(COLOR_MAP.get(color));
@@ -43,7 +69,14 @@ public class Code{
 		length = colorList.size();
 	}
 	
+	/** Code
+	 * creates a Code object to represent a master mind code
+	 * manages a list of it's valid color codes.
+	 * 
+	 * @param length initial length of the gray code
+	 */
 	public Code(int length) {
+		// build color lists
 		for(int i = 0; i < length; i++) {
 			this.colorList.add(null);
 			this.valueList.add(COLOR_MAP.get(null));
@@ -60,6 +93,7 @@ public class Code{
 	 * @return color 
 	 */
 	public Color getColor(int index){
+		// return valid color
 		if(index >= length || index < 0){
 			return EMPTY_COLOR;
 		}
@@ -78,6 +112,7 @@ public class Code{
 	 * @return color number
 	 */
 	public Integer getColorValue(int index){
+		// return valid color value
 		if(index >= length || index < 0){
 			return -1;
 		}
@@ -96,6 +131,7 @@ public class Code{
 	 * @return color number
 	 */
 	public boolean setColor(int index, Color color){
+		// update color in valid range
 		if(index >= length || index < 0){
 			return false;
 		}
@@ -115,4 +151,50 @@ public class Code{
 		return length;
 	}
 	
+	/**
+	 * compareCode returns a result object with 
+	 * the number of whites and blacks assigned
+	 */
+	public Result compareCode(Code otherCode){		
+		// assign blacks
+		int color1, color2;
+		int blacks = 0, whites = 0;
+		ArrayList<Integer> leftColors = new ArrayList<Integer>();
+		ArrayList<Integer> rightColors = new ArrayList<Integer>();
+		for(int index = 0; index < length; index++){
+			color1 = this.getColorValue(index);
+			color2 = otherCode.getColorValue(index);
+			
+			// same color same index
+			if(color1 == color2){
+				blacks++;
+			}
+			// check for white pegs
+			else{
+				leftColors.add(color1);
+				rightColors.add(color2);
+			}
+		}
+		
+		// assign whites
+		Integer colorL, colorR;
+		Iterator<Integer> itrL, itrR;
+		itrL = leftColors.iterator();
+		while(itrL.hasNext()){
+			colorL = itrL.next();
+			itrR = rightColors.iterator();
+			while(itrR.hasNext()){
+				colorR = itrR.next();
+				// remove one-to-one color pairs
+				if(colorL.equals(colorR)){
+					itrL.remove();
+					itrR.remove();
+					whites++; break;
+				}
+			}
+		}
+		
+		// return the result
+		return new Result(whites, blacks);
+	}
 }

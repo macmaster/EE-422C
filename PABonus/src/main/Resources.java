@@ -1,3 +1,13 @@
+/** Resources *********************************************
+ * External image resources manager
+ * Also provides image transformation methods
+ * (extend to octave in the future?)
+ * 
+ * Section : F 2:00 - 3:30pm
+ * UT EID: cdr2678 ,rpm953
+ * @author Cooper Raterink, Ronald Macmaster
+ * @version 1.01 4/25/2016
+ ************************************************************/
 package main;
 
 import java.awt.AlphaComposite;
@@ -14,15 +24,22 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Resources {
-
+	
+	/** image array of available brain pictures */ 
 	public static BufferedImage[] BRAIN_IMAGES = new BufferedImage[100];
 	private static final String BRAIN_PATH = "Resources/brain.png";
 	
+	/** image of the master mind himself */
 	public static BufferedImage MASTERMIND_IMAGE;
 	private static final String MASTERMIND_PATH = "Resources/mastermind.jpg";
 	
 	//public static BufferedImage[] TRANSPARENT_BLACK_ARRAY = new BufferedImage[100];
 	
+	/**
+	 * generate the image arrays before using
+	 * @param panel
+	 * @throws IOException
+	 */
 	public static void initResources(GamePanel panel) throws IOException {
 		
 		//generate BRAINZ
@@ -76,6 +93,13 @@ public class Resources {
 	    return bimage;
 	}
 	
+	/**
+	 * Converts a given Image into a blurred image
+	 * uses a blur transform
+	 *
+	 * @param img The Image to be converted
+	 * @return The converted BufferedImage
+	 */
 	public static BufferedImage blur(BufferedImage img)
 	{
 		for(int i = 1; i < img.getWidth() - 1; i++) {
@@ -103,6 +127,12 @@ public class Resources {
 	    return img;
 	}
 	
+	/**
+	 * returns the 9x2 adjacent pixel rectangle for the current object
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public static int[][] getAdjacentPixels(int x, int y) {
 		int[][] adj = new int[9][2];
 		for(int i = 0; i < 3; i++) {
@@ -120,6 +150,11 @@ public class Resources {
 		return adj;
 	}
 	
+	/**
+	 * converts the rgb values to an integer array
+	 * @param rgb
+	 * @return
+	 */
 	public static int[] rgbToVals(int rgb) {
 		if(rgb > 0) {
 			int blah = 9;
@@ -131,6 +166,11 @@ public class Resources {
 		return vals;
 	}
 	
+	/**
+	 * converts the color value array to an rgb value
+	 * @param vals
+	 * @return
+	 */
 	public static int valsToRgb(int[] vals) {
 		int rgb = vals[0];
 		rgb = (rgb << 8) + vals[1];
@@ -138,6 +178,13 @@ public class Resources {
 		return rgb;
 	}
 	
+	/**
+	 * sets the transparency of a given image
+	 * @param img
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public static boolean isTransparent( BufferedImage img, int x, int y ) {
 		  int pixel = img.getRGB(x,y);
 		  if( (pixel>>24) == 0x00 ) {
