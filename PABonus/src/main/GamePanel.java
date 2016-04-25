@@ -59,7 +59,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		/**
 		 * Constructs the panel on which the game is drawn
 		 */
-		public GamePanel() {
+		public GamePanel(){
 			super();
 			setPreferredSize(
 				new Dimension(WIDTH, HEIGHT));
@@ -70,7 +70,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		/**
 		 * Called when this panel gets put on the window
 		 */
-		public void addNotify() {
+		public void addNotify(){
 			super.addNotify();
 			if(thread == null) {
 				thread = new Thread(this);
@@ -79,7 +79,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			}
 		}
 		
-		private void init() {
+		private void init(){
 			// initialize game graphics
 			image = new BufferedImage(
 						WIDTH, HEIGHT,
@@ -95,11 +95,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		/**
 		 * Handles game operations on the highest level
 		 */
-		public void run() {
+		public void run(){
 			// game loop
 			init();			
 			long start, elapsed, wait;
-			while(running) {
+			while(running){
 				
 				start = System.nanoTime();
 				
@@ -115,33 +115,27 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 				if(wait < 0){wait = 5;}
 				
 				// delay
-				try {
-					Thread.sleep(wait);
-				}
-				catch(Exception e) {
-					e.printStackTrace();
-				}
-				
-			}
-			
+				try {Thread.sleep(wait);}
+				catch(Exception e){e.printStackTrace();}
+			}		
 		}
 		
 		/**
 		 * Updates game entities/objects
 		 */
-		private void update() {
+		private void update(){
 			gsm.update();
 		}
 		/**
 		 * Draws the game image to the buffer
 		 */
-		private void draw() {
+		private void draw(){
 			gsm.draw(g);
 		}
 		/**
 		 * Draws the buffer onto the panel/screen
 		 */
-		private void drawBufferToScreen() {
+		private void drawBufferToScreen(){
 			Graphics g2 = getGraphics();
 			g2.drawImage(image, 0, 0,
 					WIDTH, HEIGHT,
@@ -152,19 +146,19 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		/**
 		 * Key typed - do nothing
 		 */
-		public void keyTyped(KeyEvent key) {}
+		public void keyTyped(KeyEvent key){}
 		
 		/**
 		 * Key pressed - send code to gsm
 		 */
-		public void keyPressed(KeyEvent key) {
+		public void keyPressed(KeyEvent key){
 			gsm.keyPressed(key.getKeyCode());
 		}
 		
 		/**
 		 * Key released - send code to gsm
 		 */
-		public void keyReleased(KeyEvent key) {
+		public void keyReleased(KeyEvent key){
 			gsm.keyReleased(key.getKeyCode());
 		}
 

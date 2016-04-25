@@ -26,7 +26,7 @@ public class Game {
 	
 	/** main
 	 * Starts the game
-	 * @param args No args
+	 * @param args string of CL args
 	 */
 	public static void main(String[] args) {
 		GamePanel panel = new GamePanel();
