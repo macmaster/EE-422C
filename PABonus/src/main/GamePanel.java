@@ -1,3 +1,13 @@
+/** GamePanel ************************************************
+ * Top level Game Panel
+ * Descendant of JPanel class
+ * Runnable GUI manager
+ * 
+ * Section : F 2:00 - 3:30pm
+ * UT EID: cdr2678 ,rpm953
+ * @author Cooper Raterink, Ronald Macmaster
+ * @version 1.01 4/25/2016
+ ************************************************************/
 package main;
 
 import java.awt.Dimension;
@@ -19,21 +29,31 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-		// dimensions
+		/** width dimension */
 		public static final int WIDTH = 1280;
+		
+		/** height dimension */
 		public static final int HEIGHT = 960;
 		
-		// game thread
+		/** game thread */
 		private Thread thread;
+		
+		/** run flag */
 		private boolean running;
+		
+		/** frames per second */
 		private int FPS = 60;
+		
+		/** frame time */
 		private long targetTime = 1000 / FPS;
 		
-		// game image
+		/** game canvas image */
 		private BufferedImage image;
+		
+		/** game graphics manager*/
 		private Graphics2D g;
 		
-		// game state manager
+		/** game state manager */
 		private GameStateManager gsm;
 		
 		/**
@@ -60,35 +80,30 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		}
 		
 		private void init() {
-			
+			// initialize game graphics
 			image = new BufferedImage(
 						WIDTH, HEIGHT,
 						BufferedImage.TYPE_INT_RGB
 					);
 			g = (Graphics2D) image.getGraphics();
 			
+			// initialize game manager
 			running = true;
-			
 			gsm = new GameStateManager();
-			
 		}
 		
 		/**
 		 * Handles game operations on the highest level
 		 */
 		public void run() {
-			
-			init();
-			
-			long start;
-			long elapsed;
-			long wait;
-			
 			// game loop
+			init();			
+			long start, elapsed, wait;
 			while(running) {
 				
 				start = System.nanoTime();
 				
+				// update game graphics
 				update();
 				draw();
 				drawBufferToScreen();
@@ -97,8 +112,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 				
 				//account for desired fps
 				wait = targetTime - elapsed / 1000000;
-				if(wait < 0) wait = 5;
+				if(wait < 0){wait = 5;}
 				
+				// delay
 				try {
 					Thread.sleep(wait);
 				}

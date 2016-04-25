@@ -1,6 +1,14 @@
-/**
+/** Result **************************************************
+ * Representation of a Mastermind Code response
+ * The response to a user's code guess
+ * Contains black and white pegs
+ * Checks for successful guess
  * 
- */
+ * Section : F 2:00 - 3:30pm
+ * UT EID: cdr2678 ,rpm953
+ * @author Cooper Raterink, Ronald Macmaster
+ * @version 1.01 4/25/2016
+ ************************************************************/
 package main;
 
 
@@ -16,7 +24,7 @@ public class Result{
 	private int blacks = 0;
 	
 	
-	/**
+	/** Result
 	 * creates a Result object to encapsulate
 	 * the number of white and black answer pegs
 	 * 
@@ -28,7 +36,7 @@ public class Result{
 		this.blacks = blacks;
 	}
 	
-	/**
+	/** Result
 	 * creates a Result object to encapsulate
 	 * the number of white and black answer pegs
 	 * 
@@ -68,6 +76,7 @@ public class Result{
 	 * @param whites
 	 */
 	public void setWhites(int whites){
+		// update whites to valid number
 		if(whites > length - blacks){
 			this.whites = length - blacks;
 		}
@@ -86,6 +95,7 @@ public class Result{
 	 * @param blacks
 	 */
 	public void setBlacks(int blacks){
+		// update blacks to valid number
 		if(blacks > length - blacks){
 			this.blacks = length - whites;
 		}
@@ -112,6 +122,7 @@ public class Result{
 	 * @return success true or false
 	 */
 	public boolean getSuccess(){
+		// winning condition
 		return length == blacks;
 	}
 

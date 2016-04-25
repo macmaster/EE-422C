@@ -1,6 +1,12 @@
-/**
+/** GuessChecker ********************************************
+ * Manages the backend of the Mastermind game
+ * Checks the guesses up to a guess limit
  * 
- */
+ * Section : F 2:00 - 3:30pm
+ * UT EID: cdr2678 ,rpm953
+ * @author Cooper Raterink, Ronald Macmaster
+ * @version 1.01 4/25/2016
+ ************************************************************/
 package computer;
 
 
