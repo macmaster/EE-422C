@@ -150,4 +150,23 @@ public class Code{
 		return length;
 	}
 	
+	/**
+	 * compareCode returns a result object with 
+	 * the number of whites and blacks assigned
+	 */
+	public Result compareCode(Code otherCode){		
+		// assign blacks
+		int color1, color2;
+		int blacks = 0, whites = 0;
+		for(int index = 0; index < length; index++){
+			color1 = this.getColorValue(index);
+			color2 = otherCode.getColorValue(index);
+			if(color1 == color2){
+				blacks++;
+			}
+		}
+		
+		// return the result
+		return new Result(whites, blacks);
+	}
 }
