@@ -29,9 +29,9 @@ public class CodeTest{
 		code2 = new Code(new ArrayList<Color>(){{
 			add(Color.RED);add(Color.RED);add(Color.GREEN);add(Color.GREEN);}});
 		code3 = new Code(new ArrayList<Color>(){{
-			add(Color.RED);add(Color.RED);add(Color.GREEN);add(Color.GREEN);}});
+			add(Color.GREEN);add(Color.GREEN);add(Color.RED);add(Color.RED);}});
 		code4 = new Code(new ArrayList<Color>(){{
-			add(Color.BLUE);add(Color.ORANGE);add(Color.YELLOW);add(Color.MAGENTA);}});
+			add(Color.CYAN);add(Color.CYAN);add(Color.CYAN);add(Color.CYAN);}});
 	}
 
 	/**
@@ -54,6 +54,68 @@ public class CodeTest{
 		System.out.println("5) blacks: " + result5.getBlacks() + "\t whites: " + result5.getWhites());
 		System.out.println("6) blacks: " + result6.getBlacks() + "\t whites: " + result6.getWhites());
 		System.out.println("***********************************************************\n\n");
+		
+		result1 = code2.compareCode(code1);
+		result2 = code3.compareCode(code1);
+		result3 = code4.compareCode(code1);
+		result4 = code3.compareCode(code2);
+		result5 = code4.compareCode(code2);
+		result6 = code4.compareCode(code3);
+		
+		System.out.println("***********************Round 2 tests**********************");
+		System.out.println("1) blacks: " + result1.getBlacks() + "\t whites: " + result1.getWhites());
+		System.out.println("2) blacks: " + result2.getBlacks() + "\t whites: " + result2.getWhites());
+		System.out.println("3) blacks: " + result3.getBlacks() + "\t whites: " + result3.getWhites());
+		System.out.println("4) blacks: " + result4.getBlacks() + "\t whites: " + result4.getWhites());
+		System.out.println("5) blacks: " + result5.getBlacks() + "\t whites: " + result5.getWhites());
+		System.out.println("6) blacks: " + result6.getBlacks() + "\t whites: " + result6.getWhites());
+		System.out.println("***********************************************************\n\n");
+				
+		result1 = code4.compareCode(code1);
+		result2 = code4.compareCode(code2);
+		result3 = code4.compareCode(code3);
+		result4 = code3.compareCode(code1);
+		result5 = code3.compareCode(code2);
+		result6 = code2.compareCode(code1);
+		
+		System.out.println("***********************Round 3 tests**********************");
+		System.out.println("1) blacks: " + result1.getBlacks() + "\t whites: " + result1.getWhites());
+		System.out.println("2) blacks: " + result2.getBlacks() + "\t whites: " + result2.getWhites());
+		System.out.println("3) blacks: " + result3.getBlacks() + "\t whites: " + result3.getWhites());
+		System.out.println("4) blacks: " + result4.getBlacks() + "\t whites: " + result4.getWhites());
+		System.out.println("5) blacks: " + result5.getBlacks() + "\t whites: " + result5.getWhites());
+		System.out.println("6) blacks: " + result6.getBlacks() + "\t whites: " + result6.getWhites());
+		System.out.println("***********************************************************\n\n");		
+
+		result1 = code1.compareCode(code4);
+		result2 = code2.compareCode(code4);
+		result3 = code3.compareCode(code4);
+		result4 = code1.compareCode(code3);
+		result5 = code2.compareCode(code3);
+		result6 = code1.compareCode(code2);
+		
+		System.out.println("***********************Round 4 tests**********************");
+		System.out.println("1) blacks: " + result1.getBlacks() + "\t whites: " + result1.getWhites());
+		System.out.println("2) blacks: " + result2.getBlacks() + "\t whites: " + result2.getWhites());
+		System.out.println("3) blacks: " + result3.getBlacks() + "\t whites: " + result3.getWhites());
+		System.out.println("4) blacks: " + result4.getBlacks() + "\t whites: " + result4.getWhites());
+		System.out.println("5) blacks: " + result5.getBlacks() + "\t whites: " + result5.getWhites());
+		System.out.println("6) blacks: " + result6.getBlacks() + "\t whites: " + result6.getWhites());
+		System.out.println("***********************************************************\n\n");		
+
+		
+		result1 = code1.compareCode(code1);
+		result2 = code2.compareCode(code2);
+		result3 = code3.compareCode(code3);
+		result4 = code4.compareCode(code4);
+		
+		System.out.println("***********************Round 5 tests**********************");
+		System.out.println("1) blacks: " + result1.getBlacks() + "\t whites: " + result1.getWhites());
+		System.out.println("2) blacks: " + result2.getBlacks() + "\t whites: " + result2.getWhites());
+		System.out.println("3) blacks: " + result3.getBlacks() + "\t whites: " + result3.getWhites());
+		System.out.println("4) blacks: " + result4.getBlacks() + "\t whites: " + result4.getWhites());
+		System.out.println("***********************************************************\n\n");
+		
 	}
 
 }

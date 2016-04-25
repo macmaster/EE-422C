@@ -13,6 +13,7 @@ package main;
 import java.awt.Color;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -158,11 +159,38 @@ public class Code{
 		// assign blacks
 		int color1, color2;
 		int blacks = 0, whites = 0;
+		ArrayList<Integer> leftColors = new ArrayList<Integer>();
+		ArrayList<Integer> rightColors = new ArrayList<Integer>();
 		for(int index = 0; index < length; index++){
 			color1 = this.getColorValue(index);
 			color2 = otherCode.getColorValue(index);
+			
+			// same color same index
 			if(color1 == color2){
 				blacks++;
+			}
+			// check for white pegs
+			else{
+				leftColors.add(color1);
+				rightColors.add(color2);
+			}
+		}
+		
+		// assign whites
+		Integer colorL, colorR;
+		Iterator<Integer> itrL, itrR;
+		itrL = leftColors.iterator();
+		while(itrL.hasNext()){
+			colorL = itrL.next();
+			itrR = rightColors.iterator();
+			while(itrR.hasNext()){
+				colorR = itrR.next();
+				// remove one-to-one color pairs
+				if(colorL.equals(colorR)){
+					itrL.remove();
+					itrR.remove();
+					whites++; break;
+				}
 			}
 		}
 		
