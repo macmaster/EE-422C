@@ -35,7 +35,7 @@ public class SecretCode extends GraphicalCode {
 	public static Code randomCode(int length) {
 		Code c = new Code(length);
 		for(int i = 0; i < length; i++) {
-			int ri = (int)(Math.random() * 6);
+			int ri = (int)(Math.random() * length);
 			c.setColor(i, c.getColors().get(ri));
 		}
 		return c;

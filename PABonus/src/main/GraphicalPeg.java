@@ -34,6 +34,8 @@ public class GraphicalPeg {
 	
 	/** GUI color of peg */
 	protected Color color;
+	
+	/** list of valid code colors */
 	protected List<Color> colorWheel;
 	protected int colorIndex = -1;
 	protected static final Color EMPTY_COLOR = new Color(225, 169, 95);
@@ -110,7 +112,7 @@ public class GraphicalPeg {
 	}
 
 	public boolean containsLoc(int mX, int mY) {
-		int diam = radius*2;
+		int diam = radius * 2;
 		return mX - x > 0 && mY - y > 0 &&  mX - x < diam && mY - y < diam;
 	}
 

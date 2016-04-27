@@ -29,8 +29,8 @@ public class MastermindState extends GameState {
 	private ArrayList<Code> guesses;
 	
 	protected static int MAX_GUESSES = 15;
-	protected static int NUM_COLORS = 6;
-	protected static int NUM_PEG_HOLES = 6;
+	protected static int NUM_COLORS = 5;
+	protected static int NUM_PEG_HOLES = 3;
 	protected int guessNumber;
 	
 	protected Color titleColor;
@@ -98,8 +98,8 @@ public class MastermindState extends GameState {
 
 		// title animation
 		FontMetrics metrics = g.getFontMetrics(titleFont);
-		int animY = (int)(280 + (frameUnit/240.0) * (GamePanel.HEIGHT / 16)); 
-		int titleY = frameUnit < 240 ?  animY : GamePanel.HEIGHT * 3 / 10;
+		int animY = (int)(280 + (frameUnit / 240.0) * (GamePanel.HEIGHT / 16)); 
+		int titleY = frameUnit < 240 ?  animY : GamePanel.HEIGHT * 4 / 10;
 		int titleX = (GamePanel.WIDTH - metrics.stringWidth(Game.GAME_NAME)) / 2;
 		
 		//draw title

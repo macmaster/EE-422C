@@ -14,7 +14,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
-import java.awt.color.ColorSpace;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -47,9 +46,15 @@ public class MastermindBoard implements MouseListener{
 	
 	/** list of all the graphical codes to print */
 	protected ArrayList<GraphicalCode> codes;
+	/** list of all the graphical results to print */
 	protected ArrayList<GraphicalResult> results;
+	/** current game's secret code */
 	protected SecretCode secretCode;
+	
+	/** user's pending guess */
 	protected GraphicalCode pendingGuess;
+	
+	/** current index of the user's guess */
 	protected int nextGuess = 0;
 	
 	/**
@@ -80,16 +85,15 @@ public class MastermindBoard implements MouseListener{
 		// Graphical code initializations
 		int pegX = 0, pegY = 0, pegRadius = 0;
 		codes = new ArrayList<GraphicalCode>();
-		ArrayList<Color> colors = new ArrayList<Color>();
 		for(int i = 0; i < numGuesses; i++) {
 			// build GUI peg
 			pegRadius = GraphicalCode.DEFAULT_RADIUS;
 			pegX = x + brimWidth + pegRadius + i * guessWidth;
-			pegY = y + resultHeight + pegRadius;
+			pegY = y + resultHeight + pegRadius + guessHeight / (numPegs * 2);
 			codes.add(new GraphicalCode(new Code(numPegs), pegX, pegY, pegRadius));
 		}
 		
-		//init results
+		// init results
 		results = new ArrayList<GraphicalResult>();
 		for(int i = 0; i < numGuesses; i++) {
 			// build GUI peg
@@ -113,11 +117,9 @@ public class MastermindBoard implements MouseListener{
 		for(GraphicalCode code : codes) {
 			code.update();
 		}
-		
 		for(GraphicalResult result : results) {
 			result.update();
 		}
-		
 		secretCode.update();
 		pendingGuess.update();
 	}
@@ -132,12 +134,19 @@ public class MastermindBoard implements MouseListener{
 		g.setColor(new Color (222,184,135));
 		g.fillRect(x, y, width, height);
 		g.setColor(new Color(101, 67, 33));
+		
+		// draw board borders
+		int border = 8; // thickness
 		Stroke s = g.getStroke();
-		g.setStroke(new BasicStroke(8));
-		g.drawRect(x + 4, y + 4, width - 8, height - 8);
-		g.drawRect(x + 4 + brimWidth, y + 4 + resultHeight, width - 2*brimWidth, height - 8);
+		g.setStroke(new BasicStroke(border));
+		g.drawRect(x + border / 2, y + border / 2, width - border, height - border);
+		
+		//off border
+		g.drawRect(x + border/2 + brimWidth, y + (2 * border) + resultHeight, 
+				width - 2 * (brimWidth + border), height - border);
+		
 		for(int i = 0; i <= MastermindState.MAX_GUESSES; i++) {
-			g.drawRect(x + 4 + brimWidth, y + 4, i*guessWidth, height - 8);
+			g.drawRect(x + border/2 + brimWidth, y + border / 2, i*guessWidth, height - border);
 		}
 		g.setStroke(s);
 		

@@ -86,7 +86,7 @@ public class SettingsState extends GameState {
 		if(k == KeyEvent.VK_ENTER) {
 			if(currentOption == 3) {
 				//save settings
-				Settings.NUM_PEGS = settingsOptions.get("")
+				//Settings.NUM_PEGS = settingsOptions.get("");
 			}
 		}
 	}
