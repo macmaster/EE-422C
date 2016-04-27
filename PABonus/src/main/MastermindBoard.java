@@ -210,9 +210,12 @@ public class MastermindBoard implements MouseListener{
 		//now refresh pending guess
 		pendingGuess = new GraphicalCode(new Code(pendingGuess.pegs.size()), x + (brimWidth / 3), pendingGuess.y, pendingGuess.radius);
 		nextGuess++;
+		if(result.isWinner()) {
+			winner();
+		}
 	}
 	
 	protected void winner() {
-		
+		MastermindState.gsm.setState(GameStateManager.WINSTATE);
 	}
 }

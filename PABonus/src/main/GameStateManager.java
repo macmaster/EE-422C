@@ -29,7 +29,15 @@ public class GameStateManager {
 	
 	/** gameplay state index */
 	public static final int GAMESTATE = 1;
-	public static final boolean currentlyTesting = true;
+	
+	/** settings state index */
+	public static final int SETTINGSSTATE = 2;
+	
+	/** win state index */
+	public static final int WINSTATE = 3;
+	
+	
+	public static final boolean currentlyTesting = false;
 	
 	/** GameStateManager
 	 * Used by a game panel to draw 
@@ -42,8 +50,8 @@ public class GameStateManager {
 		gameStates = new ArrayList<GameState>();
 		gameStates.add(new MenuState(this));
 		gameStates.add(new MastermindState(this));
-		gameStates.add(new WinState(this));
 		gameStates.add(new SettingsState(this));
+		gameStates.add(new WinState(this));
 		setState(currentState);
 	}
 	

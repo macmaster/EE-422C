@@ -22,7 +22,7 @@ import java.util.ArrayList;
  */
 public class MastermindState extends GameState {
 
-	private GameStateManager gsm;
+	public static GameStateManager gsm;
 	private BufferedImage mastermindImage;
 	private MastermindBoard board;
 	private ArrayList<Code> guesses;

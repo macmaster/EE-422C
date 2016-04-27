@@ -114,4 +114,8 @@ public class Result{
 		return length == blacks;
 	}
 
+	public boolean isWinner() {
+		return blacks == length;
+	}
+
 }
