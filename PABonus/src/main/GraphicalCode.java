@@ -26,7 +26,12 @@ public class GraphicalCode {
 	
 	/** top level code y position */
 	protected int y;
+	
+	/** graphical peg radius */
 	protected int radius;
+	
+	/** padding space between pegs */
+	protected static int pegPadding = GamePanel.HEIGHT / 20;
 	
 	/** GraphicalCode
 	 * Construct a GUI code object
@@ -37,14 +42,16 @@ public class GraphicalCode {
 	 * @param y GUI y position
 	 */
 	public GraphicalCode(Code code, int x, int y, int radius) {
+		// initialize code variables
 		this.code = code;
 		this.x = x;
 		this.y = y;
 		this.radius = radius;
 		
+		// set peg coordinates
 		pegs = new ArrayList<GraphicalPeg>();
 		for(int i = 0; i < code.getLength(); i++) {
-			pegs.add(new GraphicalPeg(x, y + i*(radius + 50), radius, code.getColor(i)));
+			pegs.add(new GraphicalPeg(x, y + i*(radius + pegPadding), radius, code.getColor(i)));
 		}
 	}
 	
@@ -61,7 +68,7 @@ public class GraphicalCode {
 	 */
 	public void setCode(Code code) {
 		for(int i = 0; i < code.getLength(); i++) {
-			pegs.add(new GraphicalPeg(x, y + i*60, 21, code.getColor(i)));
+			pegs.add(new GraphicalPeg(x, y + (i * pegPadding), radius, code.getColor(i)));
 		}
 		this.code = code;
 	}
