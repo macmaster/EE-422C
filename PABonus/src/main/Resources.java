@@ -76,6 +76,15 @@ public class Resources {
 				(int) (imageSrc.getWidth() * scale),
 				(int) (imageSrc.getHeight() * scale),
 				Image.SCALE_DEFAULT));
+		
+		scale = 0.7;
+		imageSrc = ImageIO.read(
+				new FileInputStream(BACK_PATH)
+			);
+		BACK_IMAGE = toBufferedImage(imageSrc.getScaledInstance(
+				(int) (imageSrc.getWidth() * scale),
+				(int) (imageSrc.getHeight() * scale),
+				Image.SCALE_DEFAULT));
 	}
 	
 	/**
