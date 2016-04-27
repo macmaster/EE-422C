@@ -13,6 +13,11 @@ import java.util.ArrayList;
 
 public class GameStateManager {
 	
+	/**
+	 * Game panel link-back
+	 */
+	public GamePanel panel;
+	
 	/** list of possible game states */
 	private ArrayList<GameState> gameStates;
 	
@@ -30,12 +35,15 @@ public class GameStateManager {
 	 * Used by a game panel to draw 
 	 * based on current state of the game
 	 */
-	public GameStateManager() {
+	public GameStateManager(GamePanel panel) {
 		// build game state list
+		this.panel = panel;
 		currentState = currentlyTesting ? GAMESTATE : MENUSTATE;
 		gameStates = new ArrayList<GameState>();
 		gameStates.add(new MenuState(this));
 		gameStates.add(new MastermindState(this));
+		gameStates.add(new WinState(this));
+		gameStates.add(new SettingsState(this));
 		setState(currentState);
 	}
 	
@@ -45,10 +53,11 @@ public class GameStateManager {
 	 */
 	public void setState(int state) {
 		// valid state index
+		int lastState = currentState;
 		if(state >= 0 && state < gameStates.size()){
 			currentState = state;
+			gameStates.get(currentState).init(gameStates.get(lastState));
 		}
-		gameStates.get(currentState).init();
 	}
 	
 	/** update the current game state */

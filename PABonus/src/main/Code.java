@@ -30,13 +30,13 @@ public class Code{
 	 * list of code's colors, list.size() 
 	 * must equal length
 	 */
-	protected List<Color> colorList = new ArrayList<Color>();
+	protected ArrayList<Color> colorList = new ArrayList<Color>();
 	
 	/**
 	 * list of code's colors, list.size() 
 	 * must equal length
 	 */
-	protected List<Integer> valueList = new ArrayList<Integer>();
+	protected ArrayList<Integer> valueList = new ArrayList<Integer>();
 	
 	/**
 	 * default value for an empty color code
@@ -196,5 +196,10 @@ public class Code{
 		
 		// return the result
 		return new Result(whites, blacks);
+	}
+
+	public ArrayList<Color> getColors() {
+		return new ArrayList<Color>(COLOR_MAP.keySet());
+				
 	}
 }

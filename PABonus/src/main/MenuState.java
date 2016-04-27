@@ -49,7 +49,7 @@ public class MenuState extends GameState {
 		
 	}
 	
-	public void init() {
+	public void init(GameState lastState) {
 		for(int i = 0; i < 3000; i++) {
 			update();
 		}

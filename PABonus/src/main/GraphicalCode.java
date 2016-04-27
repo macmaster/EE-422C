@@ -57,7 +57,7 @@ public class GraphicalCode {
 		// set peg coordinates
 		pegs = new ArrayList<GraphicalPeg>();
 		for(int i = 0; i < code.getLength(); i++) {
-			pegs.add(new GraphicalPeg(x, y + i*(radius + pegPadding), radius, code.getColor(i)));
+			pegs.add(new GraphicalPeg(x, y + i*(radius + pegPadding), radius, code.getColor(i), code.getColors()));
 		}
 	}
 	
@@ -66,7 +66,15 @@ public class GraphicalCode {
 	 * @return code
 	 */
 	public Code getCode() {
-		return code;
+		if (checkValid()) {
+			ArrayList<Color> codeColors = new ArrayList<Color>();
+			for(GraphicalPeg peg: pegs) {
+				codeColors.add(peg.colorWheel.get(peg.colorIndex));
+			}
+			return new Code(codeColors);
+		} else {
+			return null;
+		}
 	}
 	
 	/** setCode
@@ -74,7 +82,7 @@ public class GraphicalCode {
 	 */
 	public void setCode(Code code) {
 		for(int i = 0; i < code.getLength(); i++) {
-			pegs.add(new GraphicalPeg(x, y + (i * pegPadding), radius, code.getColor(i)));
+			pegs.get(i).color = code.getColor(i);
 		}
 		this.code = code;
 	}
@@ -96,4 +104,10 @@ public class GraphicalCode {
 		}
 	}
 	
+	public boolean checkValid() {
+		for(GraphicalPeg peg: pegs) {
+			if(peg.colorIndex < 0) return false;
+		}
+		return true;
+	}
 }

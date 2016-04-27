@@ -29,6 +29,9 @@ public class Resources {
 	public static BufferedImage MASTERMIND_IMAGE;
 	private static final String MASTERMIND_PATH = "Resources/mastermind.jpg";
 	
+	public static BufferedImage SUBMIT_IMAGE;
+	public static final String SUBMIT_PATH = "Resources/submit.png";
+	
 	//public static BufferedImage[] TRANSPARENT_BLACK_ARRAY = new BufferedImage[100];
 	
 	/**
@@ -61,7 +64,15 @@ public class Resources {
 				(int) (imageSrc.getHeight() * scale),
 				Image.SCALE_DEFAULT));
 		
-		
+		//generate submit
+		scale = 0.13;
+		imageSrc = ImageIO.read(
+				new FileInputStream(SUBMIT_PATH)
+			);
+		SUBMIT_IMAGE = toBufferedImage(imageSrc.getScaledInstance(
+				(int) (imageSrc.getWidth() * scale),
+				(int) (imageSrc.getHeight() * scale),
+				Image.SCALE_DEFAULT));
 	}
 	
 	/**

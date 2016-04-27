@@ -14,7 +14,7 @@ public abstract class GameState {
 	protected GameStateManager gsm;
 	
 	/** initialize the game graphics objects */
-	public abstract void init();
+	public abstract void init(GameState lastState);
 	
 	/** redraw the GUI graphics */
 	public abstract void update();

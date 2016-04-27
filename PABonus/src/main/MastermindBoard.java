@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+import java.awt.color.ColorSpace;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ public class MastermindBoard implements MouseListener{
 	protected ArrayList<GraphicalResult> results;
 	protected SecretCode secretCode;
 	protected GraphicalCode pendingGuess;
+	protected int nextGuess = 0;
 	
 	/**
 	 * creates a new mastermind board object
@@ -146,6 +148,15 @@ public class MastermindBoard implements MouseListener{
 		g.drawString("Secret", x + width + 40 - brimWidth, y + 40);
 		g.drawString("Code", x + width + 45 - brimWidth, y + 70);
 		
+		if(pendingGuess.checkValid()) {
+			g.drawImage(Resources.SUBMIT_IMAGE, x + 20, y + 60, null);	
+		}
+		else {
+			g.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+			g.drawString("Click below", x + 27, y + 70);
+			g.drawString("to form a guess!", x + 17, y + 95);
+		}
+		
 		//draw codes
 		for(GraphicalCode code : codes) {
 			code.draw(g);
@@ -161,32 +172,47 @@ public class MastermindBoard implements MouseListener{
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseClicked(MouseEvent arg0) {}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseEntered(MouseEvent me) {}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseExited(MouseEvent me) {}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mousePressed(MouseEvent me) {}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseReleased(MouseEvent me) {
+		int mX = me.getX();
+		int mY = me.getY();
+		for(GraphicalPeg peg : pendingGuess.pegs) {
+			if(peg.containsLoc(mX, mY)){
+				peg.click();
+			}
+		}
+		if(mX - (x+20) > 0 
+				&& mY - (y + 60) > 0 
+				&& mX - (x + 20) < Resources.SUBMIT_IMAGE.getWidth()
+				&& mY - (y + 60) < Resources.SUBMIT_IMAGE.getHeight()) {
+			submitCode();
+		}
+	}
+	
+	protected void submitCode() {
+		Result result = pendingGuess.getCode().compareCode(secretCode.secretCode);
+		GraphicalCode setCode = codes.get(nextGuess);
+		setCode.setCode(pendingGuess.getCode());
+		GraphicalResult setResult = results.get(nextGuess);
+		setResult.setResult(result);
+		
+		//now refresh pending guess
+		pendingGuess = new GraphicalCode(new Code(pendingGuess.pegs.size()), x + (brimWidth / 3), pendingGuess.y, pendingGuess.radius);
+		nextGuess++;
+	}
+	
+	protected void winner() {
 		
 	}
 }

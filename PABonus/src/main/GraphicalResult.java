@@ -53,22 +53,7 @@ public class GraphicalResult {
 		this.numberPegs = numberPegs;
 		
 		// build the list of graphical pegs from back-end result
-		pegs = new ArrayList<GraphicalPeg>();
-		if(result != null) {
-			int whites = result.getWhites();
-			int blacks = result.getBlacks();
-			for(int i = 0; i < numberPegs; i++) {
-				boolean isEven = i % 2 == 0;
-				boolean isWhite = i < whites;
-				boolean isColored = i < blacks;
-				pegs.add(new GraphicalPeg(
-						x + (isEven ? 0 : distBetween),
-						y + (i / 2) * distBetween,
-						pegRadius,
-						isWhite ? Color.white : 
-							(isColored ? Color.black : GraphicalPeg.EMPTY_COLOR)));
-			}
-		}
+		setResult(result);
 	}
 
 	/** getCode
@@ -83,6 +68,23 @@ public class GraphicalResult {
 	 * re initialize the back-end result object
 	 */
 	public void setResult(Result result) {
+		pegs = new ArrayList<GraphicalPeg>();
+		if(result != null) {
+			int whites = result.getWhites();
+			int blacks = result.getBlacks();
+			for(int i = 0; i < numberPegs; i++) {
+				boolean isEven = i % 2 == 0;
+				boolean isWhite = i < whites;
+				boolean isColored = i < blacks;
+				pegs.add(new GraphicalPeg(
+						x + (isEven ? 0 : distBetween),
+						y + (i / 2) * distBetween,
+						pegRadius,
+						isWhite ? Color.white : 
+							(isColored ? Color.black : GraphicalPeg.EMPTY_COLOR),
+						null));
+			}
+		}
 		this.result = result;
 	}
 	

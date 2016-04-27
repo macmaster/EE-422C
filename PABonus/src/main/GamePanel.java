@@ -66,8 +66,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			
 			// set the height and width due to computer screen
 			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-			WIDTH = (int)screenSize.getWidth() * 23 / 32;
-			HEIGHT = (int)screenSize.getHeight() * 29 / 32;
+			WIDTH = (int)(screenSize.getWidth() * 23.0 / 32.0);
+			HEIGHT = (int)(screenSize.getHeight() * 29.0 / 32.0);
 			
 			setPreferredSize(
 				new Dimension(WIDTH, HEIGHT));
@@ -97,7 +97,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			
 			// initialize game manager
 			running = true;
-			gsm = new GameStateManager();
+			gsm = new GameStateManager(this);
 		}
 		
 		/**
@@ -168,10 +168,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		 */
 		public void keyReleased(KeyEvent key){
 			gsm.keyReleased(key.getKeyCode());
-		}
-		
-		public void addMouseListener(Component c) {
-			this.addMouseListener(c);
 		}
 
 }

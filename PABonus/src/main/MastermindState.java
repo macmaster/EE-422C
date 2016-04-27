@@ -52,10 +52,13 @@ public class MastermindState extends GameState {
 		// place the game board
 		int boardY = GamePanel.HEIGHT * 7 / 16;
 		board = new MastermindBoard(0, boardY, GamePanel.WIDTH, GamePanel.HEIGHT - boardY);
+		
+		//Establish this as clickable
+		gsm.panel.addMouseListener(board);
 	}
 
 	@Override
-	public void init() {
+	public void init(GameState lastState) {
 		this.mastermindImage = Resources.MASTERMIND_IMAGE;
 	}
 

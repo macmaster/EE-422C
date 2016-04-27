@@ -14,6 +14,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+import java.util.ArrayList;
 
 /**
  * Graphical User Interface representation of 
@@ -33,6 +34,8 @@ public class GraphicalPeg {
 	
 	/** GUI color of peg */
 	protected Color color;
+	protected ArrayList<Color> colorWheel;
+	protected int colorIndex = -1;
 	protected static final Color EMPTY_COLOR = new Color(225, 169, 95);
 	
 	/**
@@ -44,11 +47,13 @@ public class GraphicalPeg {
 	 * @param y position of y in GUI
 	 * @param color GUI color of the peg
 	 */
-	public GraphicalPeg(int x, int y, int radius, Color color) {
+	public GraphicalPeg(int x, int y, int radius, Color color, ArrayList<Color> colorWheel) {
 		this.x = x;
 		this.y = y;
 		this.radius = radius;
 		this.color = color;
+		this.colorWheel = colorWheel;
+		if(colorWheel != null) colorIndex = colorWheel.indexOf(color);
 	}
 	
 	/**
@@ -102,6 +107,18 @@ public class GraphicalPeg {
 	 */
 	public void setColor(Color color) {
 		this.color = color;
+	}
+
+	public boolean containsLoc(int mX, int mY) {
+		int diam = radius*2;
+		return mX - x > 0 && mY - y > 0 &&  mX - x < diam && mY - y < diam;
+	}
+
+	public void click() {
+		if(++colorIndex >= colorWheel.size()) {
+			colorIndex = 0;
+		}
+		this.color = colorWheel.get(colorIndex);
 	}
 	
 	

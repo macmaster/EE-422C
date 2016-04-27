@@ -18,6 +18,8 @@ public class SecretCode extends GraphicalCode {
 	/** default secret code length */
 	private static int length = 4;
 	
+	protected Code secretCode;
+	
 	/**
 	 * Standard constructor with no length specified
 	 * @param x coordinate x for the secret code pegs
@@ -25,7 +27,18 @@ public class SecretCode extends GraphicalCode {
 	 * @param radius secret code peg radius
 	 */
 	public SecretCode(int x, int y, int radius) {
+		
 		super(new Code(length), x, y, radius);
+		secretCode = randomCode(length);
+	}
+	
+	public static Code randomCode(int length) {
+		Code c = new Code(length);
+		for(int i = 0; i < length; i++) {
+			int ri = (int)(Math.random() * 6);
+			c.setColor(i, c.getColors().get(ri));
+		}
+		return c;
 	}
 	
 	/**
@@ -37,6 +50,8 @@ public class SecretCode extends GraphicalCode {
 	 */
 	public SecretCode(int x, int y, int radius, int length) {
 		super(new Code(length), x, y, radius);
+		secretCode = randomCode(length);
+		this.length = length;
 	}
 	
 	/**
@@ -56,6 +71,11 @@ public class SecretCode extends GraphicalCode {
 			int pegY = peg.y + 22 * peg.radius / 16;
 			g.drawString("?", pegX, pegY);
 		}
+	}
+	
+	@Override
+	public Code getCode() {
+		return code;
 	}
 
 }
