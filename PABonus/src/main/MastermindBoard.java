@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * Manages the back canvas of the mastermind board
  * Used as a GUI component
  */
-public class MastermindBoard implements MouseListener{
+public class MastermindBoard {
 
 	/** Board x position */
 	protected int x;
@@ -179,18 +179,6 @@ public class MastermindBoard implements MouseListener{
 		secretCode.draw(g);
 		pendingGuess.draw(g);
 	}
-
-	@Override
-	public void mouseClicked(MouseEvent arg0) {}
-
-	@Override
-	public void mouseEntered(MouseEvent me) {}
-
-	@Override
-	public void mouseExited(MouseEvent me) {}
-
-	@Override
-	public void mousePressed(MouseEvent me) {}
 
 	@Override
 	public void mouseReleased(MouseEvent me) {

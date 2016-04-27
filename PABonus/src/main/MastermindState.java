@@ -15,13 +15,15 @@ import java.awt.Composite;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 /**
  * Manages the current state of the master mind GUI game
  * Contains the master mind image
  */
-public class MastermindState extends GameState {
+public class MastermindState extends GameState implements MouseListener {
 
 	public static GameStateManager gsm;
 	private BufferedImage mastermindImage;
@@ -95,7 +97,7 @@ public class MastermindState extends GameState {
 
 		// title animation
 		FontMetrics metrics = g.getFontMetrics(titleFont);
-		int animY = (int)(280 + (frameUnit / 120.0) * (GamePanel.HEIGHT / 16)); 
+		int animY = (int)(7*GamePanel.HEIGHT/24 + (frameUnit / 120.0) * (GamePanel.HEIGHT / 16)); 
 		int titleY = frameUnit < 120 ?  animY : GamePanel.HEIGHT * 4 / 10;
 		int titleX = (GamePanel.WIDTH - metrics.stringWidth(Game.GAME_NAME)) / 2;
 		
@@ -103,6 +105,8 @@ public class MastermindState extends GameState {
 		g.setColor(titleColor);
 		g.setFont(titleFont);
 		g.drawString(Game.GAME_NAME, titleX, titleY);
+		
+		//draw back button
 
 	}
 
@@ -117,5 +121,24 @@ public class MastermindState extends GameState {
 		// TODO Auto-generated method stub
 
 	}
+	
+	@Override
+	public void mouseClicked(MouseEvent arg0) {}
 
+	@Override
+	public void mouseEntered(MouseEvent me) {}
+
+	@Override
+	public void mouseExited(MouseEvent me) {}
+
+	@Override
+	public void mousePressed(MouseEvent me) {}
+
+	@Override
+	public void mouseReleased(MouseEvent me) {
+		//test board clicks
+		board.mouseReleased(me);
+		
+		
+	}
 }
