@@ -79,7 +79,7 @@ public class MastermindBoard implements MouseListener{
 		// code proportions
 		guessWidth = (int)(width / (numGuesses + 4.0));
 		brimWidth = guessWidth * 2;
-		resultHeight = (int)(1.0 * height / numPegs);
+		resultHeight = (int)(height / 6.0);
 		guessHeight = height - resultHeight;
 		
 		// Graphical code initializations
