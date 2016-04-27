@@ -73,8 +73,8 @@ public class MastermindBoard implements MouseListener{
 		this.height = height;
 
 		// game state data
-		int numGuesses = MastermindState.MAX_GUESSES;
-		int numPegs = MastermindState.NUM_PEG_HOLES;
+		int numGuesses = Settings.NUM_GUESSES;
+		int numPegs = Settings.NUM_PEGS;
 		
 		// code proportions
 		guessWidth = (int)(width / (numGuesses + 4.0));
@@ -100,14 +100,14 @@ public class MastermindBoard implements MouseListener{
 			pegRadius = GraphicalCode.DEFAULT_RADIUS;
 			pegX = x + brimWidth + pegRadius + i * guessWidth;
 			pegY = y + pegRadius;
-			results.add(new GraphicalResult(new Result(0, 0), pegX, pegY, MastermindState.NUM_PEG_HOLES));
+			results.add(new GraphicalResult(new Result(0, 0), pegX, pegY, Settings.NUM_PEGS));
 		}
 		
 		// build guess and secret GUI pegs
 		pegY = y + resultHeight + pegRadius;
 		pegRadius = GraphicalCode.DEFAULT_RADIUS * 3 / 2;
 		pendingGuess = new GraphicalCode(new Code(numPegs), x + (brimWidth / 3), pegY, pegRadius);
-		secretCode = new SecretCode(x + width - (2 * brimWidth / 3), pegY, pegRadius, MastermindState.NUM_PEG_HOLES);
+		secretCode = new SecretCode(x + width - (2 * brimWidth / 3), pegY, pegRadius, Settings.NUM_PEGS);
 	}
 	
 	/**
