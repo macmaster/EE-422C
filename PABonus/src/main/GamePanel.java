@@ -10,6 +10,7 @@
  ************************************************************/
 package main;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -160,6 +161,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		 */
 		public void keyReleased(KeyEvent key){
 			gsm.keyReleased(key.getKeyCode());
+		}
+		
+		public void addMouseListener(Component c) {
+			this.addMouseListener(c);
 		}
 
 }

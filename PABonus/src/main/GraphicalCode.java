@@ -65,7 +65,7 @@ public class GraphicalCode {
 		}
 		this.code = code;
 	}
-	
+
 	/** update
 	 * called before the draw method
 	 */
