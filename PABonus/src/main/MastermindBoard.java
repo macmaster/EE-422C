@@ -145,7 +145,7 @@ public class MastermindBoard {
 		g.drawRect(x + border/2 + brimWidth, y + (2 * border) + resultHeight, 
 				width - 2 * (brimWidth + border), height - border);
 		
-		for(int i = 0; i <= MastermindState.MAX_GUESSES; i++) {
+		for(int i = 0; i <= Settings.NUM_GUESSES; i++) {
 			g.drawRect(x + border/2 + brimWidth, y + border / 2, i*guessWidth, height - border);
 		}
 		g.setStroke(s);
@@ -180,7 +180,6 @@ public class MastermindBoard {
 		pendingGuess.draw(g);
 	}
 
-	@Override
 	public void mouseReleased(MouseEvent me) {
 		int mX = me.getX();
 		int mY = me.getY();
