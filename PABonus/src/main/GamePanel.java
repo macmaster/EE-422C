@@ -13,6 +13,7 @@ package main;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -30,10 +31,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	private static final long serialVersionUID = 1L;
 	
 		/** width dimension */
-		public static final int WIDTH = 1280;
+		public static int WIDTH; //1280
 		
 		/** height dimension */
-		public static final int HEIGHT = 960;
+		public static int HEIGHT; //960
 		
 		/** game thread */
 		private Thread thread;
@@ -61,6 +62,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		 */
 		public GamePanel(){
 			super();
+			
+			// set the height and width due to computer screen
+			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			WIDTH = (int)screenSize.getWidth() * 23 / 32;
+			HEIGHT = (int)screenSize.getHeight() * 29 / 32;
+			
 			setPreferredSize(
 				new Dimension(WIDTH, HEIGHT));
 			setFocusable(true);
