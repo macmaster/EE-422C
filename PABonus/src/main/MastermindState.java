@@ -46,8 +46,8 @@ public class MastermindState extends GameState {
 				Font.PLAIN,
 				GamePanel.HEIGHT / 10);
 		
-		/** what is a frame Unit? */
-		frameUnit = gsm.currentlyTesting ? 480 : 0;
+		frameUnit = gsm.currentlyTesting ? 480 : 0; //Do I wanna mess with the animation bs??
+		//If no -> set currentlyTesting to true
 		
 		// place the game board
 		int boardY = GamePanel.HEIGHT * 7 / 16;
