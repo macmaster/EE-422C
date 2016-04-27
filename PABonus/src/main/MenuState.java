@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class MenuState extends GameState {
 	
+	private boolean hasBeenInitialized = false;
 	private ArrayList<RandomBrain> brains;
 	
 	private int currentChoice = 0;
@@ -51,8 +52,11 @@ public class MenuState extends GameState {
 	}
 	
 	public void init(GameState lastState) {
-		for(int i = 0; i < 3000; i++) {
-			update();
+		if (!hasBeenInitialized) {
+			for (int i = 0; i < 3000; i++) {
+				update();
+			}
+			hasBeenInitialized = false;
 		}
 	}
 	
@@ -83,8 +87,8 @@ public class MenuState extends GameState {
 
 		//draw brains
 		int sizeThreshold = 30;
-		for(RandomBrain brain : brains) {
-			if(frameUnit < 240 || brain.index < sizeThreshold) brain.draw(g);
+		for(int i = 0; i < brains.size(); i++) {
+			if(frameUnit < 240 || brains.get(i).index < sizeThreshold) brains.get(i).draw(g);
 		}
 		
 		if(frameUnit < 240) {
@@ -120,7 +124,8 @@ public class MenuState extends GameState {
 		
 		//draw brains
 		if(frameUnit >= 240) {
-			for(RandomBrain brain : brains) {
+			for(int i = 0; i < brains.size(); i++) {
+				RandomBrain brain = brains.get(i);
 				if(brain.index >= sizeThreshold) brain.draw(g);
 			}
 		}

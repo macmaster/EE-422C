@@ -19,7 +19,7 @@ public class GameStateManager {
 	public GamePanel panel;
 	
 	/** list of possible game states */
-	private ArrayList<GameState> gameStates;
+	public static ArrayList<GameState> gameStates;
 	
 	/** list index of current game state */
 	private int currentState;
