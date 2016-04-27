@@ -151,6 +151,30 @@ public class Code{
 		return length;
 	}
 	
+	/** 
+	 * Returns a list of valid code colors
+	 * @return
+	 */
+	public List<Color> getColors() {
+		// color list variable
+		int numColors = MastermindState.NUM_COLORS;
+		List<Color> colorList = new ArrayList<Color>(COLOR_MAP.keySet());
+		
+		// 4 colors
+		if(numColors <= 4){
+			int ri = (int)(Math.random() * numColors); 
+			colorList.remove(ri);
+		}
+		// 4 or 5 colors
+		if(numColors <= 5){
+			int ri = (int)(Math.random() * numColors); 
+			colorList.remove(ri);
+		}
+		
+		return colorList;
+		
+	}
+	
 	/**
 	 * compareCode returns a result object with 
 	 * the number of whites and blacks assigned
@@ -196,10 +220,5 @@ public class Code{
 		
 		// return the result
 		return new Result(whites, blacks);
-	}
-
-	public ArrayList<Color> getColors() {
-		return new ArrayList<Color>(COLOR_MAP.keySet());
-				
 	}
 }
