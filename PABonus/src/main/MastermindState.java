@@ -30,9 +30,6 @@ public class MastermindState extends GameState implements MouseListener {
 	private MastermindBoard board;
 	private ArrayList<Code> guesses;
 	
-	protected static int MAX_GUESSES = 15;
-	protected static int NUM_COLORS = 6;
-	protected static int NUM_PEG_HOLES = 3;
 	protected int guessNumber;
 	
 	protected Color titleColor;

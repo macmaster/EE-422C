@@ -157,20 +157,19 @@ public class Code{
 	 */
 	public List<Color> getColors() {
 		// color list variable
-		int numColors = MastermindState.NUM_COLORS;
+		int numColors = Settings.NUM_COLORS;
 		List<Color> colorList = new ArrayList<Color>(COLOR_MAP.keySet());
 		
 		// 4 colors
 		if(numColors <= 4){
-			int ri = (int)(Math.random() * numColors); 
-			colorList.remove(ri);
+			colorList.remove(Color.ORANGE); // color i hate the 2nd most
 		}
 		// 4 or 5 colors
 		if(numColors <= 5){
-			int ri = (int)(Math.random() * numColors); 
-			colorList.remove(ri);
+			colorList.remove(Color.MAGENTA); // color i hate the most
 		}
 		
+		// color wheel
 		return colorList;
 		
 	}
