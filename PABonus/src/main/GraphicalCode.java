@@ -10,6 +10,7 @@
  ************************************************************/
 package main;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
@@ -29,6 +30,11 @@ public class GraphicalCode {
 	
 	/** graphical peg radius */
 	protected int radius;
+	
+	/**
+	 * default value for a peg radius
+	 */
+	protected static int DEFAULT_RADIUS = GamePanel.HEIGHT / 48;
 	
 	/** padding space between pegs */
 	protected static int pegPadding = GamePanel.HEIGHT / 20;
