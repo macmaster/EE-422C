@@ -61,8 +61,7 @@ public class MastermindState extends GameState implements MouseListener {
 		
 		// place the game board
 		int boardY = GamePanel.HEIGHT * 7 / 16;
-		if(board == null) 
-			board = new MastermindBoard(0, boardY, 
+		board = new MastermindBoard(0, boardY, 
 					GamePanel.WIDTH, GamePanel.HEIGHT - boardY);
 	}
 
