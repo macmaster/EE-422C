@@ -100,7 +100,7 @@ public class MastermindBoard {
 		pegY = y + resultHeight + pegRadius;
 		pegRadius = GraphicalCode.DEFAULT_RADIUS * 3 / 2;
 		pendingGuess = new GraphicalCode(new Code(numPegs), x + (brimWidth / 3), pegY, pegRadius);
-		secretCode = new SecretCode(x + width - (2 * brimWidth / 3), pegY, pegRadius);
+		secretCode = new SecretCode(x + width - (2 * brimWidth / 3), pegY, pegRadius, MastermindState.NUM_PEG_HOLES);
 	}
 	
 	/**

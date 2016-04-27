@@ -24,7 +24,7 @@ public class GameStateManager {
 	
 	/** gameplay state index */
 	public static final int GAMESTATE = 1;
-	public static final boolean currentlyTesting = false;
+	public static final boolean currentlyTesting = true;
 	
 	/** GameStateManager
 	 * Used by a game panel to draw 

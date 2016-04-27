@@ -32,9 +32,9 @@ public class MastermindState extends GameState {
 	private MastermindBoard board;
 	private ArrayList<Code> guesses;
 	
-	protected static int MAX_GUESSES = 12;
+	protected static int MAX_GUESSES = 15;
 	protected static int NUM_COLORS = 6;
-	protected static int NUM_PEG_HOLES = 4;
+	protected static int NUM_PEG_HOLES = 6;
 	protected int guessNumber;
 	
 	protected Color titleColor;
