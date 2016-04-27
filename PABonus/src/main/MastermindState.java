@@ -29,7 +29,7 @@ public class MastermindState extends GameState {
 	private ArrayList<Code> guesses;
 	
 	protected static int MAX_GUESSES = 15;
-	protected static int NUM_COLORS = 5;
+	protected static int NUM_COLORS = 6;
 	protected static int NUM_PEG_HOLES = 3;
 	protected int guessNumber;
 	
@@ -42,10 +42,7 @@ public class MastermindState extends GameState {
 		// build the game title
 		gsm = gameStateManager;
 		titleColor = Color.white;
-		titleFont = new Font(
-				"Century Gothic",
-				Font.PLAIN,
-				GamePanel.HEIGHT / 10);
+		titleFont = new Font("Century Gothic", Font.PLAIN, GamePanel.HEIGHT / 10);
 		
 		// animation unit
 		frameUnit = gsm.currentlyTesting ? 480 : 0; 
