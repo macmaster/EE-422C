@@ -77,7 +77,7 @@ public class Resources {
 				(int) (imageSrc.getHeight() * scale),
 				Image.SCALE_DEFAULT));
 		
-		scale = 0.7;
+		scale = 0.4;
 		imageSrc = ImageIO.read(
 				new FileInputStream(BACK_PATH)
 			);

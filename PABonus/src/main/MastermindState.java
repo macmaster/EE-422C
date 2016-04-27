@@ -40,26 +40,33 @@ public class MastermindState extends GameState implements MouseListener {
 	
 	private int frameUnit;
 	
+	private int backX = GamePanel.WIDTH / 20;
+	private int backY = GamePanel.WIDTH / 20;
+	
 	public MastermindState(GameStateManager gameStateManager) {
 		// build the game title
 		gsm = gameStateManager;
 		titleColor = Color.white;
 		titleFont = new Font("Century Gothic", Font.PLAIN, GamePanel.HEIGHT / 10);
 		
-		// animation unit
-		frameUnit = gsm.currentlyTesting ? 480 : 0; 
-		
-		// place the game board
-		int boardY = GamePanel.HEIGHT * 7 / 16;
-		board = new MastermindBoard(0, boardY, GamePanel.WIDTH, GamePanel.HEIGHT - boardY);
-		
 		//Establish this as clickable
-		gsm.panel.addMouseListener(board);
+		gsm.panel.addMouseListener(this);
+		
+		this.mastermindImage = Resources.MASTERMIND_IMAGE;
+		
+		init(null);
 	}
 
 	@Override
 	public void init(GameState lastState) {
-		this.mastermindImage = Resources.MASTERMIND_IMAGE;
+		/// animation unit
+		frameUnit = gsm.currentlyTesting ? 480 : 0; 
+		
+		// place the game board
+		int boardY = GamePanel.HEIGHT * 7 / 16;
+		if(board == null) 
+			board = new MastermindBoard(0, boardY, 
+					GamePanel.WIDTH, GamePanel.HEIGHT - boardY);
 	}
 
 	@Override
@@ -85,6 +92,11 @@ public class MastermindState extends GameState implements MouseListener {
 			board.draw(g);
 		}
 		
+		//draw back button
+		if(frameUnit > 120) {
+			g.drawImage(Resources.BACK_IMAGE, backX, backY, null);
+		}
+		
 		// pixel alphas
 		if(frameUnit > 120 && frameUnit < 240) {
 			Composite comp = g.getComposite();
@@ -106,8 +118,7 @@ public class MastermindState extends GameState implements MouseListener {
 		g.setFont(titleFont);
 		g.drawString(Game.GAME_NAME, titleX, titleY);
 		
-		//draw back button
-
+		
 	}
 
 	@Override
@@ -136,9 +147,18 @@ public class MastermindState extends GameState implements MouseListener {
 
 	@Override
 	public void mouseReleased(MouseEvent me) {
-		//test board clicks
-		board.mouseReleased(me);
-		
-		
+		if (gsm.currentState == gsm.GAMESTATE) {
+			//test board clicked
+			board.mouseReleased(me);
+			//test back button clicked
+			if (me.getX() > backX && me.getX() < backX + Resources.BACK_IMAGE.getWidth() && me.getY() > backY
+					&& me.getY() < backY + Resources.BACK_IMAGE.getHeight()) {
+				backClicked();
+			} 
+		}
+	}
+	
+	private void backClicked() {
+		gsm.setState(GameStateManager.MENUSTATE);
 	}
 }

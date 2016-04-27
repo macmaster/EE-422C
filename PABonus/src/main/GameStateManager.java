@@ -22,7 +22,7 @@ public class GameStateManager {
 	public static ArrayList<GameState> gameStates;
 	
 	/** list index of current game state */
-	private int currentState;
+	protected int currentState;
 	
 	/** menu state index */
 	public static final int MENUSTATE = 0;
@@ -63,8 +63,8 @@ public class GameStateManager {
 		// valid state index
 		int lastState = currentState;
 		if(state >= 0 && state < gameStates.size()){
-			currentState = state;
 			gameStates.get(currentState).init(gameStates.get(lastState));
+			currentState = state;
 		}
 	}
 	

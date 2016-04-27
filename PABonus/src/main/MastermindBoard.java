@@ -180,7 +180,6 @@ public class MastermindBoard {
 		pendingGuess.draw(g);
 	}
 
-	@Override
 	public void mouseReleased(MouseEvent me) {
 		int mX = me.getX();
 		int mY = me.getY();
