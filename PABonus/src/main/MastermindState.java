@@ -27,10 +27,10 @@ public class MastermindState extends GameState {
 	private MastermindBoard board;
 	private ArrayList<Code> guesses;
 	
-	private int totalNumGuesses;
-	private int guessNumber;
-	private int numberOfColors;
-	private int numberOfPegHoles;
+	protected static int MAX_GUESSES = 15;
+	protected static int NUM_COLORS = 6;
+	protected static int NUM_PEG_HOLES = 6;
+	protected int guessNumber;
 	
 	protected Color titleColor;
 	protected Font titleFont;
@@ -38,14 +38,20 @@ public class MastermindState extends GameState {
 	private int frameUnit;
 	
 	public MastermindState(GameStateManager gameStateManager) {
+		// build the game title
 		gsm = gameStateManager;
 		titleColor = Color.white;
 		titleFont = new Font(
 				"Century Gothic",
 				Font.PLAIN,
-				108);
+				GamePanel.HEIGHT / 10);
+		
+		/** what is a frame Unit? */
 		frameUnit = gsm.currentlyTesting ? 480 : 0;
-		board = new MastermindBoard(0, 420, GamePanel.WIDTH, GamePanel.HEIGHT - 420);
+		
+		// place the game board
+		int boardY = GamePanel.HEIGHT * 7 / 16;
+		board = new MastermindBoard(0, boardY, GamePanel.WIDTH, GamePanel.HEIGHT - boardY);
 	}
 
 	@Override
@@ -66,7 +72,9 @@ public class MastermindState extends GameState {
 		
 		//draw mastermind
 		if(frameUnit > 240) {
-			g.drawImage(mastermindImage, GamePanel.WIDTH / 2 - mastermindImage.getWidth() / 2, 60, null);
+			int mastermindY = (GamePanel.HEIGHT / 16);
+			int mastermindX = (GamePanel.WIDTH / 2) - (mastermindImage.getWidth() / 2);
+			g.drawImage(mastermindImage,  mastermindX, mastermindY, null);
 		}
 		
 		//draw game "board"
@@ -86,8 +94,8 @@ public class MastermindState extends GameState {
 		//draw title
 		g.setColor(titleColor);
 		g.setFont(titleFont);
-		int titleY = frameUnit < 240 ? (int)(280 + (frameUnit/240.0)*60.0) : 340;
-		g.drawString(Game.GAME_NAME, 320, titleY);
+		int titleY = frameUnit < 240 ? (int)(280 + (frameUnit/240.0)*60.0) : GamePanel.HEIGHT * 3 / 10;
+		g.drawString(Game.GAME_NAME, GamePanel.WIDTH / 4, titleY);
 
 	}
 

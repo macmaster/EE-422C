@@ -64,28 +64,44 @@ public class MastermindBoard implements MouseListener{
 		this.y = y;
 		this.width = width;
 		this.height = height;
+
+		// game state data
+		int numGuesses = MastermindState.MAX_GUESSES;
+		int numPegs = MastermindState.NUM_PEG_HOLES;
 		
 		// code proportions
-		guessWidth = (int)(width/16.0);
+		guessWidth = (int)(width / (numGuesses + 4.0));
 		brimWidth = guessWidth * 2;
-		resultHeight = (int)(1.0*height/4.0);
+		resultHeight = (int)(1.0 * height / numPegs);
 		guessHeight = height - resultHeight;
 		
 		// Graphical code initializations
+		int pegX = 0, pegY = 0, pegRadius = 0;
 		codes = new ArrayList<GraphicalCode>();
 		ArrayList<Color> colors = new ArrayList<Color>();
-		for(int i = 0; i < 12; i++) {
-			codes.add(new GraphicalCode(new Code(4), x + brimWidth + 21 + i * guessWidth, y + resultHeight + 20, 21));
+		for(int i = 0; i < numGuesses; i++) {
+			// build GUI peg
+			pegRadius = GraphicalCode.DEFAULT_RADIUS;
+			pegX = x + brimWidth + pegRadius + i * guessWidth;
+			pegY = y + resultHeight + pegRadius;
+			codes.add(new GraphicalCode(new Code(numPegs), pegX, pegY, pegRadius));
 		}
 		
 		//init results
 		results = new ArrayList<GraphicalResult>();
-		for(int i = 0; i < 12; i++) {
-			results.add(new GraphicalResult(new Result(0, 0), x + brimWidth + 21 + i * guessWidth, y + 20, 4));
+		for(int i = 0; i < numGuesses; i++) {
+			// build GUI peg
+			pegRadius = GraphicalCode.DEFAULT_RADIUS;
+			pegX = x + brimWidth + pegRadius + i * guessWidth;
+			pegY = y + pegRadius;
+			results.add(new GraphicalResult(new Result(0, 0), pegX, pegY, MastermindState.NUM_PEG_HOLES));
 		}
 		
-		pendingGuess = new GraphicalCode(new Code(4), x + brimWidth / 3, y + resultHeight + 20, 30);
-		secretCode = new SecretCode(x + width - brimWidth + brimWidth / 3, y + resultHeight + 20, 30);
+		// build guess and secret GUI pegs
+		pegY = y + resultHeight + pegRadius;
+		pegRadius = GraphicalCode.DEFAULT_RADIUS * 3 / 2;
+		pendingGuess = new GraphicalCode(new Code(numPegs), x + (brimWidth / 3), pegY, pegRadius);
+		secretCode = new SecretCode(x + width - (2 * brimWidth / 3), pegY, pegRadius, MastermindState.NUM_PEG_HOLES);
 	}
 	
 	/**
@@ -118,7 +134,7 @@ public class MastermindBoard implements MouseListener{
 		g.setStroke(new BasicStroke(8));
 		g.drawRect(x + 4, y + 4, width - 8, height - 8);
 		g.drawRect(x + 4 + brimWidth, y + 4 + resultHeight, width - 2*brimWidth, height - 8);
-		for(int i = 0; i < 13; i++) {
+		for(int i = 0; i <= MastermindState.MAX_GUESSES; i++) {
 			g.drawRect(x + 4 + brimWidth, y + 4, i*guessWidth, height - 8);
 		}
 		g.setStroke(s);

@@ -27,9 +27,15 @@ public class GraphicalResult {
 	
 	/** top level code y position */
 	protected int y;
-	protected int distBetween = 30;
+	
+	/** distance between pegs */
+	protected int distBetween = GamePanel.HEIGHT / 32;
+	
+	/** the number of pegs in the result */
 	protected int numberPegs;
-	protected int pegRadius = 10;
+	
+	/** pixel radius of each result peg */
+	protected int pegRadius = GamePanel.HEIGHT / 96;
 	
 	/** GraphicalResult
 	 * Construct a GUI result object
@@ -40,28 +46,28 @@ public class GraphicalResult {
 	 * @param y GUI y position
 	 */
 	public GraphicalResult(Result result, int x, int y, int numberPegs) {
+		// initialize constructor variables
 		this.result = result;
 		this.x = x;
 		this.y = y;
 		this.numberPegs = numberPegs;
 		
+		// build the list of graphical pegs from back-end result
 		pegs = new ArrayList<GraphicalPeg>();
 		if(result != null) {
 			int whites = result.getWhites();
 			int blacks = result.getBlacks();
 			for(int i = 0; i < numberPegs; i++) {
-				boolean isEven = i%2 == 0;
+				boolean isEven = i % 2 == 0;
 				boolean isWhite = i < whites;
 				boolean isColored = i < blacks;
 				pegs.add(new GraphicalPeg(
 						x + (isEven ? 0 : distBetween),
-						y + i/2*distBetween,
+						y + (i / 2) * distBetween,
 						pegRadius,
-						isWhite ? Color.white : (isColored ? Color.black : GraphicalPeg.EMPTY_COLOR)));
+						isWhite ? Color.white : 
+							(isColored ? Color.black : GraphicalPeg.EMPTY_COLOR)));
 			}
-		}
-		else {
-			
 		}
 	}
 

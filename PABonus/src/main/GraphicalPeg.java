@@ -56,13 +56,16 @@ public class GraphicalPeg {
 	 * @param g game graphics object to paint with
 	 */
 	public void draw(Graphics2D g) {
+		// fill the inside color
 		g.setColor(color);
-		g.fillOval(x, y, radius*2, radius*2);
+		g.fillOval(x, y, radius * 2, radius *2 );
 		
-		g.setColor(new Color(101, 67, 33)); //dark brown
+		// draw the border
+		Color darkBrown = new Color(101, 67, 33);
+		g.setColor(darkBrown); //dark brown
 		Stroke s = g.getStroke();
 		g.setStroke(new BasicStroke(5));
-		g.drawOval(x, y, radius*2, radius*2);
+		g.drawOval(x, y, radius * 2, radius * 2);
 		g.setStroke(s);
 		
 	}
