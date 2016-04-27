@@ -69,8 +69,8 @@ public class MenuState extends GameState {
 		}
 		
 		//update brains
-		for(RandomBrain brain : brains) {
-			brain.update();
+		for(int i = 0; i < brains.size(); i++) {
+			brains.get(i).update();
 		}
 		
 		for(int i = 0; i < brains.size(); i++) {

@@ -75,21 +75,21 @@ public class MastermindState extends GameState {
 		g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
 		
 		//draw mastermind
-		if(frameUnit > 240) {
+		if(frameUnit > 120) {
 			int mastermindY = (GamePanel.HEIGHT / 16);
 			int mastermindX = (GamePanel.WIDTH / 2) - (mastermindImage.getWidth() / 2);
 			g.drawImage(mastermindImage,  mastermindX, mastermindY, null);
 		}
 		
 		//draw game "board"
-		if(frameUnit > 240) {
+		if(frameUnit > 120) {
 			board.draw(g);
 		}
 		
 		// pixel alphas
-		if(frameUnit > 240 && frameUnit < 480) {
+		if(frameUnit > 120 && frameUnit < 240) {
 			Composite comp = g.getComposite();
-			float alpha = (float)((480 - frameUnit) * 0.1/24.0);			
+			float alpha = (float)((240 - frameUnit) * 0.1/12.0);			
 			g.setColor(Color.black);
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
 		   g.fillRect(0,0,GamePanel.WIDTH, GamePanel.HEIGHT);
@@ -98,8 +98,8 @@ public class MastermindState extends GameState {
 
 		// title animation
 		FontMetrics metrics = g.getFontMetrics(titleFont);
-		int animY = (int)(280 + (frameUnit / 240.0) * (GamePanel.HEIGHT / 16)); 
-		int titleY = frameUnit < 240 ?  animY : GamePanel.HEIGHT * 4 / 10;
+		int animY = (int)(280 + (frameUnit / 120.0) * (GamePanel.HEIGHT / 16)); 
+		int titleY = frameUnit < 120 ?  animY : GamePanel.HEIGHT * 4 / 10;
 		int titleX = (GamePanel.WIDTH - metrics.stringWidth(Game.GAME_NAME)) / 2;
 		
 		//draw title

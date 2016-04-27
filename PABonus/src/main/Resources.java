@@ -32,6 +32,9 @@ public class Resources {
 	public static BufferedImage SUBMIT_IMAGE;
 	public static final String SUBMIT_PATH = "Resources/submit.png";
 	
+	public static BufferedImage BACK_IMAGE;
+	public static final String BACK_PATH = "Resources/back.png";
+	
 	//public static BufferedImage[] TRANSPARENT_BLACK_ARRAY = new BufferedImage[100];
 	
 	/**

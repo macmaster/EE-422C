@@ -27,9 +27,9 @@ public class SecretCode extends GraphicalCode {
 	 * @param radius secret code peg radius
 	 */
 	public SecretCode(int x, int y, int radius) {
-		
 		super(new Code(length), x, y, radius);
 		secretCode = randomCode(length);
+		setCode(secretCode);
 	}
 	
 	public static Code randomCode(int length) {
@@ -51,6 +51,7 @@ public class SecretCode extends GraphicalCode {
 	public SecretCode(int x, int y, int radius, int length) {
 		super(new Code(length), x, y, radius);
 		secretCode = randomCode(length);
+		setCode(secretCode);
 		this.length = length;
 	}
 	

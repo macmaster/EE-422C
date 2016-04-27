@@ -225,6 +225,12 @@ public class MastermindBoard implements MouseListener{
 	}
 	
 	protected void winner() {
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		MastermindState.gsm.setState(GameStateManager.WINSTATE);
 	}
 }

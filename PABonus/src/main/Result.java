@@ -115,7 +115,7 @@ public class Result{
 	}
 
 	public boolean isWinner() {
-		return blacks == length;
+		return blacks == Settings.NUM_PEGS;
 	}
 
 }

@@ -6,6 +6,8 @@ public class WinState extends GameState {
 
 	protected GameStateManager gsm;
 	
+	protected int frameUnit = 0;
+	
 	public WinState(GameStateManager gameStateManager) {
 		gsm = gameStateManager;
 	}
@@ -18,14 +20,15 @@ public class WinState extends GameState {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-
+		if(frameUnit > 180) {
+			gsm.setState(gsm.MENUSTATE);
+		}
+		frameUnit++;
 	}
 
 	@Override
 	public void draw(Graphics2D g) {
-		// TODO Auto-generated method stub
-
+		g.drawString("YOU WIN!", GamePanel.WIDTH * 2 / 5, GamePanel.HEIGHT * 9 / 16);
 	}
 
 	@Override
