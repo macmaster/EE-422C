@@ -13,6 +13,7 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -46,8 +47,8 @@ public class MastermindState extends GameState {
 				Font.PLAIN,
 				GamePanel.HEIGHT / 10);
 		
-		frameUnit = gsm.currentlyTesting ? 480 : 0; //Do I wanna mess with the animation bs??
-		//If no -> set currentlyTesting to true
+		// animation unit
+		frameUnit = gsm.currentlyTesting ? 480 : 0; 
 		
 		// place the game board
 		int boardY = GamePanel.HEIGHT * 7 / 16;
@@ -85,20 +86,26 @@ public class MastermindState extends GameState {
 			board.draw(g);
 		}
 		
+		// pixel alphas
 		if(frameUnit > 240 && frameUnit < 480) {
 			Composite comp = g.getComposite();
-			float alpha = (float)((480 - frameUnit) * 0.1/24.0);
+			float alpha = (float)((480 - frameUnit) * 0.1/24.0);			
 			g.setColor(Color.black);
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-		    g.fillRect(0,0,GamePanel.WIDTH, GamePanel.HEIGHT);
-		    g.setComposite(comp);
+		   g.fillRect(0,0,GamePanel.WIDTH, GamePanel.HEIGHT);
+		   g.setComposite(comp);
 		}
+
+		// title animation
+		FontMetrics metrics = g.getFontMetrics(titleFont);
+		int animY = (int)(280 + (frameUnit/240.0) * (GamePanel.HEIGHT / 16)); 
+		int titleY = frameUnit < 240 ?  animY : GamePanel.HEIGHT * 3 / 10;
+		int titleX = (GamePanel.WIDTH - metrics.stringWidth(Game.GAME_NAME)) / 2;
 		
 		//draw title
 		g.setColor(titleColor);
 		g.setFont(titleFont);
-		int titleY = frameUnit < 240 ? (int)(280 + (frameUnit/240.0)*60.0) : GamePanel.HEIGHT * 3 / 10;
-		g.drawString(Game.GAME_NAME, GamePanel.WIDTH / 4, titleY);
+		g.drawString(Game.GAME_NAME, titleX, titleY);
 
 	}
 

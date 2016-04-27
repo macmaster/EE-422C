@@ -14,7 +14,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Graphical User Interface representation of 
@@ -34,7 +34,7 @@ public class GraphicalPeg {
 	
 	/** GUI color of peg */
 	protected Color color;
-	protected ArrayList<Color> colorWheel;
+	protected List<Color> colorWheel;
 	protected int colorIndex = -1;
 	protected static final Color EMPTY_COLOR = new Color(225, 169, 95);
 	
@@ -47,7 +47,7 @@ public class GraphicalPeg {
 	 * @param y position of y in GUI
 	 * @param color GUI color of the peg
 	 */
-	public GraphicalPeg(int x, int y, int radius, Color color, ArrayList<Color> colorWheel) {
+	public GraphicalPeg(int x, int y, int radius, Color color, List<Color> colorWheel) {
 		this.x = x;
 		this.y = y;
 		this.radius = radius;
