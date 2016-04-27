@@ -13,6 +13,7 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -94,14 +95,17 @@ public class MastermindState extends GameState {
 		   g.fillRect(0,0,GamePanel.WIDTH, GamePanel.HEIGHT);
 		   g.setComposite(comp);
 		}
+
+		// title animation
+		FontMetrics metrics = g.getFontMetrics(titleFont);
+		int animY = (int)(280 + (frameUnit/240.0) * (GamePanel.HEIGHT / 16)); 
+		int titleY = frameUnit < 240 ?  animY : GamePanel.HEIGHT * 3 / 10;
+		int titleX = (GamePanel.WIDTH - metrics.stringWidth(Game.GAME_NAME)) / 2;
 		
 		//draw title
 		g.setColor(titleColor);
 		g.setFont(titleFont);
-		// title animation
-		int animY = (int)(280 + (frameUnit/240.0) * (GamePanel.HEIGHT / 16)); 
-		int titleY = frameUnit < 240 ?  animY : GamePanel.HEIGHT * 3 / 10;
-		g.drawString(Game.GAME_NAME, GamePanel.WIDTH / 4, titleY);
+		g.drawString(Game.GAME_NAME, titleX, titleY);
 
 	}
 
