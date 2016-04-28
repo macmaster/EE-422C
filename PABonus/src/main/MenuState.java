@@ -3,11 +3,13 @@ package main;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 public class MenuState extends GameState {
@@ -27,9 +29,11 @@ public class MenuState extends GameState {
 	private Color titleColor;
 	private Font titleFont;
 	
-	private Font font;
+	private Font optionFont;
 	
 	private int frameUnit;
+	
+	private ArrayList<Rectangle2D> optionRects;
 	
 	public MenuState(GameStateManager gsm) {
 		
@@ -46,8 +50,7 @@ public class MenuState extends GameState {
 					Font.PLAIN,
 					27*GamePanel.HEIGHT/320);
 			
-			font = new Font("Arial", Font.PLAIN, 4*GamePanel.HEIGHT/80);
-			
+			optionFont = new Font("Arial", Font.PLAIN, 4*GamePanel.HEIGHT/80);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -118,7 +121,7 @@ public class MenuState extends GameState {
 		g.drawString(Game.GAME_NAME, titleX, titleY);
 		
 		// draw menu options
-		g.setFont(font);
+		g.setFont(optionFont);
 		int optionsYStart = GamePanel.HEIGHT * 10 / 20;
 		int optionsYDelta = GamePanel.HEIGHT * 4 / 40;
 		int optionsX = GamePanel.WIDTH * 9 / 20;
@@ -140,7 +143,20 @@ public class MenuState extends GameState {
 			}
 		}
 		
-		
+		//set up text dimensions
+		if(optionRects == null) {
+			optionRects = new ArrayList<Rectangle2D>();
+			int optIndex = 0;
+			for(String option : options) {
+				FontMetrics optMetrics = g.getFontMetrics(optionFont);
+				int hgt = optMetrics.getHeight();
+				int width = optMetrics.stringWidth(option);
+				Rectangle2D.Double rect = new Rectangle2D.Double();
+				rect.setRect(optionsX - 5, optionsYStart + optionsYDelta * optIndex - hgt - 5, width + 10, hgt + 10);
+				optionRects.add(rect);
+				optIndex++;
+			}
+		}
 		
 	}
 	
@@ -180,8 +196,17 @@ public class MenuState extends GameState {
 
 	@Override
 	public void mouseReleased(MouseEvent me) {
-		// TODO Auto-generated method stub
-		
+		if (optionRects != null) {
+			//check all option boxes
+			int rectIndex = 0;
+			for (Rectangle2D rect : optionRects) {
+				if(rect.contains(me.getPoint())) {
+					currentChoice = rectIndex;
+					select();
+				}
+				rectIndex++;
+			} 
+		}
 	}
 }
 

@@ -1,11 +1,13 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -29,6 +31,8 @@ public class SettingsState extends GameState {
 	private Color valColor = Color.GREEN;
 	private Font optionFont;
 	
+	private ArrayList<Rectangle2D> optionRects;
+	private ArrayList<Rectangle2D> valueRects;
 	
 	public SettingsState(GameStateManager gameStateManager) {
 		gsm = gameStateManager;
@@ -121,6 +125,37 @@ public class SettingsState extends GameState {
 				} 
 			}
 			optIndex++;
+			
+			//set up text dimensions
+			if(optionRects == null) {
+				optionRects = new ArrayList<Rectangle2D>();
+				valueRects = new ArrayList<Rectangle2D>();
+				optIndex = 0;
+				for(String optionStr : settingsOptions.keySet()) {
+					//set up optsRects
+					FontMetrics optMetrics = g.getFontMetrics(optionFont);
+					int hgt = optMetrics.getHeight();
+					int width = optMetrics.stringWidth(optionStr);
+					Rectangle2D.Double optRect = new Rectangle2D.Double();
+					optRect.setRect(optX - 5, yStart + yDelta * optIndex - hgt - 5, width + 10, hgt + 10);
+					optionRects.add(optRect);
+					
+					if (settingsOptions.get(optionStr) != null) {
+						//set up valRects
+						valIndex = 0;
+						for (String val : settingsOptions.get(optionStr)) {
+							FontMetrics valMetrics = g.getFontMetrics(optionFont);
+							hgt = valMetrics.getHeight();
+							width = valMetrics.stringWidth(val);
+							Rectangle2D.Double valRect = new Rectangle2D.Double();
+							valRect.setRect(valX + valXDelta * valIndex - 5, yStart + yDelta * optIndex - hgt - 5, width + 10, hgt + 10);
+							valueRects.add(valRect);
+							valIndex++;
+						}
+						optIndex++;
+					}
+				}
+			}
 		}
 	}
 
@@ -171,24 +206,61 @@ public class SettingsState extends GameState {
 		}
 		if(k == KeyEvent.VK_ENTER) {
 			if(currentOption == 3) {
-				//save settings
-				Settings.NUM_PEGS = Integer.parseInt(settingsOptions.get("Pegs:").get(pegVal));
-				Settings.NUM_COLORS = Integer.parseInt(settingsOptions.get("Colors:").get(colorVal));
-				Settings.NUM_GUESSES = Integer.parseInt(settingsOptions.get("Guesses:").get(guessVal));
-			
-				//change state
-				gsm.setState(gsm.gameStates.indexOf(lastState));
+				done();
 			}
 		}
 	}
 	
+	private void done() {
+		//save settings
+		Settings.NUM_PEGS = Integer.parseInt(settingsOptions.get("Pegs:").get(pegVal));
+		Settings.NUM_COLORS = Integer.parseInt(settingsOptions.get("Colors:").get(colorVal));
+		Settings.NUM_GUESSES = Integer.parseInt(settingsOptions.get("Guesses:").get(guessVal));
+	
+		//change state
+		gsm.setState(gsm.gameStates.indexOf(lastState));
+	}
+
 	@Override
 	public void keyTyped(char key){}
 
 	@Override
 	public void mouseReleased(MouseEvent me) {
-		// TODO Auto-generated method stub
-		
+		if (optionRects != null) {
+			//check all option boxes
+			int rectIndex = 0;
+			for (Rectangle2D rect : optionRects) {
+				if(rect.contains(me.getPoint())) {
+					currentOption = rectIndex;
+					if(currentOption == 3) {
+						done();
+					}
+				}
+				rectIndex++;
+			} 
+		}
+		if (valueRects != null) {
+			//check all option boxes
+			int rectIndex = 0;
+			for (Rectangle2D rect : valueRects) {
+				if(rect.contains(me.getPoint())) {
+					currentOption = rectIndex / 3;
+					switch(currentOption) {
+					case 0:
+						pegVal = rectIndex % 3;
+						break;
+					case 1:
+						colorVal = rectIndex % 3;
+						break;
+					case 2:
+						guessVal = rectIndex % 3;
+						break;
+					}
+					System.out.println(rectIndex);
+				}
+				rectIndex++;
+			} 
+		}
 	}
 
 }
