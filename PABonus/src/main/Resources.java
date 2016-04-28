@@ -87,7 +87,7 @@ public class Resources implements Runnable {
 		
 		scale = GamePanel.HEIGHT / 6400.0;
 		imageSrc = ImageIO.read(
-				new FileInputStream(MENU_PATH)
+				panel.getClass().getResource(MENU_PATH)
 			);
 		MENU_IMAGE = toBufferedImage(imageSrc.getScaledInstance(
 				(int) (imageSrc.getWidth() * scale),
