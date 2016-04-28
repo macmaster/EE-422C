@@ -78,7 +78,7 @@ public class SecretCode extends GraphicalCode {
 	
 	@Override
 	public Code getCode() {
-		return code;
+		return secretCode;
 	}
 	
 	public void showCode() {

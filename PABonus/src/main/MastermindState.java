@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * Manages the current state of the master mind GUI game
  * Contains the master mind image
  */
-public class MastermindState extends GameState implements MouseListener {
+public class MastermindState extends GameState {
 
 	/** master game state manager */
 	public static GameStateManager gsm;
@@ -69,9 +69,6 @@ public class MastermindState extends GameState implements MouseListener {
 				"Century Gothic",
 				Font.PLAIN,
 				27*GamePanel.HEIGHT/320);
-		
-		//Establish this as clickable
-		gsm.panel.addMouseListener(this);
 	}
 
 	@Override
@@ -151,20 +148,7 @@ public class MastermindState extends GameState implements MouseListener {
 		
 		
 	}
-	
-	@Override
-	public void mouseClicked(MouseEvent arg0) {}
 
-	@Override
-	public void mouseEntered(MouseEvent me) {}
-
-	@Override
-	public void mouseExited(MouseEvent me) {}
-
-	@Override
-	public void mousePressed(MouseEvent me) {}
-
-	@Override
 	public void mouseReleased(MouseEvent me) {
 		if (gsm.currentState == gsm.GAMESTATE) {
 			//test board clicked

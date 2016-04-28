@@ -9,6 +9,8 @@
  ************************************************************/
 package main;
 
+import java.awt.event.MouseEvent;
+
 public abstract class GameState {
 	
 	protected GameStateManager gsm;
@@ -30,5 +32,7 @@ public abstract class GameState {
 	
 	/** key released event handler */
 	public abstract void keyTyped(char key);
+
+	public abstract void mouseReleased(MouseEvent me);
 	
 }

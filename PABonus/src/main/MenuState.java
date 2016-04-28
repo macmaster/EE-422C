@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class MenuState extends GameState {
@@ -176,6 +177,12 @@ public class MenuState extends GameState {
 	public void keyReleased(int k) {}
 
 	public void keyTyped(char key){}
+
+	@Override
+	public void mouseReleased(MouseEvent me) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 

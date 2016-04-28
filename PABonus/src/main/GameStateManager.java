@@ -9,6 +9,7 @@
  ************************************************************/
 package main;
 
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class GameStateManager {
@@ -98,6 +99,10 @@ public class GameStateManager {
 	/** call the key typed manager */
 	public void keyTyped(char key) {
 		gameStates.get(currentState).keyTyped(key);
+	}
+
+	public void mouseReleased(MouseEvent me) {
+		gameStates.get(currentState).mouseReleased(me);
 	}
 	
 }

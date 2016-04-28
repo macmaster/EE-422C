@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+import java.awt.event.MouseEvent;
 
 /**
  * Gamestate seen when game is loading.
@@ -43,7 +44,8 @@ public class LoadingState extends GameState {
 	 * error string properties
 	 */
 	protected String errorString = "There was an error loading resources.\n" + 
-									"Please make sure image files are in place.";
+									"Please make sure image files are in place\n" +
+									"before running the game again.";
 	protected int errorX;
 	protected int errorYStart;
 	protected int errorYDelta;
@@ -70,9 +72,9 @@ public class LoadingState extends GameState {
 		loadBarHeight = GamePanel.HEIGHT / 20;
 		loadBarStroke = new BasicStroke(GamePanel.HEIGHT * 1 / 60);
 		
-		errorX = GamePanel.WIDTH * 4 / 20;
-		errorYStart = GamePanel.HEIGHT * 6 / 10;
-		errorYDelta = GamePanel.HEIGHT * 1 / 10;
+		errorX = GamePanel.WIDTH * 11 / 40;
+		errorYStart = GamePanel.HEIGHT * 9 / 20;
+		errorYDelta = GamePanel.HEIGHT * 3 / 40;
 		errorColor = Color.RED;
 		errorFont = loadFont;
 	}
@@ -143,6 +145,12 @@ public class LoadingState extends GameState {
 	
 	@Override
 	public void keyTyped(char key){
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent me) {
+		// TODO Auto-generated method stub
 		
 	}
 
