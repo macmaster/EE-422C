@@ -18,6 +18,8 @@ public class SecretCode extends GraphicalCode {
 	/** default secret code length */
 	private static int length = 4;
 	
+	private boolean showCode = false;
+	
 	protected Code secretCode;
 	
 	/**
@@ -29,7 +31,6 @@ public class SecretCode extends GraphicalCode {
 	public SecretCode(int x, int y, int radius) {
 		super(new Code(length), x, y, radius);
 		secretCode = randomCode(length);
-		setCode(secretCode);
 	}
 	
 	public static Code randomCode(int length) {
@@ -51,7 +52,6 @@ public class SecretCode extends GraphicalCode {
 	public SecretCode(int x, int y, int radius, int length) {
 		super(new Code(length), x, y, radius);
 		secretCode = randomCode(length);
-		setCode(secretCode);
 		this.length = length;
 	}
 	
@@ -64,19 +64,26 @@ public class SecretCode extends GraphicalCode {
 		// draw Secret Code pegs
 		super.draw(g);
 		
-		// draw question marks
-		g.setColor(Color.black);
-		g.setFont(new Font("Comic Sans", Font.PLAIN, 24));
-		for(GraphicalPeg peg : pegs) {
-			int pegX = peg.x + 12 * peg.radius / 16;
-			int pegY = peg.y + 22 * peg.radius / 16;
-			g.drawString("?", pegX, pegY);
+		if(!showCode) {
+			// draw question marks
+			g.setColor(Color.black);
+			g.setFont(new Font("Comic Sans", Font.PLAIN, 24));
+			for(GraphicalPeg peg : pegs) {
+				int pegX = peg.x + 12 * peg.radius / 16;
+				int pegY = peg.y + 22 * peg.radius / 16;
+				g.drawString("?", pegX, pegY);
+			}
 		}
 	}
 	
 	@Override
 	public Code getCode() {
 		return code;
+	}
+	
+	public void showCode() {
+		this.setCode(secretCode);
+		showCode = true;
 	}
 
 }
