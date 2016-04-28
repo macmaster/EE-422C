@@ -12,6 +12,7 @@ package main;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.event.MouseEvent;
@@ -105,7 +106,7 @@ public class MastermindBoard {
 		
 		// build guess and secret GUI pegs
 		pegY = y + resultHeight + pegRadius;
-		pegRadius = GraphicalCode.DEFAULT_RADIUS * 3 / 2;
+		pegRadius = GraphicalCode.DEFAULT_RADIUS * 5 / 4;
 		pendingGuess = new GraphicalCode(new Code(numPegs), x + (brimWidth / 3), pegY, pegRadius);
 		secretCode = new SecretCode(x + width - (2 * brimWidth / 3), pegY, pegRadius, Settings.NUM_PEGS);
 	}
@@ -153,17 +154,17 @@ public class MastermindBoard {
 		//draw strings
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Century Gothic", Font.PLAIN, 24));
-		g.drawString("Guess", x + (brimWidth / 5), y + (guessHeight / 10));
-		g.drawString("Secret", x + width - (brimWidth * 9 / 10), y + (guessHeight / 10));
-		g.drawString("Code", x + width - (brimWidth * 9 /10), y + (guessHeight / 5));
+		g.drawString("Guess", x + (brimWidth / 8), y + (guessHeight / 10));
+		g.drawString("Secret", x + width - (brimWidth * 9 / 10), y + (guessHeight * 4 / 40));
+		g.drawString("Code", x + width - (brimWidth * 9 /10), y + (guessHeight * 7 / 40));
 		
 		if(pendingGuess.checkValid()) {
-			g.drawImage(Resources.SUBMIT_IMAGE, x + 20, y + 60, null);	
+			g.drawImage(Resources.SUBMIT_IMAGE, x + (brimWidth / 8), y + (guessHeight / 8), null);	
 		}
 		else {
 			g.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-			g.drawString("Click below", x + 27, y + 70);
-			g.drawString("to form a guess!", x + 17, y + 95);
+			g.drawString("Click below", x + (brimWidth / 8), y + (guessHeight * 3 / 20));
+			g.drawString("to form a guess!", x + (brimWidth / 8), y + (guessHeight * 4 / 20));
 		}
 		
 		//draw codes
@@ -188,16 +189,18 @@ public class MastermindBoard {
 				peg.click();
 			}
 		}
-		if(mX - (x+20) > 0 
-				&& mY - (y + 60) > 0 
-				&& mX - (x + 20) < Resources.SUBMIT_IMAGE.getWidth()
-				&& mY - (y + 60) < Resources.SUBMIT_IMAGE.getHeight()) {
+		if(mX - (x + (brimWidth / 8)) > 0 
+				&& mY - (y + (guessHeight / 8)) > 0 
+				&& mX - (x + (brimWidth / 8)) < Resources.SUBMIT_IMAGE.getWidth()
+				&& mY - (y + (guessHeight / 8)) < Resources.SUBMIT_IMAGE.getHeight()) {
 			submitCode();
 		}
 	}
 	
 	protected void submitCode() {
-		Result result = pendingGuess.getCode().compareCode(secretCode.secretCode);
+		Code guess = pendingGuess.getCode();
+		Code answer = secretCode.getCode();
+		Result result = guess.compareCode(answer);
 		GraphicalCode setCode = codes.get(nextGuess);
 		setCode.setCode(pendingGuess.getCode());
 		GraphicalResult setResult = results.get(nextGuess);
@@ -216,7 +219,6 @@ public class MastermindBoard {
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		MastermindState.gsm.setState(GameStateManager.WINSTATE);
