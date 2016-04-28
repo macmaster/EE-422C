@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class WinState extends GameState {
@@ -28,6 +29,8 @@ public class WinState extends GameState {
 
 	@Override
 	public void draw(Graphics2D g) {
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
 		g.drawString("YOU WIN!", GamePanel.WIDTH * 2 / 5, GamePanel.HEIGHT * 9 / 16);
 	}
 
