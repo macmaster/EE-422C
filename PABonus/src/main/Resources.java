@@ -23,17 +23,17 @@ public class Resources implements Runnable {
 	
 	/** image array of available brain pictures */ 
 	public static BufferedImage[] BRAIN_IMAGES = new BufferedImage[100];
-	private static final String BRAIN_PATH = "rsc/brain.png";
+	private static final String BRAIN_PATH = "/rsc/brain.png";
 	
 	/** image of the master mind himself */
 	public static BufferedImage MASTERMIND_IMAGE;
-	private static final String MASTERMIND_PATH = "rsc/mastermind.jpg";
+	private static final String MASTERMIND_PATH = "/rsc/mastermind.jpg";
 	
 	public static BufferedImage SUBMIT_IMAGE;
-	public static final String SUBMIT_PATH = "rsc/submit.png";
+	public static final String SUBMIT_PATH = "/rsc/submit.png";
 	
 	public static BufferedImage MENU_IMAGE;
-	public static final String MENU_PATH = "rsc/menu.png";
+	public static final String MENU_PATH = "/rsc/menu.png";
 	
 	public static int loadProgress = 0;
 	public static final int LOAD_MAX = 103;
@@ -51,7 +51,7 @@ public class Resources implements Runnable {
 		
 		//generate BRAINZ
 		BufferedImage imageSrc = ImageIO.read(
-				new FileInputStream(BRAIN_PATH)
+				panel.getClass().getResource(BRAIN_PATH)
 			);
 		for(int i = 0; i < 100; i++) {
 			double scale = (0.01 + (.99/100.0) * i * .4) * GamePanel.HEIGHT / 960.0;
@@ -66,7 +66,7 @@ public class Resources implements Runnable {
 		//generate mastermind
 		double scale = GamePanel.HEIGHT * 1.3 / 1920.0;
 		imageSrc = ImageIO.read(
-				new FileInputStream(MASTERMIND_PATH)
+				panel.getClass().getResource(MASTERMIND_PATH)
 			);
 		MASTERMIND_IMAGE = toBufferedImage(imageSrc.getScaledInstance(
 				(int) (imageSrc.getWidth() * scale),
@@ -77,7 +77,7 @@ public class Resources implements Runnable {
 		//generate submit
 		scale = 13.0 * GamePanel.HEIGHT / 96000.0;
 		imageSrc = ImageIO.read(
-				new FileInputStream(SUBMIT_PATH)
+				panel.getClass().getResource(SUBMIT_PATH)
 			);
 		SUBMIT_IMAGE = toBufferedImage(imageSrc.getScaledInstance(
 				(int) (imageSrc.getWidth() * scale),
