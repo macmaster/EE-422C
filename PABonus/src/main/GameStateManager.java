@@ -66,8 +66,8 @@ public class GameStateManager {
 		// valid state index
 		int lastState = currentState;
 		if(state >= 0 && state < gameStates.size()){
-			gameStates.get(currentState).init(gameStates.get(lastState));
 			currentState = state;
+			gameStates.get(currentState).init(gameStates.get(lastState));
 		}
 	}
 	

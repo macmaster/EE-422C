@@ -40,14 +40,14 @@ public class LoadingState extends GameState {
 		loadColor = Color.WHITE;
 		loadFont = new Font("Century Gothic", Font.PLAIN, 3 * GamePanel.HEIGHT / 80);
 		
-		loadStringX = GamePanel.WIDTH * 3 / 5;
-		loadStringY = GamePanel.HEIGHT * 11 / 20;
+		loadStringX = GamePanel.WIDTH * 3 / 10;
+		loadStringY = GamePanel.HEIGHT * 9 / 20;
 		
 		loadBarX = GamePanel.WIDTH * 2 /6;
-		loadBarY = GamePanel.HEIGHT * 15 /20;
+		loadBarY = GamePanel.HEIGHT * 11 /20;
 		loadBarWidth = GamePanel.WIDTH * 2 / 6;
 		loadBarHeight = GamePanel.HEIGHT / 20;
-		loadBarStroke = new BasicStroke(GamePanel.HEIGHT / 120);
+		loadBarStroke = new BasicStroke(GamePanel.HEIGHT * 1 / 60);
 		
 		errorX = GamePanel.WIDTH * 4 / 20;
 		errorYStart = GamePanel.HEIGHT * 6 / 10;
@@ -66,7 +66,6 @@ public class LoadingState extends GameState {
 	public void update() {
 		//update percentage complete and check if done loading
 		percentComplete = Resources.loadProgress / (double)(Resources.LOAD_MAX);
-		System.out.println(percentComplete);
 		
 		//check if done loading
 		if (Resources.loadSuccess) { 
