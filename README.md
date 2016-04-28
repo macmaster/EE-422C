@@ -1,10 +1,10 @@
 # EE-422C  
+Software class projects  
+  
 University of Texas at Austin  
 Spring 2016 EE 422C  
 Professor: Dwayne Perry  
-  
-Software class projects  
-  
+
 ###Contributers:  
 1) Ronald Macmaster  
 2) Cooper Raterink  
