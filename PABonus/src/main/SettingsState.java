@@ -1,3 +1,13 @@
+/** SettingsState ********************************************
+ * Manages the settings menu and controls
+ * Contains the logic for settings interfacing
+ * Sets the settings variables
+ * 
+ * Section : F 2:00 - 3:30pm
+ * UT EID: cdr2678 ,rpm953
+ * @author Cooper Raterink, Ronald Macmaster
+ * @version 1.01 4/25/2016
+ ************************************************************/
 package main;
 
 import java.awt.Color;
@@ -12,51 +22,81 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Settings game state to change game settings
+ */
 public class SettingsState extends GameState {
 
+	/** master game state manager */
 	protected GameStateManager gsm;
+	/** the last state that occured */
 	protected GameState lastState;
 	
+	/** list of possible settings options */
 	protected Map<String, ArrayList<String>> settingsOptions;
 	
+	/** currently selected option */
 	protected int currentOption = 0;
+	/** number of pegs */
 	protected int pegVal;
+	/** number of colors */
 	protected int colorVal;
+	/** number of guesses */
 	protected int guessVal;
 	
+	/** color the title font */
 	private Color titleColor;
+	/** font object of the title */
 	private Font titleFont;
-	
+	/** color for the option fonts */
 	private Color optionColor = Color.YELLOW;
+	/** color for the value fonts */
 	private Color valColor = Color.GREEN;
+	/** font object for the option fonts */
 	private Font optionFont;
 	
+	/** options collision detection rectangles */
 	private ArrayList<Rectangle2D> optionRects;
+	/** values collision detection rectangles */
 	private ArrayList<Rectangle2D> valueRects;
 	
-	public SettingsState(GameStateManager gameStateManager) {
+	/**
+	 * @param gameStateManager Link back to game state manager
+	 */
+	public SettingsState(GameStateManager gameStateManager) {				
+		//initialize the option lists
 		gsm = gameStateManager;
-		
 		settingsOptions = new LinkedHashMap<String, ArrayList<String>>();
-		
 		ArrayList<String> pegOptions = new ArrayList<String>();
 		ArrayList<String> colorOptions = new ArrayList<String>();
 		ArrayList<String> guessOptions = new ArrayList<String>();
 		
+		// build the options list
 		pegOptions.add("4"); pegOptions.add("5"); pegOptions.add("6");
 		colorOptions.add("4"); colorOptions.add("5"); colorOptions.add("6");
 		guessOptions.add("8"); guessOptions.add("10"); guessOptions.add("12");
 		
+		// build the settings options
 		settingsOptions.put("Pegs:", pegOptions);
 		settingsOptions.put("Colors:", colorOptions);
 		settingsOptions.put("Guesses:", guessOptions);
 		settingsOptions.put("Done", null);
+		
+		//establish font/color fields
+		titleColor = Color.white;
+		titleFont = new Font(
+				"Century Gothic",
+				Font.PLAIN,
+				27*GamePanel.HEIGHT/320);
+		
+		optionFont = new Font("Arial", Font.PLAIN, 4*GamePanel.HEIGHT/80);
 	}
 
 	@Override
 	public void init(GameState lastState) {
 		currentOption = 0;
 		
+		//set peg values based on current game settings
 		pegVal = settingsOptions.get("Pegs:").indexOf("" + Settings.NUM_PEGS);
 		colorVal = settingsOptions.get("Colors:").indexOf("" + Settings.NUM_COLORS);
 		guessVal = settingsOptions.get("Guesses:").indexOf("" + Settings.NUM_GUESSES);
@@ -66,13 +106,6 @@ public class SettingsState extends GameState {
 
 	@Override
 	public void update() {
-		titleColor = Color.white;
-		titleFont = new Font(
-				"Century Gothic",
-				Font.PLAIN,
-				27*GamePanel.HEIGHT/320);
-		
-		optionFont = new Font("Arial", Font.PLAIN, 4*GamePanel.HEIGHT/80);
 	}
 
 	@Override
@@ -88,6 +121,7 @@ public class SettingsState extends GameState {
 		int titleY = 7 * GamePanel.HEIGHT / 24;
 		int titleX = (GamePanel.WIDTH - metrics.stringWidth(Game.GAME_NAME)) / 2;
 		g.drawString(Game.GAME_NAME, titleX, titleY);
+		
 		//draw the options: 
 		//Yellow for current option, Green for current setting value
 		g.setFont(optionFont);
@@ -116,6 +150,7 @@ public class SettingsState extends GameState {
 				desiredValIndex = guessVal;
 				break;
 			}
+			//draw values if not on "done"
 			if (settingsOptions.get(option) != null) {
 				for (String val : settingsOptions.get(option)) {
 					//draw option, green if selected
@@ -140,6 +175,7 @@ public class SettingsState extends GameState {
 					optRect.setRect(optX - 5, yStart + yDelta * optIndex - hgt - 5, width + 10, hgt + 10);
 					optionRects.add(optRect);
 					
+					//set up value dimensions
 					if (settingsOptions.get(optionStr) != null) {
 						//set up valRects
 						valIndex = 0;
@@ -164,6 +200,7 @@ public class SettingsState extends GameState {
 
 	@Override
 	public void keyPressed(int k) {
+		//navigate around the settings options menu
 		if(k == KeyEvent.VK_DOWN) {
 			currentOption++;
 			if(currentOption > 3) currentOption = 0;

@@ -305,6 +305,7 @@ public class MastermindBoard {
 		//now refresh pending guess
 		pendingGuess = new GraphicalCode(new Code(pendingGuess.pegs.size()), 
 				x + (brimWidth / 3), pendingGuess.y, pendingGuess.radius);
+		currentPeg = 0;
 		pendingGuess.setSelection(0);
 		nextGuess++;
 		

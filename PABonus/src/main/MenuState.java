@@ -1,3 +1,12 @@
+/** MenuState ********************************************
+ * Manages the current state of the GUI menu
+ * Contains the logic for menu interfacing
+ * 
+ * Section : F 2:00 - 3:30pm
+ * UT EID: cdr2678 ,rpm953
+ * @author Cooper Raterink, Ronald Macmaster
+ * @version 1.01 4/25/2016
+ ************************************************************/
 package main;
 
 import java.awt.AlphaComposite;
@@ -12,44 +21,56 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
+
 public class MenuState extends GameState {
 	
+	/** initialization flag */
 	private boolean hasBeenInitialized = false;
+	/** list of brains to manage / draw */
 	private ArrayList<RandomBrain> brains;
 	
+	/** threshold constant for brain arrival */
 	private double brainArrivalThreshold = .13;
-	
+
+	/** current menu choice */
 	private int currentChoice = 0;
+	
+	/** menu options */
 	private String[] options = {
 		"Play",
 		"Settings",
 		"Quit"
 	};
 	
+	/** Font color for title */
 	private Color titleColor;
+	/** Font object for title */
 	private Font titleFont;
-	
+	/** Font object for menu options*/
 	private Font optionFont;
 	
+	/** animation unit for brains */
 	private int frameUnit;
 	
+	/** collision detection menu rectangles */
 	private ArrayList<Rectangle2D> optionRects;
 	
+	/** generate the menu state initially */
 	public MenuState(GameStateManager gsm) {
-		
+		// initialize the state variablea
 		this.gsm = gsm;
 		this.frameUnit = 0;
-		
 		try {
-			
+			// brain list
 			brains = new ArrayList<RandomBrain>();
 			
+			// title init
 			titleColor = Color.white;
 			titleFont = new Font(
 					"Century Gothic",
 					Font.PLAIN,
 					27*GamePanel.HEIGHT/320);
-			
+			// menu options init
 			optionFont = new Font("Arial", Font.PLAIN, 4*GamePanel.HEIGHT/80);
 		}
 		catch(Exception e) {
@@ -58,6 +79,9 @@ public class MenuState extends GameState {
 		
 	}
 	
+	/**
+	 * initialize the brain animations
+	 */
 	public void init(GameState lastState) {
 		if (!hasBeenInitialized) {
 			for (int i = 0; i < 3000; i++) {
@@ -67,6 +91,9 @@ public class MenuState extends GameState {
 		}
 	}
 	
+	/**
+	 * generate and clean random brains
+	 */
 	public void update() {
 		
 		//generate random arrivals:
@@ -80,6 +107,7 @@ public class MenuState extends GameState {
 			brains.get(i).update();
 		}
 		
+		//remove brains that go off the screen
 		for(int i = 0; i < brains.size(); i++) {
 			if(brains.get(i).x > GamePanel.WIDTH) {
 				brains.remove(i);
@@ -98,6 +126,7 @@ public class MenuState extends GameState {
 			if(frameUnit < 240 || brains.get(i).index < sizeThreshold) brains.get(i).draw(g);
 		}
 		
+		// animate brains
 		if(frameUnit < 240) {
 			if(frameUnit > 120) {
 				Composite comp = g.getComposite();
@@ -160,6 +189,9 @@ public class MenuState extends GameState {
 		
 	}
 	
+	/**
+	 * select the new game state
+	 */
 	private void select() {
 		if(currentChoice == 0) {
 			gsm.setState(GameStateManager.GAMESTATE);
@@ -172,16 +204,23 @@ public class MenuState extends GameState {
 		}
 	}
 	
+	/**
+	 * Arrow key handler
+	 * switch the selection / select
+	 */
 	public void keyPressed(int k) {
+		// submit selection
 		if(k == KeyEvent.VK_ENTER){
 			select();
 		}
+		// up arrow selection
 		if(k == KeyEvent.VK_UP) {
 			currentChoice--;
 			if(currentChoice == -1) {
 				currentChoice = options.length - 1;
 			}
 		}
+		// down arrow selection
 		if(k == KeyEvent.VK_DOWN) {
 			currentChoice++;
 			if(currentChoice == options.length) {
