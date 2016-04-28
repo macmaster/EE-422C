@@ -44,7 +44,10 @@ public class MastermindState extends GameState implements MouseListener {
 		// build the game title
 		gsm = gameStateManager;
 		titleColor = Color.white;
-		titleFont = new Font("Century Gothic", Font.PLAIN, GamePanel.HEIGHT / 10);
+		titleFont = new Font(
+				"Century Gothic",
+				Font.PLAIN,
+				27*GamePanel.HEIGHT/320);
 		
 		//Establish this as clickable
 		gsm.panel.addMouseListener(this);
@@ -105,7 +108,7 @@ public class MastermindState extends GameState implements MouseListener {
 
 		// title animation
 		FontMetrics metrics = g.getFontMetrics(titleFont);
-		int animY = (int)(7*GamePanel.HEIGHT/24 + (frameUnit / 120.0) * (GamePanel.HEIGHT / 16)); 
+		int animY = (int)(7*GamePanel.HEIGHT/24 + (frameUnit / 120.0) * (GamePanel.HEIGHT * 13 / 120)); 
 		int titleY = frameUnit < 120 ?  animY : GamePanel.HEIGHT * 4 / 10;
 		int titleX = (GamePanel.WIDTH - metrics.stringWidth(Game.GAME_NAME)) / 2;
 		

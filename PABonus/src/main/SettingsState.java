@@ -64,9 +64,9 @@ public class SettingsState extends GameState {
 		titleFont = new Font(
 				"Century Gothic",
 				Font.PLAIN,
-				108);
+				27*GamePanel.HEIGHT/320);
 		
-		optionFont = new Font("Arial", Font.PLAIN, 48);
+		optionFont = new Font("Arial", Font.PLAIN, 3*GamePanel.HEIGHT/80);
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class SettingsState extends GameState {
 		//draw the title:
 		g.setColor(titleColor);
 		g.setFont(titleFont);
-		g.drawString(Game.GAME_NAME, 320, 280);
+		g.drawString(Game.GAME_NAME, 1*GamePanel.WIDTH/4, 7 * GamePanel.HEIGHT / 24);
 		//draw the options: 
 		//Yellow for current option, Green for current setting value
 		g.setFont(optionFont);
