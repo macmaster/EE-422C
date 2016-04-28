@@ -54,7 +54,7 @@ public class Resources implements Runnable {
 				new FileInputStream(BRAIN_PATH)
 			);
 		for(int i = 0; i < 100; i++) {
-			double scale = 0.01 + (.99/100.0) * i * .4;
+			double scale = (0.01 + (.99/100.0) * i * .4) * GamePanel.HEIGHT / 960.0;
 			BufferedImage image = toBufferedImage(imageSrc.getScaledInstance(
 					(int) (imageSrc.getWidth() * scale),
 					(int) (imageSrc.getHeight() * scale),
@@ -64,7 +64,7 @@ public class Resources implements Runnable {
 		}
 		
 		//generate mastermind
-		double scale = 0.5;
+		double scale = GamePanel.HEIGHT * 1.3 / 1920.0;
 		imageSrc = ImageIO.read(
 				new FileInputStream(MASTERMIND_PATH)
 			);
@@ -75,7 +75,7 @@ public class Resources implements Runnable {
 		loadProgress++;
 		
 		//generate submit
-		scale = 0.13;
+		scale = 13.0 * GamePanel.HEIGHT / 96000.0;
 		imageSrc = ImageIO.read(
 				new FileInputStream(SUBMIT_PATH)
 			);
@@ -85,7 +85,7 @@ public class Resources implements Runnable {
 				Image.SCALE_DEFAULT));
 		loadProgress++;
 		
-		scale = 0.4;
+		scale = GamePanel.HEIGHT / 6400.0;
 		imageSrc = ImageIO.read(
 				new FileInputStream(MENU_PATH)
 			);
