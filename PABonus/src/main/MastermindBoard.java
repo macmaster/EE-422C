@@ -143,10 +143,10 @@ public class MastermindBoard {
 		
 		//off border
 		g.drawRect(x + border/2 + brimWidth, y + (2 * border) + resultHeight, 
-				width - 2 * (brimWidth + border), height - border);
+				Settings.NUM_GUESSES * guessWidth, height - border);
 		
 		for(int i = 0; i <= Settings.NUM_GUESSES; i++) {
-			g.drawRect(x + border/2 + brimWidth, y + border / 2, i*guessWidth, height - border);
+			g.drawRect(x + border/2 + brimWidth, y + border / 2, i * guessWidth, height - border);
 		}
 		g.setStroke(s);
 		
