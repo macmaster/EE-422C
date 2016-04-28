@@ -9,6 +9,7 @@
  ************************************************************/
 package main;
 
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public abstract class GameState {
@@ -33,6 +34,7 @@ public abstract class GameState {
 	/** key released event handler */
 	public abstract void keyTyped(char key);
 
+	/** mouse released event handler */
 	public abstract void mouseReleased(MouseEvent me);
 	
 }

@@ -15,6 +15,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -55,6 +56,8 @@ public class MastermindBoard {
 	/** user's pending guess */
 	protected GraphicalCode pendingGuess;
 	
+	/** current peg guess index for keyboard selection */
+	protected int currentPeg = 0;
 	/** current index of the user's guess */
 	protected int nextGuess = 0;
 	
@@ -194,6 +197,30 @@ public class MastermindBoard {
 				&& mX - (x + (brimWidth / 8)) < Resources.SUBMIT_IMAGE.getWidth()
 				&& mY - (y + (guessHeight / 8)) < Resources.SUBMIT_IMAGE.getHeight()) {
 			submitCode();
+		}
+	}
+	
+	/**
+	 * read in keyboard input
+	 * update current peg color if necessary
+	 * @param key the key that was pressed
+	 */
+	public void keyTyped(char key){
+		System.out.println(key);
+		if(key == KeyEvent.VK_ENTER){
+			//select();
+		}
+		if(key == KeyEvent.VK_UP) {
+			//currentChoice--;
+			//if(currentChoice == -1) {
+			//	currentChoice = options.length - 1;
+			//}
+		}
+		if(key == KeyEvent.VK_DOWN) {
+			//currentChoice++;
+			//if(currentChoice == options.length) {
+			//	currentChoice = 0;
+			//}
 		}
 	}
 	

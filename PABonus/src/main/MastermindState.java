@@ -212,7 +212,6 @@ public class MastermindState extends GameState {
 	
 	@Override
 	public void keyTyped(char key){
-		// read key typed
-		System.out.println(key);
+		board.keyTyped(key);
 	}
 }
