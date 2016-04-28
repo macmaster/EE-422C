@@ -31,6 +31,9 @@ public class GraphicalCode {
 	/** graphical peg radius */
 	protected int radius;
 	
+	/** selected peg index  (-1 = none)*/
+	protected int selected = -1;
+	
 	/**
 	 * default value for a peg radius
 	 */
@@ -53,6 +56,8 @@ public class GraphicalCode {
 		this.x = x;
 		this.y = y;
 		this.radius = radius;
+		
+		
 		
 		// set peg coordinates
 		pegs = new ArrayList<GraphicalPeg>();
@@ -85,6 +90,28 @@ public class GraphicalCode {
 			pegs.get(i).color = code.getColor(i);
 		}
 		this.code = code;
+	}
+	
+	/** 
+	 * setSelection
+	 * sets the selected peg index
+	 */
+	public void setSelection(int index) {
+		// unselect old peg
+		if(selected >= 0){ 
+			GraphicalPeg peg = pegs.get(selected);
+			peg.setSelection(false);
+		}
+		
+		// select new selection
+		if(index >= pegs.size() || index < 0){
+			selected = -1;
+		}
+		else{
+			GraphicalPeg peg = pegs.get(index);
+			peg.setSelection(true);
+			selected = index;
+		}
 	}
 
 	/** update

@@ -35,6 +35,9 @@ public class GraphicalPeg {
 	/** GUI color of peg */
 	protected Color color;
 	
+	/** selected peg (different border?) */
+	boolean selected;
+	
 	/** list of valid code colors */
 	protected List<Color> colorWheel;
 	protected int colorIndex = -1;
@@ -55,6 +58,7 @@ public class GraphicalPeg {
 		this.radius = radius;
 		this.color = color;
 		this.colorWheel = colorWheel;
+		this.selected = false;
 		if(colorWheel != null) colorIndex = colorWheel.indexOf(color);
 	}
 	
@@ -68,8 +72,14 @@ public class GraphicalPeg {
 		g.fillOval(x, y, radius * 2, radius *2 );
 		
 		// draw the border
-		Color darkBrown = new Color(101, 67, 33);
-		g.setColor(darkBrown); //dark brown
+		if(selected){
+			g.setColor(Color.WHITE); // white border
+		}
+		else{
+			Color darkBrown = new Color(101, 67, 33);
+			g.setColor(darkBrown); //dark brown			
+		}
+		
 		Stroke s = g.getStroke();
 		g.setStroke(new BasicStroke(5));
 		g.drawOval(x, y, radius * 2, radius * 2);
@@ -115,11 +125,31 @@ public class GraphicalPeg {
 		int diam = radius * 2;
 		return mX - x > 0 && mY - y > 0 &&  mX - x < diam && mY - y < diam;
 	}
+	
+	/**
+	 * sets the selection flag
+	 * @param select
+	 */
+	public void setSelection(boolean select){
+		this.selected = select;
+	}
 
-	public void click() {
-		if(++colorIndex >= colorWheel.size()) {
-			colorIndex = 0;
+	/**
+	 * boolean parameter
+	 * indicates a forward rollover in color wheel
+	 */
+	public void click(boolean cycleForward) {
+		int n = colorWheel.size(); // number of colors
+		if(cycleForward) {
+			//forward rollover
+			colorIndex = (colorIndex + 1) % n;
 		}
+		else{
+			// reverse rollover
+			colorIndex = (colorIndex + (n-1)) % n;
+		}
+		
+		// set new color
 		this.color = colorWheel.get(colorIndex);
 	}
 	

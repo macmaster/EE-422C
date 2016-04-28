@@ -110,6 +110,7 @@ public class MastermindBoard {
 		pegRadius = GraphicalCode.DEFAULT_RADIUS * 5 / 4;
 		pendingGuess = new GraphicalCode(new Code(numPegs), x + (brimWidth / 3), pegY, pegRadius);
 		secretCode = new SecretCode(x + width - (2 * brimWidth / 3), pegY, pegRadius, Settings.NUM_PEGS);
+		pendingGuess.setSelection(0);
 	}
 	
 	/**
@@ -182,12 +183,20 @@ public class MastermindBoard {
 		pendingGuess.draw(g);
 	}
 
+	/**
+	 * checks the peg collisions
+	 * upon mouse click events
+	 * @param me mouse event
+	 */
 	public void mouseReleased(MouseEvent me) {
 		int mX = me.getX();
 		int mY = me.getY();
-		for(GraphicalPeg peg : pendingGuess.pegs) {
+		ArrayList<GraphicalPeg> pegs = pendingGuess.pegs;
+		for(int idx = 0; idx < pegs.size(); idx++) {
+			GraphicalPeg peg = pegs.get(idx);
 			if(peg.containsLoc(mX, mY)){
-				peg.click();
+				pendingGuess.setSelection(idx);
+				peg.click(true);
 			}
 		}
 		if(mX - (x + (brimWidth / 8)) > 0 
@@ -204,28 +213,46 @@ public class MastermindBoard {
 	 * @param key the key that was pressed
 	 */
 	public void keyPressed(int key){
+		// select current peg variable
+		GraphicalPeg peg = pendingGuess.pegs.get(currentPeg);
+		
 		switch(key){
 			case KeyEvent.VK_ENTER: //submit valid code
-				System.out.println("enter!");
 				if(pendingGuess.checkValid()) {
+					// submit and reset guess
+					currentPeg = 0;
+					pendingGuess.setSelection(0); 
 					submitCode();
 				}
 				break;
 			case KeyEvent.VK_UP: // move selection up
-				System.out.println("up!");
+				if(currentPeg > 0){
+					pendingGuess.setSelection(--currentPeg);
+				}
 				break;
 			case KeyEvent.VK_DOWN: // move selection down
-				System.out.println("down!");
+				if(currentPeg < Settings.NUM_PEGS - 1){
+					pendingGuess.setSelection(++currentPeg);
+				}
 				break;
 			case KeyEvent.VK_LEFT: // decrement color
-				System.out.println("left!");
+				peg.click(false);
 				break;
 			case KeyEvent.VK_RIGHT: // increment color
-				System.out.println("right!");
+				peg.click(true);
 				break;
 			default:
 				System.out.println(key);
 		}
+	}
+	
+	/**
+	 * fetches the index of the
+	 * currently selected peg
+	 * @return current peg index
+	 */
+	public int getSelectedPeg(){
+		return currentPeg;
 	}
 	
 	protected void submitCode() {

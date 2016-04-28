@@ -154,6 +154,7 @@ public class MastermindState extends GameState {
 			if(!(winFlag || loseFlag)){
 				board.mouseReleased(me);
 			}
+			
 			//test back button clicked
 			if (me.getX() > backX && me.getX() < backX + Resources.MENU_IMAGE.getWidth() && me.getY() > backY
 					&& me.getY() < backY + Resources.MENU_IMAGE.getHeight()) {
@@ -208,7 +209,9 @@ public class MastermindState extends GameState {
 	
 	@Override
 	public void keyPressed(int k){
-		board.keyPressed(k);
+		if(!(winFlag || loseFlag)){
+			board.keyPressed(k);
+		}
 	}
 	
 	@Override
