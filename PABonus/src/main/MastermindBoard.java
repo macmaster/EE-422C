@@ -217,6 +217,7 @@ public class MastermindBoard {
 		// update win/loss states
 		MastermindState gameState = (MastermindState)MastermindState.gsm.getCurrentState();
 		if(result.isWinner()) {
+			secretCode.showCode();
 			gameState.setWinner(true);
 		}
 		else if(nextGuess >= Settings.NUM_GUESSES){
