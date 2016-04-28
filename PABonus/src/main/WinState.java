@@ -7,8 +7,6 @@ public class WinState extends GameState {
 
 	protected GameStateManager gsm;
 	
-	protected int frameUnit = 0;
-	
 	public WinState(GameStateManager gameStateManager) {
 		gsm = gameStateManager;
 	}
@@ -21,10 +19,6 @@ public class WinState extends GameState {
 
 	@Override
 	public void update() {
-		if(frameUnit > 180) {
-			gsm.setState(gsm.MENUSTATE);
-		}
-		frameUnit++;
 	}
 
 	@Override

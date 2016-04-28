@@ -32,9 +32,6 @@ public class Resources implements Runnable {
 	public static BufferedImage SUBMIT_IMAGE;
 	public static final String SUBMIT_PATH = "Resources/submit.png";
 	
-	public static BufferedImage BACK_IMAGE;
-	public static final String BACK_PATH = "Resources/back.png";
-	
 	public static BufferedImage MENU_IMAGE;
 	public static final String MENU_PATH = "Resources/menu.png";
 	
@@ -83,17 +80,6 @@ public class Resources implements Runnable {
 				new FileInputStream(SUBMIT_PATH)
 			);
 		SUBMIT_IMAGE = toBufferedImage(imageSrc.getScaledInstance(
-				(int) (imageSrc.getWidth() * scale),
-				(int) (imageSrc.getHeight() * scale),
-				Image.SCALE_DEFAULT));
-		loadProgress++;
-
-		
-		scale = 0.4;
-		imageSrc = ImageIO.read(
-				new FileInputStream(BACK_PATH)
-			);
-		BACK_IMAGE = toBufferedImage(imageSrc.getScaledInstance(
 				(int) (imageSrc.getWidth() * scale),
 				(int) (imageSrc.getHeight() * scale),
 				Image.SCALE_DEFAULT));

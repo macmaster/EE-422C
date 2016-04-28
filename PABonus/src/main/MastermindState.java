@@ -51,10 +51,6 @@ public class MastermindState extends GameState implements MouseListener {
 		
 		//Establish this as clickable
 		gsm.panel.addMouseListener(this);
-		
-		this.mastermindImage = Resources.MASTERMIND_IMAGE;
-		
-		init(null);
 	}
 
 	@Override
@@ -66,6 +62,8 @@ public class MastermindState extends GameState implements MouseListener {
 		int boardY = GamePanel.HEIGHT * 7 / 16;
 		board = new MastermindBoard(0, boardY, 
 					GamePanel.WIDTH, GamePanel.HEIGHT - boardY);
+		
+		this.mastermindImage = Resources.MASTERMIND_IMAGE;
 	}
 
 	@Override
@@ -93,7 +91,7 @@ public class MastermindState extends GameState implements MouseListener {
 		
 		//draw back button
 		if(frameUnit > 120) {
-			g.drawImage(Resources.BACK_IMAGE, backX, backY, null);
+			g.drawImage(Resources.MENU_IMAGE, backX, backY, null);
 		}
 		
 		// pixel alphas
@@ -150,8 +148,8 @@ public class MastermindState extends GameState implements MouseListener {
 			//test board clicked
 			board.mouseReleased(me);
 			//test back button clicked
-			if (me.getX() > backX && me.getX() < backX + Resources.BACK_IMAGE.getWidth() && me.getY() > backY
-					&& me.getY() < backY + Resources.BACK_IMAGE.getHeight()) {
+			if (me.getX() > backX && me.getX() < backX + Resources.MENU_IMAGE.getWidth() && me.getY() > backY
+					&& me.getY() < backY + Resources.MENU_IMAGE.getHeight()) {
 				backClicked();
 			} 
 		}
