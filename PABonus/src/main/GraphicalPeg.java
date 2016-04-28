@@ -118,7 +118,17 @@ public class GraphicalPeg {
 	 * @return radius
 	 */
 	public void setColor(Color color) {
-		this.color = color;
+		// update color index
+		int n = colorWheel.size(); 
+		for(int idx = 0; idx < n; idx++){
+			Color valid = colorWheel.get(idx);
+			if(color.equals(valid)){
+				// set color
+				colorIndex = idx;
+				this.color = color;
+			}
+		}
+		
 	}
 
 	public boolean containsLoc(int mX, int mY) {

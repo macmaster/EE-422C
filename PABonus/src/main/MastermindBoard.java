@@ -241,8 +241,26 @@ public class MastermindBoard {
 			case KeyEvent.VK_RIGHT: // increment color
 				peg.click(true);
 				break;
+			case 'R': // Red
+				peg.setColor(Color.RED);
+				break;
+			case 'O': // Orange
+				peg.setColor(Color.ORANGE);
+				break;
+			case 'Y': // Yellow
+				peg.setColor(Color.YELLOW);
+				break;
+			case 'G': // GREEN
+				peg.setColor(Color.GREEN);
+				break;
+			case 'B': // Blue
+				peg.setColor(Color.BLUE);
+				break;
+			case 'P': // Purple
+				peg.setColor(Color.MAGENTA);
+				break;
 			default:
-				System.out.println(key);
+				System.out.println((char)key);
 		}
 	}
 	
