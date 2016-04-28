@@ -259,6 +259,9 @@ public class MastermindBoard {
 			case 'P': // Purple
 				colorSet = peg.setColor(Color.MAGENTA);
 				break;
+			case 'M': //secrect show code key
+				secretCode.showCode(!secretCode.showCode);
+				break;
 			default:
 				System.out.println((char)key);
 		}
@@ -293,18 +296,19 @@ public class MastermindBoard {
 		//now refresh pending guess
 		pendingGuess = new GraphicalCode(new Code(pendingGuess.pegs.size()), 
 				x + (brimWidth / 3), pendingGuess.y, pendingGuess.radius);
+		pendingGuess.setSelection(0);
 		nextGuess++;
 		
 		// update win/loss states
 		MastermindState gameState = (MastermindState)MastermindState.gsm.getCurrentState();
 		if(result.isWinner()) {
-			secretCode.showCode();
+			secretCode.showCode(true);
 			gameState.setWinner(true);
 		}
 		else if(nextGuess >= Settings.NUM_GUESSES){
-			secretCode.showCode();
+			secretCode.showCode(true);
 			gameState.setLoser(true);
-		}
+		}		
 	}
 
 }

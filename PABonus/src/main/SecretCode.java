@@ -16,9 +16,9 @@ import java.awt.Graphics2D;
 public class SecretCode extends GraphicalCode {
 	
 	/** default secret code length */
-	private static int length = 4;
+	protected static int length = 4;
 	
-	private boolean showCode = false;
+	protected boolean showCode = false;
 	
 	protected Code secretCode;
 	
@@ -81,9 +81,14 @@ public class SecretCode extends GraphicalCode {
 		return secretCode;
 	}
 	
-	public void showCode() {
-		this.setCode(secretCode);
-		showCode = true;
+	public void showCode(boolean show) {
+		if (show) {
+			this.setCode(secretCode);
+		} 
+		else {
+			this.setCode(new Code(length));
+		}
+		showCode = show;
 	}
 
 }
