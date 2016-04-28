@@ -23,17 +23,17 @@ public class Resources implements Runnable {
 	
 	/** image array of available brain pictures */ 
 	public static BufferedImage[] BRAIN_IMAGES = new BufferedImage[100];
-	private static final String BRAIN_PATH = "Resources/brain.png";
+	private static final String BRAIN_PATH = "rsc/brain.png";
 	
 	/** image of the master mind himself */
 	public static BufferedImage MASTERMIND_IMAGE;
-	private static final String MASTERMIND_PATH = "Resources/mastermind.jpg";
+	private static final String MASTERMIND_PATH = "rsc/mastermind.jpg";
 	
 	public static BufferedImage SUBMIT_IMAGE;
-	public static final String SUBMIT_PATH = "Resources/submit.png";
+	public static final String SUBMIT_PATH = "rsc/submit.png";
 	
 	public static BufferedImage MENU_IMAGE;
-	public static final String MENU_PATH = "Resources/menu.png";
+	public static final String MENU_PATH = "rsc/menu.png";
 	
 	public static int loadProgress = 0;
 	public static final int LOAD_MAX = 103;
