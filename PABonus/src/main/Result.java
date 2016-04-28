@@ -105,7 +105,7 @@ public class Result{
 		return length;
 	}
 	
-	/** checkSuccess()
+	/** checkSuccess
 	 * success if all of the pegs are black
 	 * @return success true or false
 	 */
@@ -113,7 +113,11 @@ public class Result{
 		// winning condition
 		return length == blacks;
 	}
-
+	
+	/**
+	 * check for a winner
+	 * @return the winner flag
+	 */
 	public boolean isWinner() {
 		return blacks == Settings.NUM_PEGS;
 	}

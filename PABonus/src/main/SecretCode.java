@@ -18,8 +18,10 @@ public class SecretCode extends GraphicalCode {
 	/** default secret code length */
 	protected static int length = 4;
 	
+	/** flag to show the secret code in draw method*/
 	protected boolean showCode = false;
 	
+	/** back-managed secret code object*/
 	protected Code secretCode;
 	
 	/**
@@ -33,13 +35,21 @@ public class SecretCode extends GraphicalCode {
 		secretCode = randomCode(length);
 	}
 	
+	/**
+	 * Generate a randomly colored code object
+	 * @param length the length of the code
+	 * @return the generated code object
+	 */
 	public static Code randomCode(int length) {
-		Code c = new Code(length);
+		// random color code build
+		Code code = new Code(length);
 		for(int i = 0; i < length; i++) {
 			int ri = (int)(Math.random() * length);
-			c.setColor(i, c.getColors().get(ri));
+			code.setColor(i, code.getColors().get(ri));
 		}
-		return c;
+		
+		// return the generated code object
+		return code;
 	}
 	
 	/**
@@ -81,6 +91,10 @@ public class SecretCode extends GraphicalCode {
 		return secretCode;
 	}
 	
+	/**
+	 * set the show code parameter
+	 * @param show flag to show the secret code
+	 */
 	public void showCode(boolean show) {
 		if (show) {
 			this.setCode(secretCode);

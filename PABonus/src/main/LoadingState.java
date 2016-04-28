@@ -1,3 +1,12 @@
+/** LoadingState *********************************************
+ * Top level abstract state class
+ * Contains the state data for the loading screen
+ * 
+ * Section : F 2:00 - 3:30pm
+ * UT EID: cdr2678 ,rpm953
+ * @author Cooper Raterink, Ronald Macmaster
+ * @version 1.01 4/25/2016
+ ************************************************************/
 package main;
 
 import java.awt.BasicStroke;
@@ -44,8 +53,8 @@ public class LoadingState extends GameState {
 	 * error string properties
 	 */
 	protected String errorString = "There was an error loading resources.\n" + 
-									"Please make sure image files are in place\n" +
-									"before running the game again.";
+											 "Please make sure image files are in place\n" +
+											 "before running the game again.";
 	protected int errorX;
 	protected int errorYStart;
 	protected int errorYDelta;
@@ -132,26 +141,15 @@ public class LoadingState extends GameState {
 	}
 
 	@Override
-	public void keyPressed(int k) {
-		// TODO Auto-generated method stub
-
-	}
+	public void keyPressed(int k){}
 
 	@Override
-	public void keyReleased(int k) {
-		// TODO Auto-generated method stub
-
-	}
+	public void keyReleased(int k){}
 	
 	@Override
-	public void keyTyped(char key){
-		
-	}
+	public void keyTyped(char key){}
 
 	@Override
-	public void mouseReleased(MouseEvent me) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseReleased(MouseEvent me){}
 
 }

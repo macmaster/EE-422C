@@ -17,9 +17,10 @@ import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Manages the back canvas of the mastermind board
+ * Manages the back canvas of the master mind board
  * Used as a GUI component
  */
 public class MastermindBoard {
@@ -191,7 +192,9 @@ public class MastermindBoard {
 	public void mouseReleased(MouseEvent me) {
 		int mX = me.getX();
 		int mY = me.getY();
-		ArrayList<GraphicalPeg> pegs = pendingGuess.pegs;
+		
+		// check each gpeg collision
+		List<GraphicalPeg> pegs = pendingGuess.pegs;
 		for(int idx = 0; idx < pegs.size(); idx++) {
 			GraphicalPeg peg = pegs.get(idx);
 			if(peg.containsLoc(mX, mY)){
@@ -199,6 +202,8 @@ public class MastermindBoard {
 				peg.click(true);
 			}
 		}
+		
+		// submit image?
 		if(mX - (x + (brimWidth / 8)) > 0 
 				&& mY - (y + (guessHeight / 8)) > 0 
 				&& mX - (x + (brimWidth / 8)) < Resources.SUBMIT_IMAGE.getWidth()
@@ -281,6 +286,10 @@ public class MastermindBoard {
 		return currentPeg;
 	}
 	
+	/**
+	 * Call the code submission
+	 * check the guess with the secret code
+	 */
 	protected void submitCode() {
 		// compare guess with answer
 		Code guess = pendingGuess.getCode();

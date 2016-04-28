@@ -210,13 +210,3 @@ public class MenuState extends GameState {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-

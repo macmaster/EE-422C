@@ -147,7 +147,11 @@ public class MastermindState extends GameState {
 		
 		
 	}
-
+	
+	/**
+	 * Check the position of the mouse.
+	 * does the mouse fall within the trigger area? 
+	 */
 	public void mouseReleased(MouseEvent me) {
 		if (gsm.currentState == gsm.GAMESTATE) {
 			//test board clicked

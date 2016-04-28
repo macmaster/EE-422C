@@ -13,14 +13,15 @@ package main;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GraphicalCode {
 	
-	/** backend code data */
+	/** back-end code data */
 	protected Code code;
 	
 	/** list of GUI pegs to print */
-	protected ArrayList<GraphicalPeg> pegs;
+	protected List<GraphicalPeg> pegs;
 	
 	/** top level code x position */
 	protected int x;
@@ -72,7 +73,7 @@ public class GraphicalCode {
 	 */
 	public Code getCode() {
 		if (checkValid()) {
-			ArrayList<Color> codeColors = new ArrayList<Color>();
+			List<Color> codeColors = new ArrayList<Color>();
 			for(GraphicalPeg peg: pegs) {
 				codeColors.add(peg.colorWheel.get(peg.colorIndex));
 			}
@@ -131,6 +132,10 @@ public class GraphicalCode {
 		}
 	}
 	
+	/**
+	 * Check if the code is submitable
+	 * @return submitable boolean flag
+	 */
 	public boolean checkValid() {
 		for(GraphicalPeg peg: pegs) {
 			if(peg.colorIndex < 0) return false;

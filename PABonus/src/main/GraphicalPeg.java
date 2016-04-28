@@ -132,7 +132,14 @@ public class GraphicalPeg {
 		return false;
 		
 	}
-
+	
+	/**
+	 * boolean mouse function to flag the mouse
+	 * is within the given boundaries
+	 * @param mX
+	 * @param mY
+	 * @return
+	 */
 	public boolean containsLoc(int mX, int mY) {
 		int diam = radius * 2;
 		return mX - x > 0 && mY - y > 0 &&  mX - x < diam && mY - y < diam;
