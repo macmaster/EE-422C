@@ -37,7 +37,7 @@ public class GameStateManager {
 	public static final int WINSTATE = 3;
 	
 	
-	public static final boolean currentlyTesting = false;
+	public static final boolean currentlyTesting = true;
 	
 	/** GameStateManager
 	 * Used by a game panel to draw 

@@ -153,9 +153,9 @@ public class MastermindBoard {
 		//draw strings
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Century Gothic", Font.PLAIN, 24));
-		g.drawString("Guess", x + 40, y + 40);
-		g.drawString("Secret", x + width + 40 - brimWidth, y + 40);
-		g.drawString("Code", x + width + 45 - brimWidth, y + 70);
+		g.drawString("Guess", x + (brimWidth / 5), y + (guessHeight / 10));
+		g.drawString("Secret", x + width - (brimWidth * 9 / 10), y + (guessHeight / 10));
+		g.drawString("Code", x + width - (brimWidth * 9 /10), y + (guessHeight / 5));
 		
 		if(pendingGuess.checkValid()) {
 			g.drawImage(Resources.SUBMIT_IMAGE, x + 20, y + 60, null);	
@@ -204,7 +204,8 @@ public class MastermindBoard {
 		setResult.setResult(result);
 		
 		//now refresh pending guess
-		pendingGuess = new GraphicalCode(new Code(pendingGuess.pegs.size()), x + (brimWidth / 3), pendingGuess.y, pendingGuess.radius);
+		pendingGuess = new GraphicalCode(new Code(pendingGuess.pegs.size()), 
+				x + (brimWidth / 3), pendingGuess.y, pendingGuess.radius);
 		nextGuess++;
 		if(result.isWinner()) {
 			winner();
