@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Resources {
+public class Resources implements Runnable {
 	
 	/** image array of available brain pictures */ 
 	public static BufferedImage[] BRAIN_IMAGES = new BufferedImage[100];
@@ -34,6 +34,14 @@ public class Resources {
 	
 	public static BufferedImage BACK_IMAGE;
 	public static final String BACK_PATH = "Resources/back.png";
+	
+	public static BufferedImage MENU_IMAGE;
+	public static final String MENU_PATH = "Resources/menu.png";
+	
+	public static int loadProgress = 0;
+	public static final int LOAD_MAX = 103;
+	public static boolean loadFailure = false;
+	public static boolean loadSuccess = false;
 	
 	//public static BufferedImage[] TRANSPARENT_BLACK_ARRAY = new BufferedImage[100];
 	
@@ -55,6 +63,7 @@ public class Resources {
 					(int) (imageSrc.getHeight() * scale),
 					Image.SCALE_DEFAULT));
 			BRAIN_IMAGES[i] = image;//blur(image);
+			loadProgress++;
 		}
 		
 		//generate mastermind
@@ -66,6 +75,7 @@ public class Resources {
 				(int) (imageSrc.getWidth() * scale),
 				(int) (imageSrc.getHeight() * scale),
 				Image.SCALE_DEFAULT));
+		loadProgress++;
 		
 		//generate submit
 		scale = 0.13;
@@ -76,6 +86,7 @@ public class Resources {
 				(int) (imageSrc.getWidth() * scale),
 				(int) (imageSrc.getHeight() * scale),
 				Image.SCALE_DEFAULT));
+		loadProgress++;
 		
 		scale = 0.4;
 		imageSrc = ImageIO.read(
@@ -85,6 +96,18 @@ public class Resources {
 				(int) (imageSrc.getWidth() * scale),
 				(int) (imageSrc.getHeight() * scale),
 				Image.SCALE_DEFAULT));
+		loadProgress++;
+		
+		scale = 0.4;
+		imageSrc = ImageIO.read(
+				new FileInputStream(MENU_PATH)
+			);
+		MENU_IMAGE = toBufferedImage(imageSrc.getScaledInstance(
+				(int) (imageSrc.getWidth() * scale),
+				(int) (imageSrc.getHeight() * scale),
+				Image.SCALE_DEFAULT));
+		loadProgress++;
+		loadSuccess = true;
 	}
 	
 	/**
@@ -211,6 +234,16 @@ public class Resources {
 		  }
 		  return false;
 		}
+
+	@Override
+	public void run() {
+		try {
+			initResources(GameStateManager.panel);
+		} catch (IOException e) {
+			loadFailure = true;
+			e.printStackTrace();
+		}
+	}
 	
 	
 }

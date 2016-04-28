@@ -16,7 +16,7 @@ public class GameStateManager {
 	/**
 	 * Game panel link-back
 	 */
-	public GamePanel panel;
+	public static GamePanel panel;
 	
 	/** list of possible game states */
 	public static ArrayList<GameState> gameStates;
@@ -24,20 +24,22 @@ public class GameStateManager {
 	/** list index of current game state */
 	protected int currentState;
 	
+	/** loading state index */
+	public static final int LOADINGSTATE = 0;
+	
 	/** menu state index */
-	public static final int MENUSTATE = 0;
+	public static final int MENUSTATE = 1;
 	
 	/** gameplay state index */
-	public static final int GAMESTATE = 1;
+	public static final int GAMESTATE = 2;
 	
 	/** settings state index */
-	public static final int SETTINGSSTATE = 2;
+	public static final int SETTINGSSTATE = 3;
 	
 	/** win state index */
-	public static final int WINSTATE = 3;
+	public static final int WINSTATE = 4;
 	
-	
-	public static final boolean currentlyTesting = true;
+	public static boolean currentlyTesting = false;
 	
 	/** GameStateManager
 	 * Used by a game panel to draw 
@@ -46,8 +48,9 @@ public class GameStateManager {
 	public GameStateManager(GamePanel panel) {
 		// build game state list
 		this.panel = panel;
-		currentState = currentlyTesting ? GAMESTATE : MENUSTATE;
+		currentState = LOADINGSTATE;
 		gameStates = new ArrayList<GameState>();
+		gameStates.add(new LoadingState(this));
 		gameStates.add(new MenuState(this));
 		gameStates.add(new MastermindState(this));
 		gameStates.add(new SettingsState(this));
