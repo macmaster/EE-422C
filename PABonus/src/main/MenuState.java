@@ -4,6 +4,7 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -40,9 +41,9 @@ public class MenuState extends GameState {
 			titleFont = new Font(
 					"Century Gothic",
 					Font.PLAIN,
-					108);
+					27*GamePanel.HEIGHT/320);
 			
-			font = new Font("Arial", Font.PLAIN, 48);
+			font = new Font("Arial", Font.PLAIN, 3*GamePanel.HEIGHT/80);
 			
 		}
 		catch(Exception e) {
@@ -108,7 +109,10 @@ public class MenuState extends GameState {
 		// draw title
 		g.setColor(titleColor);
 		g.setFont(titleFont);
-		g.drawString(Game.GAME_NAME, 320, 280);
+		FontMetrics metrics = g.getFontMetrics(titleFont);
+		int titleY = 7 * GamePanel.HEIGHT / 24;
+		int titleX = (GamePanel.WIDTH - metrics.stringWidth(Game.GAME_NAME)) / 2;
+		g.drawString(Game.GAME_NAME, titleX, titleY);
 		
 		// draw menu options
 		g.setFont(font);
