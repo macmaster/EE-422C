@@ -28,4 +28,7 @@ public abstract class GameState {
 	/** key released event handler */
 	public abstract void keyReleased(int k);
 	
+	/** key released event handler */
+	public abstract void keyTyped(char key);
+	
 }

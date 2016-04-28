@@ -119,5 +119,10 @@ public class LoadingState extends GameState {
 		// TODO Auto-generated method stub
 
 	}
+	
+	@Override
+	public void keyTyped(char key){
+		
+	}
 
 }

@@ -39,7 +39,11 @@ public class WinState extends GameState {
 	@Override
 	public void keyReleased(int k) {
 		// TODO Auto-generated method stub
-
+	}
+	
+	@Override
+	public void keyTyped(char key){
+		
 	}
 
 }

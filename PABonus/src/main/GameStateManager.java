@@ -91,4 +91,9 @@ public class GameStateManager {
 		gameStates.get(currentState).keyReleased(k);
 	}
 	
+	/** call the key typed manager */
+	public void keyTyped(char key) {
+		gameStates.get(currentState).keyTyped(key);
+	}
+	
 }

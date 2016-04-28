@@ -176,5 +176,8 @@ public class SettingsState extends GameState {
 			}
 		}
 	}
+	
+	@Override
+	public void keyTyped(char key){}
 
 }

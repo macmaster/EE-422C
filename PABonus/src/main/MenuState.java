@@ -169,7 +169,10 @@ public class MenuState extends GameState {
 			}
 		}
 	}
+
 	public void keyReleased(int k) {}
+
+	public void keyTyped(char key){}
 }
 
 

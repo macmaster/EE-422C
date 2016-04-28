@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Manages the current state of the master mind GUI game
  * Contains the master mind image
  */
-public class MastermindState extends GameState implements MouseListener, KeyListener {
+public class MastermindState extends GameState implements MouseListener {
 
 	public static GameStateManager gsm;
 	private BufferedImage mastermindImage;
@@ -53,8 +53,6 @@ public class MastermindState extends GameState implements MouseListener, KeyList
 		
 		//Establish this as clickable
 		gsm.panel.addMouseListener(this);
-
-		gsm.panel.addKeyListener(this);
 	}
 
 	@Override
@@ -156,15 +154,12 @@ public class MastermindState extends GameState implements MouseListener, KeyList
 	
 	@Override
 	public void keyReleased(int k){}
-
-	@Override
-	public void keyPressed(KeyEvent arg0){}
-
-	@Override
-	public void keyReleased(KeyEvent arg0){}
 	
 	@Override
-	public void keyTyped(KeyEvent ke){
-		System.out.println(ke.getKeyChar());
+	public void keyTyped(char key){
+		// read key typed
+		System.out.println(key);
+		
+		
 	}
 }
