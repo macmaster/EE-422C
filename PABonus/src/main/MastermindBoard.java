@@ -214,8 +214,8 @@ public class MastermindBoard {
 	 */
 	public void keyPressed(int key){
 		// select current peg variable
+		boolean colorSet = false;
 		GraphicalPeg peg = pendingGuess.pegs.get(currentPeg);
-		
 		switch(key){
 			case KeyEvent.VK_ENTER: //submit valid code
 				if(pendingGuess.checkValid()) {
@@ -242,25 +242,30 @@ public class MastermindBoard {
 				peg.click(true);
 				break;
 			case 'R': // Red
-				peg.setColor(Color.RED);
+				colorSet = peg.setColor(Color.RED);
 				break;
 			case 'O': // Orange
-				peg.setColor(Color.ORANGE);
+				colorSet = peg.setColor(Color.ORANGE);
 				break;
 			case 'Y': // Yellow
-				peg.setColor(Color.YELLOW);
+				colorSet = peg.setColor(Color.YELLOW);
 				break;
 			case 'G': // GREEN
-				peg.setColor(Color.GREEN);
+				colorSet = peg.setColor(Color.GREEN);
 				break;
 			case 'B': // Blue
-				peg.setColor(Color.BLUE);
+				colorSet = peg.setColor(Color.BLUE);
 				break;
 			case 'P': // Purple
-				peg.setColor(Color.MAGENTA);
+				colorSet = peg.setColor(Color.MAGENTA);
 				break;
 			default:
 				System.out.println((char)key);
+		}
+		
+		// color select increment
+		if(colorSet && currentPeg < Settings.NUM_PEGS - 1){
+			pendingGuess.setSelection(++currentPeg);
 		}
 	}
 	

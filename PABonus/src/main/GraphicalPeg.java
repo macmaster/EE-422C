@@ -117,7 +117,7 @@ public class GraphicalPeg {
 	 * update the peg color
 	 * @return radius
 	 */
-	public void setColor(Color color) {
+	public boolean setColor(Color color) {
 		// update color index
 		int n = colorWheel.size(); 
 		for(int idx = 0; idx < n; idx++){
@@ -126,8 +126,10 @@ public class GraphicalPeg {
 				// set color
 				colorIndex = idx;
 				this.color = color;
+				return true;
 			}
 		}
+		return false;
 		
 	}
 
