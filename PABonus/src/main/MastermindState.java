@@ -15,8 +15,6 @@ import java.awt.Composite;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -27,19 +25,37 @@ import java.util.ArrayList;
  */
 public class MastermindState extends GameState implements MouseListener {
 
+	/** master game state manager */
 	public static GameStateManager gsm;
+	
+	/** mastermind resource image */
 	private BufferedImage mastermindImage;
+	
+	/** subclass mastermind board */
 	private MastermindBoard board;
+	
+	/** list of prev guesses */
 	private ArrayList<Code> guesses;
 	
+	/** current guess index */
 	protected int guessNumber;
 	
+	/** title color for font */
 	protected Color titleColor;
+	
+	/** title font to print in */
 	protected Font titleFont;
 	
+	/** win flag for current master mind state */
+	protected boolean winFlag;
+	
+	/** animation unit for GUI placement */
 	private int frameUnit;
 	
+	/** x-location of the back button */
 	private int backX = GamePanel.WIDTH / 20;
+	
+	/** y-location of the back button */
 	private int backY = GamePanel.WIDTH / 20;
 	
 	public MastermindState(GameStateManager gameStateManager) {
@@ -61,6 +77,7 @@ public class MastermindState extends GameState implements MouseListener {
 		frameUnit = gsm.currentlyTesting ? 480 : 0; 
 		
 		// place the game board
+		winFlag = false;
 		int boardY = GamePanel.HEIGHT * 7 / 16;
 		board = new MastermindBoard(0, boardY, 
 					GamePanel.WIDTH, GamePanel.HEIGHT - boardY);
@@ -149,6 +166,24 @@ public class MastermindState extends GameState implements MouseListener {
 		gsm.setState(GameStateManager.MENUSTATE);
 	}
 	
+	/**
+	 * Checks for a master mind winner
+	 * useful for a win/lose state 
+	 * @return the winner flag
+	 */
+	public boolean checkWinner(){
+		return winFlag;
+	}
+	
+	/**
+	 * Sets the winner flag 
+	 * useful for a win/lose state 
+	 * @return the winner flag
+	 */
+	public void setWinner(boolean win){
+		winFlag = win;
+	}
+	
 	@Override
 	public void keyPressed(int k){}
 	
@@ -159,7 +194,5 @@ public class MastermindState extends GameState implements MouseListener {
 	public void keyTyped(char key){
 		// read key typed
 		System.out.println(key);
-		
-		
 	}
 }

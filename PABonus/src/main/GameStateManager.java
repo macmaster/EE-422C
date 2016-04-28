@@ -37,7 +37,7 @@ public class GameStateManager {
 	public static final int SETTINGSSTATE = 3;
 	
 	/** win state index */
-	public static final int WINSTATE = 4;
+	public static final int ENDSTATE = 4;
 	
 	public static boolean currentlyTesting = false;
 	
@@ -54,11 +54,11 @@ public class GameStateManager {
 		gameStates.add(new MenuState(this));
 		gameStates.add(new MastermindState(this));
 		gameStates.add(new SettingsState(this));
-		gameStates.add(new WinState(this));
+		gameStates.add(new EndState(this));
 		setState(currentState);
 	}
 	
-	/** setState()  
+	/** setState
 	 * Updates the gamestate to a valid game state
 	 * @param state index of the new game state
 	 */
@@ -69,6 +69,14 @@ public class GameStateManager {
 			currentState = state;
 			gameStates.get(currentState).init(gameStates.get(lastState));
 		}
+	}
+	
+	/** getCurrentState
+	 * @return 
+	 * @return the current game state object
+	 */
+	public GameState getCurrentState() {
+		return gameStates.get(currentState);
 	}
 	
 	/** update the current game state */

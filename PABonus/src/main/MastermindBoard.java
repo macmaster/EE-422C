@@ -198,9 +198,12 @@ public class MastermindBoard {
 	}
 	
 	protected void submitCode() {
+		// compare guess with answer
 		Code guess = pendingGuess.getCode();
 		Code answer = secretCode.getCode();
 		Result result = guess.compareCode(answer);
+		
+		
 		GraphicalCode setCode = codes.get(nextGuess);
 		setCode.setCode(pendingGuess.getCode());
 		GraphicalResult setResult = results.get(nextGuess);
@@ -210,17 +213,24 @@ public class MastermindBoard {
 		pendingGuess = new GraphicalCode(new Code(pendingGuess.pegs.size()), 
 				x + (brimWidth / 3), pendingGuess.y, pendingGuess.radius);
 		nextGuess++;
+		
+		// update win/loss states
+		MastermindState gameState = (MastermindState)MastermindState.gsm.getCurrentState();
 		if(result.isWinner()) {
-			winner();
+			gameState.setWinner(true);
+			endgame();
+		}
+		else if(nextGuess >= Settings.NUM_GUESSES){
+			endgame();
 		}
 	}
 	
-	protected void winner() {
+	protected void endgame() {
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		MastermindState.gsm.setState(GameStateManager.WINSTATE);
+		MastermindState.gsm.setState(GameStateManager.ENDSTATE);
 	}
 }
