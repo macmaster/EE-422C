@@ -1,5 +1,8 @@
 # EE-422C  
 University of Texas at Austin  
+Spring 2016 EE 422C  
+Professor: Dwayne Perry  
+  
 Software class projects  
   
 ###Contributers:  
