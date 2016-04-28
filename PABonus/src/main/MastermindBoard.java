@@ -12,12 +12,10 @@ package main;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 /**
@@ -205,22 +203,28 @@ public class MastermindBoard {
 	 * update current peg color if necessary
 	 * @param key the key that was pressed
 	 */
-	public void keyTyped(char key){
-		System.out.println(key);
-		if(key == KeyEvent.VK_ENTER){
-			//select();
-		}
-		if(key == KeyEvent.VK_UP) {
-			//currentChoice--;
-			//if(currentChoice == -1) {
-			//	currentChoice = options.length - 1;
-			//}
-		}
-		if(key == KeyEvent.VK_DOWN) {
-			//currentChoice++;
-			//if(currentChoice == options.length) {
-			//	currentChoice = 0;
-			//}
+	public void keyPressed(int key){
+		switch(key){
+			case KeyEvent.VK_ENTER: //submit valid code
+				System.out.println("enter!");
+				if(pendingGuess.checkValid()) {
+					submitCode();
+				}
+				break;
+			case KeyEvent.VK_UP: // move selection up
+				System.out.println("up!");
+				break;
+			case KeyEvent.VK_DOWN: // move selection down
+				System.out.println("down!");
+				break;
+			case KeyEvent.VK_LEFT: // decrement color
+				System.out.println("left!");
+				break;
+			case KeyEvent.VK_RIGHT: // increment color
+				System.out.println("right!");
+				break;
+			default:
+				System.out.println(key);
 		}
 	}
 	
