@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
 
 public class EndState extends GameState {
 
@@ -53,5 +54,11 @@ public class EndState extends GameState {
 	
 	@Override
 	public void keyTyped(char key){}
+
+	@Override
+	public void mouseReleased(MouseEvent me) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

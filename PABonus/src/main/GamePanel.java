@@ -17,6 +17,8 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
@@ -24,7 +26,7 @@ import javax.swing.JPanel;
 /**
  * Panel on which the game is drawn.
  */
-public class GamePanel extends JPanel implements Runnable, KeyListener {
+public class GamePanel extends JPanel implements Runnable, KeyListener, MouseListener {
 
 	/**
 	 * Serial ID
@@ -73,6 +75,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 				new Dimension(WIDTH, HEIGHT));
 			setFocusable(true);
 			requestFocus();
+			
+			this.addMouseListener(this);
 		}
 		
 		/**
@@ -171,6 +175,36 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		 */
 		public void keyReleased(KeyEvent key){
 			gsm.keyReleased(key.getKeyCode());
+		}
+
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent me) {
+			gsm.mouseReleased(me);
+			
 		}
 
 }

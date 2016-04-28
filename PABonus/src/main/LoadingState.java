@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+import java.awt.event.MouseEvent;
 
 /**
  * Gamestate seen when game is loading.
@@ -144,6 +145,12 @@ public class LoadingState extends GameState {
 	
 	@Override
 	public void keyTyped(char key){
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent me) {
+		// TODO Auto-generated method stub
 		
 	}
 
