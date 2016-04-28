@@ -15,6 +15,8 @@ import java.awt.Composite;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -23,7 +25,7 @@ import java.util.ArrayList;
  * Manages the current state of the master mind GUI game
  * Contains the master mind image
  */
-public class MastermindState extends GameState implements MouseListener {
+public class MastermindState extends GameState implements MouseListener, KeyListener {
 
 	public static GameStateManager gsm;
 	private BufferedImage mastermindImage;
@@ -51,6 +53,7 @@ public class MastermindState extends GameState implements MouseListener {
 		
 		//Establish this as clickable
 		gsm.panel.addMouseListener(this);
+		gsm.panel.addKeyListener(this);
 		
 		this.mastermindImage = Resources.MASTERMIND_IMAGE;
 		
@@ -119,18 +122,6 @@ public class MastermindState extends GameState implements MouseListener {
 		
 		
 	}
-
-	@Override
-	public void keyPressed(int k) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyReleased(int k) {
-		// TODO Auto-generated method stub
-
-	}
 	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {}
@@ -159,5 +150,22 @@ public class MastermindState extends GameState implements MouseListener {
 	
 	private void backClicked() {
 		gsm.setState(GameStateManager.MENUSTATE);
+	}
+	
+	@Override
+	public void keyPressed(int k){}
+	
+	@Override
+	public void keyReleased(int k){}
+
+	@Override
+	public void keyPressed(KeyEvent arg0){}
+
+	@Override
+	public void keyReleased(KeyEvent arg0){}
+	
+	@Override
+	public void keyTyped(KeyEvent ke){
+		System.out.println(ke.getKeyChar());
 	}
 }
