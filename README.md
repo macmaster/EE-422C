@@ -3,7 +3,7 @@ Software class projects
   
 University of Texas at Austin  
 Spring 2016 EE 422C  
-Professor: Dwayne Perry  
+Professor: Dwayne E. Perry  
 
 ###Contributers:  
 1) Ronald Macmaster  
