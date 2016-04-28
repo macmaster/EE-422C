@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -66,7 +67,7 @@ public class SettingsState extends GameState {
 				Font.PLAIN,
 				27*GamePanel.HEIGHT/320);
 		
-		optionFont = new Font("Arial", Font.PLAIN, 3*GamePanel.HEIGHT/80);
+		optionFont = new Font("Arial", Font.PLAIN, 4*GamePanel.HEIGHT/80);
 	}
 
 	@Override
@@ -78,15 +79,18 @@ public class SettingsState extends GameState {
 		//draw the title:
 		g.setColor(titleColor);
 		g.setFont(titleFont);
-		g.drawString(Game.GAME_NAME, 1*GamePanel.WIDTH/4, 7 * GamePanel.HEIGHT / 24);
+		FontMetrics metrics = g.getFontMetrics(titleFont);
+		int titleY = 7 * GamePanel.HEIGHT / 24;
+		int titleX = (GamePanel.WIDTH - metrics.stringWidth(Game.GAME_NAME)) / 2;
+		g.drawString(Game.GAME_NAME, titleX, titleY);
 		//draw the options: 
 		//Yellow for current option, Green for current setting value
 		g.setFont(optionFont);
-		int optX = GamePanel.WIDTH * 1 / 3;
-		int yStart = GamePanel.HEIGHT * 5 / 10;
-		int yDelta = GamePanel.HEIGHT / 10;
-		int valX = GamePanel.WIDTH * 1 / 2;
-		int valXDelta = GamePanel.WIDTH / 10;
+		int optX = GamePanel.WIDTH * 12 / 40;
+		int yStart = GamePanel.HEIGHT * 18 / 40;
+		int yDelta = GamePanel.HEIGHT * 4 / 40;
+		int valX = GamePanel.WIDTH * 19 / 40;
+		int valXDelta = GamePanel.WIDTH * 2 / 20;
 		
 		int optIndex = 0;
 		for(String option : settingsOptions.keySet()) {

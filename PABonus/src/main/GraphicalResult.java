@@ -74,14 +74,14 @@ public class GraphicalResult {
 			int blacks = result.getBlacks();
 			for(int i = 0; i < numberPegs; i++) {
 				boolean isEven = i % 2 == 0;
-				boolean isWhite = i < whites;
-				boolean isColored = i < blacks;
+				boolean isBlack = i < blacks;
+				boolean isColored = i < whites + blacks;
 				pegs.add(new GraphicalPeg(
 						x + (isEven ? 0 : distBetween),
 						y + (i / 2) * distBetween,
 						pegRadius,
-						isWhite ? Color.white : 
-							(isColored ? Color.black : GraphicalPeg.EMPTY_COLOR),
+						isBlack ? Color.black : 
+							(isColored ? Color.white : GraphicalPeg.EMPTY_COLOR),
 						null));
 			}
 		}

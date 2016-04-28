@@ -1,9 +1,7 @@
 TO DO:
 
-Fix result overwriting bug
 Winstate refactored into "endstate" - lose OR win
 Lose state implemented
-Make loading bar symmetrical
 Alternative color choosing mechanism
 Test on another computer
 

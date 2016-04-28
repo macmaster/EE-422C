@@ -6,24 +6,42 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 
+/**
+ * Gamestate seen when game is loading.
+ */
 public class LoadingState extends GameState {
 
+	/**
+	 * game's state manager
+	 */
 	protected GameStateManager gsm;
 	
+	/**
+	 * percent done loading
+	 */
 	protected double percentComplete = 0;
 	
+	/**
+	 * load string properties
+	 */
 	protected String loadString = "Loading Resources...";
 	protected int loadStringX;
 	protected int loadStringY;
 	protected Font loadFont;
 	protected Color loadColor;
 	
+	/**
+	 * load bar properties
+	 */
 	protected int loadBarX;
 	protected int loadBarY;
 	protected int loadBarWidth;
 	protected int loadBarHeight;
 	protected Stroke loadBarStroke;
 	
+	/**
+	 * error string properties
+	 */
 	protected String errorString = "There was an error loading resources.\n" + 
 									"Please make sure image files are in place.";
 	protected int errorX;
@@ -32,6 +50,9 @@ public class LoadingState extends GameState {
 	protected Font errorFont;
 	protected Color errorColor;
 	
+	/**
+	 * indicates if the resource loading failed
+	 */
 	protected boolean loadFailed = false;
 	
 	public LoadingState(GameStateManager gsm) {
@@ -40,11 +61,11 @@ public class LoadingState extends GameState {
 		loadColor = Color.WHITE;
 		loadFont = new Font("Century Gothic", Font.PLAIN, 3 * GamePanel.HEIGHT / 80);
 		
-		loadStringX = GamePanel.WIDTH * 3 / 10;
+		loadStringX = GamePanel.WIDTH * 15 / 40;
 		loadStringY = GamePanel.HEIGHT * 9 / 20;
 		
 		loadBarX = GamePanel.WIDTH * 2 /6;
-		loadBarY = GamePanel.HEIGHT * 11 /20;
+		loadBarY = GamePanel.HEIGHT * 10 /20;
 		loadBarWidth = GamePanel.WIDTH * 2 / 6;
 		loadBarHeight = GamePanel.HEIGHT / 20;
 		loadBarStroke = new BasicStroke(GamePanel.HEIGHT * 1 / 60);

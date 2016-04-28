@@ -45,7 +45,7 @@ public class MenuState extends GameState {
 					Font.PLAIN,
 					27*GamePanel.HEIGHT/320);
 			
-			font = new Font("Arial", Font.PLAIN, 3*GamePanel.HEIGHT/80);
+			font = new Font("Arial", Font.PLAIN, 4*GamePanel.HEIGHT/80);
 			
 		}
 		catch(Exception e) {
@@ -118,6 +118,9 @@ public class MenuState extends GameState {
 		
 		// draw menu options
 		g.setFont(font);
+		int optionsYStart = GamePanel.HEIGHT * 10 / 20;
+		int optionsYDelta = GamePanel.HEIGHT * 4 / 40;
+		int optionsX = GamePanel.WIDTH * 9 / 20;
 		for(int i = 0; i < options.length; i++) {
 			if(i == currentChoice) {
 				g.setColor(Color.YELLOW);
@@ -125,7 +128,7 @@ public class MenuState extends GameState {
 			else {
 				g.setColor(Color.WHITE);
 			}
-			g.drawString(options[i], 580, 560 + i * 60);
+			g.drawString(options[i], optionsX, optionsYStart + i * optionsYDelta);
 		}
 		
 		//draw brains
