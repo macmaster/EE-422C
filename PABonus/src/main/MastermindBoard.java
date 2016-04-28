@@ -218,19 +218,11 @@ public class MastermindBoard {
 		MastermindState gameState = (MastermindState)MastermindState.gsm.getCurrentState();
 		if(result.isWinner()) {
 			gameState.setWinner(true);
-			endgame();
 		}
 		else if(nextGuess >= Settings.NUM_GUESSES){
-			endgame();
+			secretCode.showCode();
+			gameState.setLoser(true);
 		}
 	}
-	
-	protected void endgame() {
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		MastermindState.gsm.setState(GameStateManager.ENDSTATE);
-	}
+
 }

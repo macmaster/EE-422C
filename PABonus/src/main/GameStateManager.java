@@ -36,9 +36,6 @@ public class GameStateManager {
 	/** settings state index */
 	public static final int SETTINGSSTATE = 3;
 	
-	/** win state index */
-	public static final int ENDSTATE = 4;
-	
 	public static boolean currentlyTesting = false;
 	
 	/** GameStateManager
@@ -54,7 +51,6 @@ public class GameStateManager {
 		gameStates.add(new MenuState(this));
 		gameStates.add(new MastermindState(this));
 		gameStates.add(new SettingsState(this));
-		gameStates.add(new EndState(this));
 		setState(currentState);
 	}
 	

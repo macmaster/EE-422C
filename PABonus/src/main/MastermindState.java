@@ -49,6 +49,9 @@ public class MastermindState extends GameState implements MouseListener {
 	/** win flag for current master mind state */
 	protected boolean winFlag;
 	
+	/** lose flag for current master mind state */
+	protected boolean loseFlag;
+	
 	/** animation unit for GUI placement */
 	private int frameUnit;
 	
@@ -77,7 +80,7 @@ public class MastermindState extends GameState implements MouseListener {
 		frameUnit = gsm.currentlyTesting ? 480 : 0; 
 		
 		// place the game board
-		winFlag = false;
+		loseFlag = winFlag = false;
 		int boardY = GamePanel.HEIGHT * 7 / 16;
 		board = new MastermindBoard(0, boardY, 
 					GamePanel.WIDTH, GamePanel.HEIGHT - boardY);
@@ -125,14 +128,26 @@ public class MastermindState extends GameState implements MouseListener {
 
 		// title animation
 		FontMetrics metrics = g.getFontMetrics(titleFont);
+		String titleText = Game.GAME_NAME;
 		int animY = (int)(7*GamePanel.HEIGHT/24 + (frameUnit / 120.0) * (GamePanel.HEIGHT * 13 / 120)); 
-		int titleY = frameUnit < 120 ?  animY : GamePanel.HEIGHT * 4 / 10;
-		int titleX = (GamePanel.WIDTH - metrics.stringWidth(Game.GAME_NAME)) / 2;
 		
-		//draw title
+		// game was won
+		if(winFlag){
+			g.setColor(Color.WHITE);
+			titleText = "CONGRATULATIONS, YOU WIN!";
+		}
+		// game was lost
+		else if(loseFlag){
+			g.setColor(Color.WHITE);
+			titleText = "SORRY, YOU LOSE!";
+		}
+		
+		//draw title banner
+		int titleY = frameUnit < 120 ?  animY : GamePanel.HEIGHT * 4 / 10;
+		int titleX = (GamePanel.WIDTH - metrics.stringWidth(titleText)) / 2;
 		g.setColor(titleColor);
 		g.setFont(titleFont);
-		g.drawString(Game.GAME_NAME, titleX, titleY);
+		g.drawString(titleText, titleX, titleY);
 		
 		
 	}
@@ -162,6 +177,10 @@ public class MastermindState extends GameState implements MouseListener {
 		}
 	}
 	
+	/**
+	 * back button was clicked
+	 * send the state back to the menu
+	 */
 	private void backClicked() {
 		gsm.setState(GameStateManager.MENUSTATE);
 	}
@@ -182,6 +201,24 @@ public class MastermindState extends GameState implements MouseListener {
 	 */
 	public void setWinner(boolean win){
 		winFlag = win;
+	}
+	
+	/**
+	 * Checks for a master mind loser
+	 * useful for a win/lose state 
+	 * @return the loser flag
+	 */
+	public boolean checkLoser(){
+		return loseFlag;
+	}
+	
+	/**
+	 * Sets the loser flag 
+	 * useful for a win/lose state 
+	 * @return the loser flag
+	 */
+	public void setLoser(boolean lose){
+		loseFlag = lose;
 	}
 	
 	@Override
