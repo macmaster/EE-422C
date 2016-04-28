@@ -14,6 +14,8 @@ public class MenuState extends GameState {
 	private boolean hasBeenInitialized = false;
 	private ArrayList<RandomBrain> brains;
 	
+	private double brainArrivalThreshold = .13;
+	
 	private int currentChoice = 0;
 	private String[] options = {
 		"Play",
@@ -57,14 +59,14 @@ public class MenuState extends GameState {
 			for (int i = 0; i < 3000; i++) {
 				update();
 			}
-			hasBeenInitialized = false;
+			hasBeenInitialized = true;
 		}
 	}
 	
 	public void update() {
 		
 		//generate random arrivals:
-		boolean brainArrival = Math.random() < .13;
+		boolean brainArrival = Math.random() < brainArrivalThreshold;
 		if(brainArrival) {
 			brains.add(new RandomBrain());
 		}

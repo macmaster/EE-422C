@@ -30,11 +30,6 @@ public class Game {
 	 */
 	public static void main(String[] args) {
 		GamePanel panel = new GamePanel();
-		try {
-			Resources.initResources(panel);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		
 		// initialize the JFrame container
 		JFrame gameFrame = new JFrame(GAME_NAME);

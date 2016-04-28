@@ -87,6 +87,7 @@ public class Resources implements Runnable {
 				(int) (imageSrc.getHeight() * scale),
 				Image.SCALE_DEFAULT));
 		loadProgress++;
+
 		
 		scale = 0.4;
 		imageSrc = ImageIO.read(
