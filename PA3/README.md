@@ -1,4 +1,4 @@
-# Programming Assignment 3 : Shopping Cart  
+# A3 : Fun with Shopping Carts
 
 Names: Ronald Macmaster, Michael Marino  
 UT EID: rpm953, mm775343  
