@@ -1,4 +1,4 @@
-#PA4 - Word Ladders  
+#A4 - Fun with Word Ladders  
 
 Group 37  
 Authors : Ronald Macmaster, Horng-Bin Justin Wei  
