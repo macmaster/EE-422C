@@ -1,5 +1,5 @@
 # EE-422C  
-Software class projects  
+Software class projects  by Ronald Macmaster 
   
 University of Texas at Austin  
 Spring 2016 EE 422C  
