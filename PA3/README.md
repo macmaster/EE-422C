@@ -1,4 +1,4 @@
-# A3 : Fun with Shopping Carts
+# A3 - Fun with Shopping Carts
 
 Names: Ronald Macmaster, Michael Marino  
 UT EID: rpm953, mm775343  
