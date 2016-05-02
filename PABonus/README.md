@@ -1,5 +1,8 @@
-A7: Mastermind README
+# ABonus - Mastermind  
 
+Will you be the next mastermind?
+
+### Author Information
 UT EIDs:
 Cooper Raterink, cdr2678
 Ronald Macmaster, rpm953
@@ -7,5 +10,5 @@ Ronald Macmaster, rpm953
 Github URL:
 https://github.com/ronny-macmaster/EE-422C.git 
 
-Other comments:
+###Other comments:
 **FOR GRADING PURPOSES** You can press M (for Mehtaab) while playing to toggle the secret code display
