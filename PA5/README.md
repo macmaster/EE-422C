@@ -1,4 +1,4 @@
-#PA5 - Java Cars  
+#A5 - Java Cars  
 
 Practice creating applets using graphical methods to draw simple shapes and objects.  
 We will use some of the classes in the package java.awt (abstract windowing toolkit) library.  
